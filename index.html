@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Sanjeevani Multispeciality Homeopathic Clinic, Jagtial – Personalised homeopathic consultations by Dr. T. Srinivas, MD (Homeopathy). Book an appointment today."/>
+  <meta name="keywords" content="homeopathic clinic Jagtial, Dr T Srinivas homeopathy, Sanjeevani clinic Telangana, homeopathy Jagtial"/>
+  <meta name="author" content="Sanjeevani Multispeciality Homeopathic Clinic"/>
+  <meta property="og:title" content="Sanjeevani Multispeciality Homeopathic Clinic – Dr. T. Srinivas, Jagtial"/>
+  <meta property="og:description" content="Personalised homeopathic care in Jagtial, Telangana. Consult Dr. T. Srinivas, MD (Homeopathy)."/>
+  <meta property="og:type" content="website"/>
+  <title>Sanjeevani Multispeciality Homeopathic Clinic | Dr. T. Srinivas | Jagtial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --g1:#0d2b1f;
+      --g2:#0a3d2e;
+      --g3:#0e4f3a;
+      --accent:#27c97a;
+      --accent2:#14b8a6;
+      --accent3:#6ee7b7;
+      --gold:#f0c060;
+      --white:#fff;
+      --offwhite:#f0faf5;
+      --text:#e8f5ee;
+      --muted:#7fb69a;
+      --card-bg:rgba(255,255,255,0.04);
+      --card-border:rgba(255,255,255,0.10);
+      --card-hover:rgba(255,255,255,0.08);
+      --radius:20px;
+      --radius-lg:28px;
+      --font:'Plus Jakarta Sans',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font);
+      background:var(--g1);
+      color:var(--text);
+      line-height:1.65;
+      font-size:15px;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    ul{list-style:none}
+    img{display:block;max-width:100%}
+
+    /* ── Skip link ── */
+    .skip{position:absolute;top:-100%;left:0;background:var(--accent);color:#000;padding:10px 20px;font-weight:700;z-index:9999;border-radius:0 0 10px 0}
+    .skip:focus{top:0}
+
+    /* ── Container ── */
+    .wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 24px}
+
+    /* ═══════════════════════════════════
+       HEADER
+    ═══════════════════════════════════ */
+    #hdr{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      padding:0 24px;
+      transition:background .3s,backdrop-filter .3s,border-color .3s;
+    }
+    #hdr.scrolled{
+      background:rgba(10,30,22,0.85);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(39,201,122,.15);
+    }
+    .hdr-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      height:72px;max-width:1100px;margin:0 auto;gap:16px;
+    }
+    /* Logo */
+    .logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+    .logo-mark{
+      width:48px;height:48px;flex-shrink:0;
+      background:linear-gradient(140deg,#16a060,#0d9488);
+      border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 1px rgba(39,201,122,.3),0 8px 24px rgba(39,201,122,.25);
+      position:relative;overflow:hidden;
+    }
+    .logo-mark::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(160deg,rgba(255,255,255,.18) 0%,transparent 55%);
+    }
+    .logo-mark svg{width:28px;height:28px;position:relative;z-index:1}
+    .logo-name{font-size:.92rem;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.1}
+    .logo-sub{font-size:.68rem;color:var(--muted);font-weight:500;margin-top:1px}
+    /* Nav */
+    .hdr-nav{display:flex;align-items:center;gap:2px}
+    .hdr-nav a{
+      font-size:.8rem;font-weight:600;
+      padding:7px 13px;border-radius:10px;
+      color:rgba(255,255,255,.65);
+      transition:color .2s,background .2s;
+    }
+    .hdr-nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
+    .hdr-cta .btn-cta{
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#000;font-weight:700;font-size:.82rem;
+      padding:10px 20px;border-radius:100px;
+      box-shadow:0 4px 18px rgba(39,201,122,.4);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .hdr-cta .btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(39,201,122,.5)}
+    .hdr-cta .btn-cta svg{width:14px;height:14px}
+    .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:6px;color:#fff}
+    .mob-nav{
+      display:none;flex-direction:column;gap:2px;
+      padding:10px 24px 18px;
+      background:rgba(10,30,22,.97);backdrop-filter:blur(20px);
+      border-top:1px solid rgba(39,201,122,.12);
+    }
+    .mob-nav a{padding:11px 14px;border-radius:12px;font-size:.9rem;font-weight:600;color:rgba(255,255,255,.8)}
+    .mob-nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+    .mob-nav.open{display:flex}
+
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
+    #hero{
+      min-height:100vh;
+      display:flex;align-items:center;
+      position:relative;overflow:hidden;
+      background:radial-gradient(ellipse 120% 80% at 60% 40%,#0e4f3a 0%,#072518 50%,#030f09 100%);
+      padding:100px 0 80px;
+    }
+    /* mesh grid lines */
+    #hero::before{
+      content:'';position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(39,201,122,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(39,201,122,.06) 1px,transparent 1px);
+      background-size:60px 60px;
+      mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
+    }
+    /* glow orbs */
+    #hero::after{
+      content:'';position:absolute;
+      width:700px;height:700px;
+      background:radial-gradient(circle,rgba(39,201,122,.13) 0%,transparent 70%);
+      top:-200px;right:-200px;pointer-events:none;
+    }
+    .hero-glow2{
+      position:absolute;
+      width:500px;height:500px;
+      background:radial-gradient(circle,rgba(20,184,166,.10) 0%,transparent 70%);
+      bottom:-150px;left:-100px;pointer-events:none;
+    }
+    #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+    .hero-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 420px;align-items:center;gap:60px}
+
+    /* pill badge */
+    .hero-pill{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(39,201,122,.12);
+      border:1px solid rgba(39,201,122,.3);
+      border-radius:100px;padding:6px 16px;
+      font-size:.75rem;font-weight:700;color:var(--accent3);
+      margin-bottom:22px;letter-spacing:.04em;
+    }
+    .pulse-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);
+      animation:pulseDot 2s infinite;
+    }
+    @keyframes pulseDot{
+      0%,100%{box-shadow:0 0 0 0 rgba(39,201,122,.6)}
+      50%{box-shadow:0 0 0 6px rgba(39,201,122,0)}
+    }
+
+    .hero-h1{
+      font-size:clamp(2.4rem,5.5vw,3.8rem);
+      font-weight:800;line-height:1.1;
+      letter-spacing:-.03em;
+      color:#fff;margin-bottom:20px;
+    }
+    .hero-h1 .grad{
+      background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .hero-p{
+      font-size:1.05rem;color:rgba(255,255,255,.6);
+      line-height:1.75;max-width:500px;margin-bottom:36px;
+    }
+    .hero-btns{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:40px}
+    .btn-hero-primary{
+      display:inline-flex;align-items:center;gap:9px;
+      background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+      color:#000;font-weight:800;font-size:.95rem;
+      padding:15px 30px;border-radius:100px;
+      box-shadow:0 8px 32px rgba(39,201,122,.45),0 0 0 1px rgba(39,201,122,.3);
+      transition:transform .2s,box-shadow .2s;
+      letter-spacing:-.01em;
+    }
+    .btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(39,201,122,.55)}
+    .btn-hero-primary svg{width:18px;height:18px}
+    .btn-hero-ghost{
+      display:inline-flex;align-items:center;gap:9px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.18);
+      color:#fff;font-weight:700;font-size:.95rem;
+      padding:15px 30px;border-radius:100px;
+      transition:background .2s,border-color .2s;
+      backdrop-filter:blur(8px);
+    }
+    .btn-hero-ghost:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.3)}
+    .btn-hero-ghost svg{width:17px;height:17px;stroke:currentColor;fill:none}
+
+    /* trust strip */
+    .hero-trust{display:flex;flex-wrap:wrap;gap:10px}
+    .tbadge{
+      display:flex;align-items:center;gap:7px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:100px;padding:7px 14px;
+      font-size:.75rem;font-weight:600;color:rgba(255,255,255,.7);
+      backdrop-filter:blur(6px);
+    }
+    .tbadge svg{width:13px;height:13px;stroke:var(--accent);fill:none;flex-shrink:0}
+
+    /* right column — floating glass stats */
+    .hero-right{display:flex;flex-direction:column;gap:16px;align-items:flex-end}
+    .glass-card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      padding:22px 24px;
+      backdrop-filter:blur(16px);
+      width:100%;
+      transition:transform .3s,background .3s;
+      position:relative;overflow:hidden;
+    }
+    .glass-card::before{
+      content:'';position:absolute;
+      top:0;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+    }
+    .glass-card:hover{background:rgba(255,255,255,.09);transform:translateY(-4px)}
+    .gc-label{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+    .gc-val{font-size:1.6rem;font-weight:800;color:#fff;line-height:1}
+    .gc-sub{font-size:.75rem;color:rgba(255,255,255,.45);margin-top:4px}
+    .gc-icon{
+      position:absolute;right:18px;top:50%;transform:translateY(-50%);
+      width:40px;height:40px;border-radius:12px;
+      background:rgba(39,201,122,.12);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .gc-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8}
+
+    /* scroll hint */
+    .scroll-hint{
+      position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      color:rgba(255,255,255,.3);font-size:.7rem;font-weight:600;letter-spacing:.1em;
+      text-transform:uppercase;z-index:2;
+    }
+    .scroll-line{
+      width:1px;height:40px;
+      background:linear-gradient(180deg,rgba(39,201,122,.6),transparent);
+      animation:scrollLine 2s infinite;
+    }
+    @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+    /* ═══════════════════════════════════
+       SECTION COMMONS (light sections)
+    ═══════════════════════════════════ */
+    .section-light{background:#f5faf7;color:#0d2b1f}
+    .section-dark{background:var(--g1);color:var(--text)}
+    .section-mid{background:#0a3020;color:var(--text)}
+
+    .sec-pad{padding:96px 0}
+
+    .chip{
+      display:inline-flex;align-items:center;gap:7px;
+      font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      padding:5px 14px;border-radius:100px;margin-bottom:14px;
+    }
+    .chip-green{background:rgba(39,201,122,.12);border:1px solid rgba(39,201,122,.25);color:var(--accent)}
+    .chip-white{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7)}
+    .chip svg{width:12px;height:12px;stroke:currentColor;fill:none}
+
+    .sec-title{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;line-height:1.2;letter-spacing:-.02em}
+    .sec-title-white{color:#fff}
+    .sec-title-dark{color:#0d2b1f}
+    .sec-sub{font-size:.95rem;line-height:1.75;margin-top:10px;max-width:520px}
+    .sec-sub-muted{color:#5a8a70}
+    .sec-sub-dim{color:rgba(255,255,255,.55)}
+
+    .text-grad{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    /* ═══════════════════════════════════
+       DOCTOR SECTION
+    ═══════════════════════════════════ */
+    #doctor{background:#fff;color:#0d2b1f}
+    .doc-grid{display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center}
+    .doc-visual{
+      background:linear-gradient(145deg,#e8f7f0,#d0f0e2);
+      border-radius:var(--radius-lg);
+      padding:36px 28px 28px;
+      position:relative;overflow:hidden;
+      border:1px solid #b8e8d0;
+    }
+    .doc-visual::before{
+      content:'';position:absolute;top:-40px;right:-40px;
+      width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle,rgba(39,201,122,.2),transparent 70%);
+    }
+    .doc-avatar-ring{
+      width:120px;height:120px;margin:0 auto 20px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      padding:3px;
+    }
+    .doc-avatar-inner{
+      width:100%;height:100%;border-radius:50%;
+      background:linear-gradient(145deg,#c8eedd,#a8dfc6);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .doc-avatar-inner svg{width:60px;height:60px;stroke:#1a6b47;fill:none;stroke-width:1.3}
+    .doc-name-visual{text-align:center;font-size:1.1rem;font-weight:800;color:#0d2b1f;margin-bottom:4px}
+    .doc-qual-visual{text-align:center;font-size:.78rem;color:#3a8a5f;font-weight:600;margin-bottom:20px}
+    .doc-badges{display:flex;flex-direction:column;gap:8px}
+    .doc-badge{
+      display:flex;align-items:center;gap:10px;
+      background:#fff;border:1px solid #c8e8d4;
+      border-radius:12px;padding:10px 14px;
+      font-size:.8rem;font-weight:700;color:#0d2b1f;
+    }
+    .doc-badge-icon{
+      width:30px;height:30px;border-radius:9px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .doc-badge-icon svg{width:15px;height:15px;stroke:#000;fill:none;stroke-width:2.2}
+
+    .doc-content{}
+    .doc-title{font-size:1.9rem;font-weight:800;color:#0d2b1f;margin-bottom:6px}
+    .doc-desig{font-size:.9rem;font-weight:700;color:#2ea86c;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+    .doc-desig::before{content:'';width:24px;height:2px;background:var(--accent);display:inline-block}
+    .doc-bio{font-size:.93rem;color:#3d6050;line-height:1.8;margin-bottom:28px}
+    .doc-contacts{display:flex;flex-wrap:wrap;gap:10px}
+    .doc-contact-pill{
+      display:flex;align-items:center;gap:8px;
+      background:#f0faf5;border:1px solid #c8e8d4;
+      border-radius:100px;padding:10px 18px;
+      font-size:.82rem;font-weight:700;color:#0d2b1f;
+      transition:background .2s,box-shadow .2s;
+    }
+    .doc-contact-pill:hover{background:#e0f5ea;box-shadow:0 4px 16px rgba(39,201,122,.15)}
+    .doc-contact-pill svg{width:14px;height:14px;stroke:#2ea86c;fill:none}
+
+    /* ═══════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════ */
+    #services{
+      background:linear-gradient(160deg,#071e13 0%,#0a2e1e 60%,#081a10 100%);
+      padding:96px 0;position:relative;overflow:hidden;
+    }
+    #services::before{
+      content:'';position:absolute;inset:0;
+      background-image:linear-gradient(rgba(39,201,122,.04) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(39,201,122,.04) 1px,transparent 1px);
+      background-size:50px 50px;
+    }
+    .srv-header{text-align:center;margin-bottom:56px;position:relative}
+    .srv-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+      position:relative;
+    }
+    .srv-card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);padding:30px 26px;
+      position:relative;overflow:hidden;
+      transition:transform .25s,background .25s,border-color .25s;
+      cursor:default;
+    }
+    .srv-card::before{
+      content:'';position:absolute;inset:0;border-radius:var(--radius);
+      background:linear-gradient(135deg,rgba(39,201,122,.08),transparent 60%);
+      opacity:0;transition:opacity .3s;
+    }
+    .srv-card::after{
+      content:'';position:absolute;
+      bottom:0;left:0;right:0;height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      transform:scaleX(0);transform-origin:left;
+      transition:transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .srv-card:hover{
+      background:rgba(255,255,255,.07);
+      border-color:rgba(39,201,122,.25);
+      transform:translateY(-6px);
+    }
+    .srv-card:hover::before{opacity:1}
+    .srv-card:hover::after{transform:scaleX(1)}
+    .srv-num{
+      font-size:.65rem;font-weight:800;letter-spacing:.15em;
+      color:rgba(39,201,122,.4);text-transform:uppercase;margin-bottom:14px;
+    }
+    .srv-icon{
+      width:52px;height:52px;border-radius:16px;
+      background:rgba(39,201,122,.10);
+      border:1px solid rgba(39,201,122,.2);
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:18px;
+      transition:background .25s,transform .25s;
+    }
+    .srv-card:hover .srv-icon{background:rgba(39,201,122,.18);transform:scale(1.08)}
+    .srv-icon svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.8}
+    .srv-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
+    .srv-desc{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:12px}
+    .srv-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+    .srv-chip{
+      display:inline-block;
+      background:rgba(39,201,122,.08);
+      border:1px solid rgba(39,201,122,.18);
+      border-radius:100px;
+      padding:3px 10px;
+      font-size:.7rem;font-weight:600;
+      color:rgba(110,231,183,.85);
+      transition:background .2s,border-color .2s;
+    }
+    .srv-card:hover .srv-chip{background:rgba(39,201,122,.14);border-color:rgba(39,201,122,.3)}
+    .srv-note{font-size:.75rem;color:rgba(255,255,255,.3);font-style:italic;margin-top:12px;line-height:1.6}
+    .srv-disclaimer{
+      margin-top:44px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:20px 24px;
+      font-size:.78rem;
+      color:rgba(255,255,255,.35);
+      line-height:1.75;
+    }
+    .srv-disclaimer strong{color:rgba(255,255,255,.5)}
+
+    /* ═══════════════════════════════════
+       WHY US
+    ═══════════════════════════════════ */
+    #why{background:#fff;padding:96px 0}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    .why-left{}
+    .why-features{display:flex;flex-direction:column;gap:14px;margin-top:36px}
+    .why-feat{
+      display:flex;align-items:flex-start;gap:16px;
+      background:#f5faf7;border:1px solid #d4eddf;
+      border-radius:16px;padding:20px;
+      transition:transform .2s,box-shadow .2s,background .2s;
+    }
+    .why-feat:hover{transform:translateX(6px);background:#ecf8f1;box-shadow:0 6px 24px rgba(39,201,122,.1)}
+    .why-feat-icon{
+      width:44px;height:44px;flex-shrink:0;border-radius:13px;
+      background:linear-gradient(135deg,#2ea86c,#14b8a6);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 14px rgba(39,201,122,.3);
+    }
+    .why-feat-icon svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:2}
+    .why-feat-body{}
+    .why-feat-title{font-size:.93rem;font-weight:700;color:#0d2b1f;margin-bottom:4px}
+    .why-feat-desc{font-size:.8rem;color:#5a8a70;line-height:1.6}
+
+    /* right side big visual */
+    .why-right{
+      background:linear-gradient(145deg,#072518,#0d3d28);
+      border-radius:var(--radius-lg);padding:44px 36px;
+      position:relative;overflow:hidden;
+      border:1px solid rgba(39,201,122,.15);
+    }
+    .why-right::before{
+      content:'';position:absolute;top:-60px;right:-60px;
+      width:240px;height:240px;border-radius:50%;
+      background:radial-gradient(circle,rgba(39,201,122,.15),transparent 70%);
+    }
+    .why-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative}
+    .why-stat{
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;padding:22px 18px;text-align:center;
+    }
+    .why-stat-val{font-size:2rem;font-weight:800;color:var(--accent);line-height:1}
+    .why-stat-label{font-size:.73rem;color:rgba(255,255,255,.5);margin-top:6px;font-weight:500;line-height:1.4}
+    .why-quote{
+      margin-top:20px;padding:20px;
+      background:rgba(39,201,122,.08);border:1px solid rgba(39,201,122,.18);
+      border-radius:16px;position:relative;
+    }
+    .why-quote-text{font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.7;font-style:italic}
+    .why-quote-author{font-size:.73rem;color:var(--accent);font-weight:700;margin-top:10px}
+
+    /* ═══════════════════════════════════
+       PATIENT JOURNEY
+    ═══════════════════════════════════ */
+    #journey{
+      background:linear-gradient(160deg,#061510,#0a2818,#051008);
+      padding:96px 0;position:relative;overflow:hidden;
+    }
+    #journey::before{
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle at 20% 50%,rgba(39,201,122,.06) 0%,transparent 50%),
+                        radial-gradient(circle at 80% 50%,rgba(20,184,166,.05) 0%,transparent 50%);
+    }
+    .journey-header{text-align:center;margin-bottom:64px;position:relative}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+    /* connector line */
+    .steps::before{
+      content:'';position:absolute;
+      top:52px;
+      left:calc(12.5% + 10px);right:calc(12.5% + 10px);
+      height:1px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));
+      z-index:0;
+    }
+    .step{text-align:center;padding:0 12px;position:relative;z-index:1}
+    .step-circle{
+      width:104px;height:104px;border-radius:50%;margin:0 auto 24px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(39,201,122,.25);
+      display:flex;align-items:center;justify-content:center;
+      position:relative;
+      transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+    }
+    .step-circle-inner{
+      width:74px;height:74px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 8px 28px rgba(39,201,122,.35);
+    }
+    .step-circle-inner svg{width:30px;height:30px;stroke:#000;fill:none;stroke-width:2.2}
+    .step:hover .step-circle{transform:scale(1.08) translateY(-6px);box-shadow:0 0 0 8px rgba(39,201,122,.1)}
+    .step-num{
+      position:absolute;top:-8px;right:-8px;
+      width:26px;height:26px;border-radius:50%;
+      background:var(--accent);color:#000;
+      font-size:.7rem;font-weight:800;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .step-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
+    .step-desc{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.65}
+
+    /* ═══════════════════════════════════
+       CTA BANNER
+    ═══════════════════════════════════ */
+    #cta{background:#f5faf7;padding:96px 0}
+    .cta-box{
+      background:linear-gradient(135deg,#0a3020 0%,#0d4d35 40%,#0a3a28 100%);
+      border-radius:var(--radius-lg);padding:72px 60px;
+      text-align:center;position:relative;overflow:hidden;
+      border:1px solid rgba(39,201,122,.2);
+      box-shadow:0 32px 80px rgba(0,0,0,.25);
+    }
+    .cta-box::before{
+      content:'';position:absolute;inset:0;
+      background-image:linear-gradient(rgba(39,201,122,.04) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(39,201,122,.04) 1px,transparent 1px);
+      background-size:40px 40px;
+    }
+    .cta-box::after{
+      content:'';position:absolute;
+      top:-100px;right:-100px;
+      width:400px;height:400px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(39,201,122,.12),transparent 70%);
+    }
+    .cta-inner{position:relative;z-index:1}
+    .cta-eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(39,201,122,.12);border:1px solid rgba(39,201,122,.25);
+      border-radius:100px;padding:6px 16px;
+      font-size:.72rem;font-weight:700;color:var(--accent3);
+      letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;
+    }
+    .cta-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.02em}
+    .cta-sub{font-size:.95rem;color:rgba(255,255,255,.55);margin-bottom:36px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7}
+    .cta-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+    .cta-btn-main{
+      display:inline-flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#000;font-weight:800;font-size:.95rem;
+      padding:15px 32px;border-radius:100px;
+      box-shadow:0 8px 28px rgba(39,201,122,.4);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .cta-btn-main:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(39,201,122,.5)}
+    .cta-btn-main svg{width:18px;height:18px;fill:currentColor}
+    .cta-btn-sec{
+      display:inline-flex;align-items:center;gap:10px;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+      color:#fff;font-weight:700;font-size:.95rem;
+      padding:15px 32px;border-radius:100px;
+      transition:background .2s;
+    }
+    .cta-btn-sec:hover{background:rgba(255,255,255,.14)}
+    .cta-btn-sec svg{width:18px;height:18px;fill:#fff}
+
+    /* ═══════════════════════════════════
+       LOCATION
+    ═══════════════════════════════════ */
+    #location{background:#fff;padding:96px 0}
+    .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+    .loc-card{
+      background:#f5faf7;border:1px solid #d4eddf;
+      border-radius:var(--radius-lg);padding:36px;
+    }
+    .addr-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #e0f0e8}
+    .addr-row:last-child{border-bottom:none}
+    .addr-icon{
+      width:40px;height:40px;flex-shrink:0;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 12px rgba(39,201,122,.25);
+    }
+    .addr-icon svg{width:17px;height:17px;stroke:#000;fill:none;stroke-width:2.2}
+    .addr-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5a8a70;margin-bottom:3px}
+    .addr-val{font-size:.88rem;font-weight:600;color:#0d2b1f;line-height:1.55}
+    .addr-val a{color:#1a6b47;transition:color .2s}
+    .addr-val a:hover{color:var(--accent)}
+    .dir-btn{
+      display:inline-flex;align-items:center;gap:9px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#000;font-weight:800;font-size:.88rem;
+      padding:13px 26px;border-radius:100px;
+      margin-top:22px;
+      box-shadow:0 6px 20px rgba(39,201,122,.3);
+      transition:transform .2s,box-shadow .2s;
+    }
+    .dir-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(39,201,122,.4)}
+    .dir-btn svg{width:15px;height:15px;stroke:#000;fill:none;stroke-width:2.5}
+    .map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid #d4eddf;box-shadow:0 8px 32px rgba(0,0,0,.06)}
+    .map-wrap iframe{display:block}
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    footer{background:#030e08;padding:60px 0 28px;color:rgba(255,255,255,.6)}
+    .ft-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:48px}
+    .ft-brand-name{font-size:.95rem;font-weight:800;color:var(--accent);line-height:1.1}
+    .ft-brand-sub{font-size:.68rem;color:rgba(255,255,255,.35);margin-top:1px}
+    .ft-about{font-size:.81rem;line-height:1.75;margin-top:16px;color:rgba(255,255,255,.45)}
+    .ft-head{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:16px}
+    .ft-links{display:flex;flex-direction:column;gap:8px}
+    .ft-links a{font-size:.83rem;color:rgba(255,255,255,.5);transition:color .2s}
+    .ft-links a:hover{color:var(--accent)}
+    .ft-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;font-size:.75rem}
+    .ft-disclaimer{
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+      border-radius:12px;padding:16px 20px;font-size:.74rem;
+      color:rgba(255,255,255,.35);line-height:1.65;margin-bottom:20px;
+    }
+    .ft-copy{color:rgba(255,255,255,.25);font-size:.75rem}
+
+    /* ═══════════════════════════════════
+       STICKY MOBILE CTA
+    ═══════════════════════════════════ */
+    .mob-cta{
+      display:none;
+      position:fixed;bottom:0;left:0;right:0;z-index:300;
+      background:rgba(5,18,11,.92);backdrop-filter:blur(16px);
+      border-top:1px solid rgba(39,201,122,.15);
+      padding:10px 16px;gap:10px;
+    }
+    .mob-cta a{
+      flex:1;display:flex;align-items:center;justify-content:center;gap:7px;
+      padding:13px;border-radius:14px;
+      font-size:.85rem;font-weight:700;
+    }
+    .mob-cta a:first-child{background:rgba(39,201,122,.1);border:1px solid rgba(39,201,122,.2);color:var(--accent3)}
+    .mob-cta a:last-child{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+    .mob-cta a svg{width:16px;height:16px}
+    .mob-cta a:first-child svg{stroke:var(--accent);fill:none}
+    .mob-cta a:last-child svg{fill:#000}
+
+    /* ═══════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════ */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.vis{opacity:1;transform:none}
+    .reveal-d1{transition-delay:.1s}
+    .reveal-d2{transition-delay:.2s}
+    .reveal-d3{transition-delay:.3s}
+    .reveal-d4{transition-delay:.4s}
+
+    /* 3D card */
+    .tilt{transform-style:preserve-3d;will-change:transform}
+
+    /* ═══════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════ */
+    @media(max-width:1100px){
+      .srv-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:960px){
+      .hero-wrap{grid-template-columns:1fr;gap:40px}
+      .hero-right{display:none}
+      .doc-grid{grid-template-columns:1fr;gap:36px}
+      .srv-grid{grid-template-columns:repeat(2,1fr)}
+      .why-grid{grid-template-columns:1fr;gap:36px}
+      .steps{grid-template-columns:repeat(2,1fr)}
+      .steps::before{display:none}
+      .loc-grid{grid-template-columns:1fr}
+      .ft-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:720px){
+      .hdr-nav,.hdr-cta{display:none}
+      .menu-btn{display:block}
+      .srv-grid{grid-template-columns:repeat(2,1fr)}
+      .steps{grid-template-columns:1fr 1fr}
+      .cta-box{padding:44px 28px}
+      .ft-grid{grid-template-columns:1fr}
+      .mob-cta{display:flex}
+      body{padding-bottom:70px}
+    }
+    @media(max-width:480px){
+      .srv-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .steps{grid-template-columns:1fr}
+      .hero-h1{font-size:2rem}
+      .why-stat-grid{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header id="hdr" role="banner">
+  <div class="hdr-inner">
+    <a href="#" class="logo" aria-label="Sanjeevani Clinic home">
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="11" y="9.5" width="10" height="14.5" rx="3" fill="rgba(255,255,255,.18)" stroke="white" stroke-width="1.4"/>
+          <rect x="13.5" y="6" width="5" height="4.5" rx="1.5" fill="rgba(255,255,255,.15)" stroke="white" stroke-width="1.3"/>
+          <rect x="13" y="4.5" width="6" height="2.2" rx="1.1" fill="white" opacity=".9"/>
+          <rect x="12.2" y="16.5" width="7.6" height="7" rx="2" fill="rgba(255,255,255,.28)"/>
+          <circle cx="8.5" cy="18.5" r="1.6" fill="white" opacity=".9"/>
+          <circle cx="6" cy="22" r="1.1" fill="white" opacity=".7"/>
+          <circle cx="9.5" cy="24" r=".8" fill="white" opacity=".55"/>
+          <path d="M22.5 8C24.5 6 27.5 7 26.5 11C25.5 13.5 22.5 12.5 22.5 8Z" fill="rgba(255,255,255,.85)"/>
+          <line x1="16" y1="13" x2="16" y2="17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="13.8" y1="15.2" x2="18.2" y2="15.2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">Sanjeevani Clinic</div>
+        <div class="logo-sub">Multispeciality Homeopathy</div>
+      </div>
+    </a>
+
+    <nav class="hdr-nav" aria-label="Primary">
+      <a href="#doctor">About</a>
+      <a href="#services">Services</a>
+      <a href="#why">Why Us</a>
+      <a href="#journey">Journey</a>
+      <a href="#location">Location</a>
+    </nav>
+
+    <div class="hdr-cta">
+      <a href="tel:+919912322251" class="btn-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+        Book Appointment
+      </a>
+    </div>
+
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+
+  <nav class="mob-nav" id="mob-nav" aria-label="Mobile">
+    <a href="#doctor"   onclick="closeMenu()">About Doctor</a>
+    <a href="#services" onclick="closeMenu()">Our Services</a>
+    <a href="#why"      onclick="closeMenu()">Why Choose Us</a>
+    <a href="#journey"  onclick="closeMenu()">Patient Journey</a>
+    <a href="#location" onclick="closeMenu()">Location</a>
+    <a href="tel:+919912322251" style="background:linear-gradient(135deg,#27c97a,#14b8a6);color:#000;margin-top:8px;justify-content:center;border-radius:14px;">
+      📞 9912322251
+    </a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero" aria-labelledby="hero-h1">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-glow2" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="hero-wrap">
+      <div class="hero-left">
+        <div class="hero-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          Now Accepting Patients — Jagtial, Telangana
+        </div>
+
+        <h1 class="hero-h1" id="hero-h1">
+          Personalised<br>
+          Homeopathic Care<br>
+          for Your <span class="grad">Wellbeing</span>
+        </h1>
+
+        <p class="hero-p">Consult Dr. T. Srinivas, MD (Homeopathy) — a patient-centred physician who takes the time to understand your unique health story before crafting a thoughtful, personalised approach to your care.</p>
+
+        <div class="hero-btns">
+          <a href="tel:+919912322251" class="btn-hero-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+            Book Appointment
+          </a>
+          <a href="tel:+919912322251" class="btn-hero-ghost">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+            Call Now
+          </a>
+        </div>
+
+        <div class="hero-trust" role="list">
+          <div class="tbadge" role="listitem">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            MD (Homeopathy)
+          </div>
+          <div class="tbadge" role="listitem">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Qualified Specialist
+          </div>
+          <div class="tbadge" role="listitem">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Patient-Centred
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-hidden="true">
+        <div class="glass-card tilt reveal">
+          <div class="gc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+          <div class="gc-label">Consultation</div>
+          <div class="gc-val">Holistic</div>
+          <div class="gc-sub">Personalised to your constitution</div>
+        </div>
+        <div class="glass-card tilt reveal reveal-d1">
+          <div class="gc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="gc-label">Approach</div>
+          <div class="gc-val">Gentle&nbsp;Care</div>
+          <div class="gc-sub">Mind, body &amp; lifestyle focus</div>
+        </div>
+        <div class="glass-card tilt reveal reveal-d2">
+          <div class="gc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="gc-label">Follow-up</div>
+          <div class="gc-val">Ongoing</div>
+          <div class="gc-sub">Support at every stage</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ═══════════ DOCTOR ═══════════ -->
+<section id="doctor" aria-labelledby="doc-h2">
+  <div class="wrap sec-pad">
+    <div class="doc-grid">
+      <div class="doc-visual reveal">
+        <div class="doc-avatar-ring">
+          <div class="doc-avatar-inner" aria-label="Dr. T. Srinivas">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="38" r="22" stroke-width="2.2"/>
+              <path d="M20 96c0-22 18-38 40-38s40 16 40 38" stroke-width="2.2"/>
+              <path d="M47 62l-5 15M73 62l5 15M54 76h12" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="doc-name-visual">Dr. T. Srinivas</div>
+        <div class="doc-qual-visual">MD (Homeopathy) · Consultant Physician</div>
+        <div class="doc-badges">
+          <div class="doc-badge">
+            <div class="doc-badge-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            MD (Homeopathy) — Qualified
+          </div>
+          <div class="doc-badge">
+            <div class="doc-badge-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            Specialist Consultant
+          </div>
+          <div class="doc-badge">
+            <div class="doc-badge-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78z"/></svg></div>
+            Patient-Centred Philosophy
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-content reveal reveal-d1">
+        <span class="chip chip-green">Meet Your Doctor</span>
+        <h2 class="sec-title sec-title-dark" id="doc-h2">Dr. T. Srinivas</h2>
+        <p class="doc-desig">MD (Homeopathy) · Consultant Homeopathic Physician</p>
+        <p class="doc-bio">Dr. T. Srinivas holds an MD in Homeopathy and serves as Consultant Homeopathic Physician at Sanjeevani Multispeciality Homeopathic Clinic, Jagtial. He brings a deeply individualised approach to every consultation — taking time to understand the patient's health history, lifestyle, and concerns before crafting a thoughtful homeopathic care plan rooted in classical principles.</p>
+        <div class="doc-contacts">
+          <a href="tel:+919912322251" class="doc-contact-pill" aria-label="Call mobile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+            9912322251
+          </a>
+          <a href="tel:+9108724222977" class="doc-contact-pill" aria-label="Call clinic">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+            08724-222977
+          </a>
+          <div class="doc-contact-pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Jagtial, Telangana
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section id="services" aria-labelledby="srv-h2">
+  <div class="wrap">
+    <div class="srv-header">
+      <span class="chip chip-green">Conditions &amp; Areas of Care</span>
+      <h2 class="sec-title sec-title-white" id="srv-h2">How We Can <span class="text-grad">Support You</span></h2>
+      <p class="sec-sub sec-sub-dim" style="margin:10px auto 0">Homeopathy treats the whole person — not just the diagnosis. Below are the common health concerns for which patients seek individualised homeopathic care at Sanjeevani Clinic. Each consultation is tailored to your unique constitution, health history, and lifestyle.</p>
+    </div>
+
+    <div class="srv-grid" role="list">
+
+      <!-- 01 Skin, Hair & Allergy Care -->
+      <article class="srv-card tilt reveal" role="listitem">
+        <div class="srv-num">01</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3 class="srv-title">Skin, Hair &amp; Allergy Care</h3>
+        <p class="srv-desc">Personalised homeopathic care for skin and hair concerns — exploring constitutional factors, lifestyle, and triggers alongside the presenting complaint.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Acne &amp; Pimples</span>
+          <span class="srv-chip">Eczema</span>
+          <span class="srv-chip">Psoriasis</span>
+          <span class="srv-chip">Urticaria / Hives</span>
+          <span class="srv-chip">Allergic Skin Conditions</span>
+          <span class="srv-chip">Fungal Skin Complaints</span>
+          <span class="srv-chip">Warts</span>
+          <span class="srv-chip">Vitiligo / White Spots</span>
+          <span class="srv-chip">Hair Fall</span>
+          <span class="srv-chip">Dandruff</span>
+          <span class="srv-chip">Scalp Problems</span>
+          <span class="srv-chip">Itching &amp; Recurrent Skin Rashes</span>
+          <span class="srv-chip">Dry &amp; Sensitive Skin</span>
+          <span class="srv-chip">Excessive Sweating</span>
+        </div>
+      </article>
+
+      <!-- 02 Respiratory & Sinus Care -->
+      <article class="srv-card tilt reveal reveal-d1" role="listitem">
+        <div class="srv-num">02</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-7 17.3M12 2a10 10 0 017 17.3M12 2v8m0 0c-2 0-4 1-5 3m5-3c2 0 4 1 5 3"/></svg>
+        </div>
+        <h3 class="srv-title">Respiratory &amp; Sinus Care</h3>
+        <p class="srv-desc">Thorough, case-history-guided homeopathic care for recurrent and long-standing respiratory, sinus, and allergy complaints.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Allergic Rhinitis</span>
+          <span class="srv-chip">Sinusitis</span>
+          <span class="srv-chip">Recurrent Colds</span>
+          <span class="srv-chip">Asthma</span>
+          <span class="srv-chip">Bronchitis</span>
+          <span class="srv-chip">Tonsillitis</span>
+          <span class="srv-chip">Chronic / Recurrent Cough</span>
+          <span class="srv-chip">Breathing-related Complaints</span>
+          <span class="srv-chip">Dust &amp; Seasonal Allergies</span>
+          <span class="srv-chip">Pollen Allergies</span>
+          <span class="srv-chip">Nasal Congestion</span>
+          <span class="srv-chip">Recurrent Throat Infections</span>
+        </div>
+      </article>
+
+      <!-- 03 Digestive & Gut Health -->
+      <article class="srv-card tilt reveal reveal-d2" role="listitem">
+        <div class="srv-num">03</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="7"/><path d="M2 12c2-4 5-6 10-6s8 2 10 6"/></svg>
+        </div>
+        <h3 class="srv-title">Digestive &amp; Gut Health</h3>
+        <p class="srv-desc">Digestive complaints are closely connected to diet, stress, and individual constitution — all explored in depth during your individualised consultation.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Acidity &amp; Heartburn</span>
+          <span class="srv-chip">Gastritis</span>
+          <span class="srv-chip">Indigestion</span>
+          <span class="srv-chip">Constipation</span>
+          <span class="srv-chip">Irritable Bowel Syndrome (IBS)</span>
+          <span class="srv-chip">Bloating &amp; Gas</span>
+          <span class="srv-chip">Piles / Hemorrhoids</span>
+          <span class="srv-chip">Anal Fissures</span>
+          <span class="srv-chip">Recurrent Loose Motions</span>
+          <span class="srv-chip">Nausea</span>
+          <span class="srv-chip">Appetite-related Complaints</span>
+          <span class="srv-chip">Recurrent Abdominal Discomfort</span>
+        </div>
+      </article>
+
+      <!-- 04 Women's Health & Hormonal Care -->
+      <article class="srv-card tilt reveal reveal-d3" role="listitem">
+        <div class="srv-num">04</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M9 18h6"/></svg>
+        </div>
+        <h3 class="srv-title">Women's Health &amp; Hormonal Care</h3>
+        <p class="srv-desc">Sensitive, private consultations for women's health and hormonal concerns across all life stages — approached with care, dignity, and a holistic perspective.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Irregular Periods</span>
+          <span class="srv-chip">Painful Periods</span>
+          <span class="srv-chip">Heavy / Prolonged Periods</span>
+          <span class="srv-chip">PMS</span>
+          <span class="srv-chip">PCOS / PCOD</span>
+          <span class="srv-chip">Menopausal Symptoms</span>
+          <span class="srv-chip">Hot Flashes</span>
+          <span class="srv-chip">Vaginal / White Discharge-related Complaints</span>
+          <span class="srv-chip">Hormonal Acne</span>
+          <span class="srv-chip">Hormonal Imbalance-related Complaints</span>
+          <span class="srv-chip">Fertility-related Concerns</span>
+          <span class="srv-chip">Preconception Wellness</span>
+        </div>
+      </article>
+
+      <!-- 05 Children's Health & Development -->
+      <article class="srv-card tilt reveal" role="listitem">
+        <div class="srv-num">05</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="srv-title">Children's Health &amp; Development</h3>
+        <p class="srv-desc">Gentle, child-friendly homeopathic care for a wide range of childhood health concerns. For developmental, behavioural, and learning-related concerns, our supportive care complements — and does not replace — established professional guidance.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Recurrent Colds &amp; Cough</span>
+          <span class="srv-chip">Allergies</span>
+          <span class="srv-chip">Tonsil &amp; Adenoid Complaints</span>
+          <span class="srv-chip">Recurrent Throat Infections</span>
+          <span class="srv-chip">Asthma / Wheezing</span>
+          <span class="srv-chip">Digestive Problems</span>
+          <span class="srv-chip">Constipation</span>
+          <span class="srv-chip">Bedwetting</span>
+          <span class="srv-chip">Eczema &amp; Allergic Skin Complaints</span>
+          <span class="srv-chip">Recurrent Infections</span>
+          <span class="srv-chip">Sleep Difficulties</span>
+          <span class="srv-chip">Appetite-related Concerns</span>
+          <span class="srv-chip">Attention &amp; Concentration Difficulties</span>
+          <span class="srv-chip">ADHD-related Concerns (Supportive Care)</span>
+          <span class="srv-chip">Learning Difficulties</span>
+          <span class="srv-chip">Behavioural Concerns</span>
+          <span class="srv-chip">Childhood Anxiety &amp; Emotional Concerns</span>
+          <span class="srv-chip">Exam-related Stress</span>
+          <span class="srv-chip">Autism-related Well-being Support</span>
+          <span class="srv-chip">Childhood Wellness &amp; Immunity Support</span>
+        </div>
+        <p class="srv-note">Supportive homeopathic care for developmental and behavioural concerns is offered as a complement to professional medical and developmental care — not as a substitute.</p>
+      </article>
+
+      <!-- 06 Joint, Muscle & Pain Care -->
+      <article class="srv-card tilt reveal reveal-d1" role="listitem">
+        <div class="srv-num">06</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h4M18 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3 class="srv-title">Joint, Muscle &amp; Pain Care</h3>
+        <p class="srv-desc">A thorough history of onset, triggers, and associated complaints guides the individualised homeopathic care plan for joint, muscle, and pain-related concerns.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Arthritis</span>
+          <span class="srv-chip">Joint Pain</span>
+          <span class="srv-chip">Knee Pain</span>
+          <span class="srv-chip">Back Pain</span>
+          <span class="srv-chip">Neck Pain</span>
+          <span class="srv-chip">Sciatica</span>
+          <span class="srv-chip">Cervical Spondylosis</span>
+          <span class="srv-chip">Muscle Pain</span>
+          <span class="srv-chip">Shoulder Pain</span>
+          <span class="srv-chip">Sports &amp; Strain-related Complaints</span>
+          <span class="srv-chip">Joint Stiffness</span>
+          <span class="srv-chip">Recurrent Musculoskeletal Pain</span>
+        </div>
+      </article>
+
+      <!-- 07 Men's & Urinary Health -->
+      <article class="srv-card tilt reveal reveal-d2" role="listitem">
+        <div class="srv-num">07</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="10" cy="14" r="6"/><path d="M20 4l-6 6M14 4h6v6"/></svg>
+        </div>
+        <h3 class="srv-title">Men's &amp; Urinary Health</h3>
+        <p class="srv-desc">Confidential, respectful homeopathic consultations for men's health and urinary concerns — addressed with sensitivity and a holistic understanding of wellbeing.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Prostate-related Complaints</span>
+          <span class="srv-chip">Burning Urination</span>
+          <span class="srv-chip">Frequent Urination</span>
+          <span class="srv-chip">Urinary Urgency</span>
+          <span class="srv-chip">Urinary Incontinence</span>
+          <span class="srv-chip">Kidney Stone-related Symptoms</span>
+          <span class="srv-chip">Recurrent UTI-related Complaints</span>
+          <span class="srv-chip">Erectile Difficulties</span>
+          <span class="srv-chip">Premature Ejaculation</span>
+          <span class="srv-chip">Sexual Health Concerns</span>
+          <span class="srv-chip">Male Hormonal Concerns</span>
+          <span class="srv-chip">Men's Reproductive Health Concerns</span>
+        </div>
+      </article>
+
+      <!-- 08 Headache, Sleep & Emotional Well-being -->
+      <article class="srv-card tilt reveal reveal-d3" role="listitem">
+        <div class="srv-num">08</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="srv-title">Headache, Sleep &amp; Emotional Well-being</h3>
+        <p class="srv-desc">Homeopathy treats the whole person — mental and emotional wellbeing is as integral to health as the physical. Well-being support is offered as a complement to professional care, not a substitute for it.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Migraine</span>
+          <span class="srv-chip">Tension Headaches</span>
+          <span class="srv-chip">Recurrent Headaches</span>
+          <span class="srv-chip">Vertigo / Dizziness</span>
+          <span class="srv-chip">Neuralgia</span>
+          <span class="srv-chip">Stress-related Headaches</span>
+          <span class="srv-chip">Anxiety</span>
+          <span class="srv-chip">Stress</span>
+          <span class="srv-chip">Sleep Difficulties</span>
+          <span class="srv-chip">Irritability</span>
+          <span class="srv-chip">Exam-related Stress</span>
+          <span class="srv-chip">Work-related Stress</span>
+          <span class="srv-chip">Concentration Difficulties</span>
+          <span class="srv-chip">Emotional Well-being Support</span>
+        </div>
+      </article>
+
+      <!-- 09 Chronic & Recurring Conditions -->
+      <article class="srv-card tilt reveal" role="listitem">
+        <div class="srv-num">09</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+        </div>
+        <h3 class="srv-title">Chronic &amp; Recurring Conditions</h3>
+        <p class="srv-desc">Long-standing and recurring health concerns benefit most from the individualised, root-cause-focused approach that homeopathic consultation offers.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Recurrent Infections</span>
+          <span class="srv-chip">Long-standing Allergies</span>
+          <span class="srv-chip">Chronic Skin Conditions</span>
+          <span class="srv-chip">Recurrent Respiratory Problems</span>
+          <span class="srv-chip">Chronic Digestive Complaints</span>
+          <span class="srv-chip">Long-term Joint Complaints</span>
+          <span class="srv-chip">Recurrent Headaches</span>
+          <span class="srv-chip">Chronic Sinus-related Complaints</span>
+          <span class="srv-chip">Recurrent Urinary Complaints</span>
+          <span class="srv-chip">Lifestyle-related Health Concerns</span>
+        </div>
+      </article>
+
+      <!-- 10 General Health & Lifestyle Support -->
+      <article class="srv-card tilt reveal reveal-d1" role="listitem">
+        <div class="srv-num">10</div>
+        <div class="srv-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="srv-title">General Health &amp; Lifestyle Support</h3>
+        <p class="srv-desc">Holistic consultation for everyday health and lifestyle concerns — supporting overall wellness through individualised homeopathic care.</p>
+        <div class="srv-chips" aria-label="Conditions in this category">
+          <span class="srv-chip">Fatigue</span>
+          <span class="srv-chip">Recurrent Minor Health Complaints</span>
+          <span class="srv-chip">Appetite Changes</span>
+          <span class="srv-chip">Seasonal Health Complaints</span>
+          <span class="srv-chip">Stress-related Complaints</span>
+          <span class="srv-chip">Lifestyle-related Health Concerns</span>
+          <span class="srv-chip">General Wellness Support</span>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Medical Disclaimer -->
+    <div class="srv-disclaimer" role="note">
+      <strong>Medical Disclaimer:</strong> The conditions listed above represent common areas in which patients seek homeopathic consultation at Sanjeevani Clinic. Homeopathic consultations are supportive in nature and are not intended as a substitute for conventional medical diagnosis or treatment. For developmental, psychiatric, or serious health concerns, please continue working with your qualified medical and specialist team. Individual responses to any approach may vary. For emergencies, please seek immediate medical attention.
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ WHY US ═══════════ -->
+<section id="why" aria-labelledby="why-h2">
+  <div class="wrap sec-pad">
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <span class="chip chip-green">Why Sanjeevani</span>
+        <h2 class="sec-title sec-title-dark" id="why-h2">A Practice Built<br><span class="text-grad">Around You</span></h2>
+        <p class="sec-sub sec-sub-muted">Everything here is designed around a single purpose — your comfort, your story, your wellbeing.</p>
+
+        <div class="why-features">
+          <div class="why-feat">
+            <div class="why-feat-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="why-feat-body">
+              <div class="why-feat-title">Personalised Care</div>
+              <div class="why-feat-desc">Every consultation is unique — we listen carefully to your story before any plan is made.</div>
+            </div>
+          </div>
+          <div class="why-feat">
+            <div class="why-feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+            <div class="why-feat-body">
+              <div class="why-feat-title">Experienced Physician</div>
+              <div class="why-feat-desc">MD (Homeopathy) qualified — Dr. Srinivas brings deep clinical knowledge to every case.</div>
+            </div>
+          </div>
+          <div class="why-feat">
+            <div class="why-feat-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23z"/></svg></div>
+            <div class="why-feat-body">
+              <div class="why-feat-title">Patient-Centred Approach</div>
+              <div class="why-feat-desc">Your comfort, questions, and concerns are at the heart of every interaction.</div>
+            </div>
+          </div>
+          <div class="why-feat">
+            <div class="why-feat-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
+            <div class="why-feat-body">
+              <div class="why-feat-title">Ongoing Follow-up Support</div>
+              <div class="why-feat-desc">Care doesn't end at the appointment — we're with you at every stage of your journey.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-right reveal reveal-d2">
+        <div class="why-stat-grid">
+          <div class="why-stat"><div class="why-stat-val text-grad">MD</div><div class="why-stat-label">Qualified<br>Homeopathy Degree</div></div>
+          <div class="why-stat"><div class="why-stat-val text-grad">1:1</div><div class="why-stat-label">Individual<br>Consultation</div></div>
+          <div class="why-stat"><div class="why-stat-val text-grad">360°</div><div class="why-stat-label">Holistic Health<br>Assessment</div></div>
+          <div class="why-stat"><div class="why-stat-val text-grad">✓</div><div class="why-stat-label">Follow-up<br>Support Included</div></div>
+        </div>
+        <div class="why-quote">
+          <div class="why-quote-text">"Homeopathy treats the person, not just the disease. Every individual deserves a care plan as unique as they are."</div>
+          <div class="why-quote-author">— Dr. T. Srinivas, MD (Homeopathy)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PATIENT JOURNEY ═══════════ -->
+<section id="journey" aria-labelledby="journey-h2">
+  <div class="wrap sec-pad">
+    <div class="journey-header">
+      <span class="chip chip-green">Your Experience</span>
+      <h2 class="sec-title sec-title-white" id="journey-h2">Your Patient <span class="text-grad">Journey</span></h2>
+      <p class="sec-sub sec-sub-dim" style="margin:10px auto 0">Simple, caring, personal — from first contact to ongoing support.</p>
+    </div>
+
+    <div class="steps" role="list">
+      <div class="step reveal" role="listitem">
+        <div class="step-circle">
+          <div class="step-circle-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+          </div>
+          <div class="step-num" aria-hidden="true">1</div>
+        </div>
+        <h3 class="step-title">Book</h3>
+        <p class="step-desc">Call or visit us to schedule your appointment at a time that suits you.</p>
+      </div>
+
+      <div class="step reveal reveal-d1" role="listitem">
+        <div class="step-circle">
+          <div class="step-circle-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="step-num" aria-hidden="true">2</div>
+        </div>
+        <h3 class="step-title">Consultation</h3>
+        <p class="step-desc">Dr. Srinivas takes time to understand your full health history, concerns, and goals.</p>
+      </div>
+
+      <div class="step reveal reveal-d2" role="listitem">
+        <div class="step-circle">
+          <div class="step-circle-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="step-num" aria-hidden="true">3</div>
+        </div>
+        <h3 class="step-title">Personalised Care</h3>
+        <p class="step-desc">Receive a thoughtful plan tailored to your individual constitution and health picture.</p>
+      </div>
+
+      <div class="step reveal reveal-d3" role="listitem">
+        <div class="step-circle">
+          <div class="step-circle-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          </div>
+          <div class="step-num" aria-hidden="true">4</div>
+        </div>
+        <h3 class="step-title">Follow-up</h3>
+        <p class="step-desc">Ongoing check-ins ensure your care is adjusted and support is always available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section id="cta" aria-labelledby="cta-h2">
+  <div class="wrap">
+    <div class="cta-box">
+      <div class="cta-inner">
+        <div class="cta-eyebrow">
+          <span style="width:6px;height:6px;border-radius:50%;background:#6ee7b7;display:inline-block"></span>
+          Get in Touch Today
+        </div>
+        <h2 class="cta-title" id="cta-h2">Ready to Speak With<br>Dr. T. Srinivas?</h2>
+        <p class="cta-sub">Reach us directly — we're happy to answer your questions and help schedule a consultation at your convenience.</p>
+        <div class="cta-btns">
+          <a href="tel:+919912322251" class="cta-btn-main" aria-label="Call 9912322251">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+            9912322251 (Mobile)
+          </a>
+          <a href="tel:+9108724222977" class="cta-btn-sec" aria-label="Call 08724-222977">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+            08724-222977 (Clinic)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LOCATION ═══════════ -->
+<section id="location" aria-labelledby="loc-h2">
+  <div class="wrap sec-pad">
+    <div style="margin-bottom:48px">
+      <span class="chip chip-green">Find Us</span>
+      <h2 class="sec-title sec-title-dark" id="loc-h2">Our <span class="text-grad">Location</span></h2>
+      <p class="sec-sub sec-sub-muted">Conveniently located in Balaji Nagar, Jagtial — easy to reach from across the district.</p>
+    </div>
+
+    <div class="loc-grid">
+      <div class="loc-card reveal">
+        <div class="addr-row">
+          <div class="addr-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="addr-label">Address</div>
+            <address class="addr-val" style="font-style:normal">Near Kanthi Bhavan, Yawar Road,<br>Balaji Nagar, Vani Nagar,<br>Jagtial – 505327, Telangana</address>
+          </div>
+        </div>
+        <div class="addr-row">
+          <div class="addr-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg></div>
+          <div>
+            <div class="addr-label">Phone</div>
+            <div class="addr-val">
+              <a href="tel:+919912322251">9912322251</a> &nbsp;|&nbsp;
+              <a href="tel:+9108724222977">08724-222977</a>
+            </div>
+          </div>
+        </div>
+        <div class="addr-row">
+          <div class="addr-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="addr-label">Clinic Hours</div>
+            <div class="addr-val">Please call to confirm timings</div>
+          </div>
+        </div>
+        <a href="https://www.google.com/maps/search/Sanjeevani+Multispeciality+Homeopathic+Clinic+Jagtial+Telangana" target="_blank" rel="noopener noreferrer" class="dir-btn">
+          <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Get Directions
+        </a>
+      </div>
+
+      <div class="map-wrap reveal reveal-d1">
+        <iframe
+          title="Sanjeevani Clinic Location — Balaji Nagar, Jagtial"
+          src="https://maps.google.com/maps?q=Balaji+Nagar+Jagtial+Telangana+505327&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          width="100%" height="380"
+          style="border:0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer role="contentinfo">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px">
+          <div class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <rect x="11" y="9.5" width="10" height="14.5" rx="3" fill="rgba(255,255,255,.18)" stroke="white" stroke-width="1.4"/>
+              <rect x="13.5" y="6" width="5" height="4.5" rx="1.5" fill="rgba(255,255,255,.15)" stroke="white" stroke-width="1.3"/>
+              <rect x="13" y="4.5" width="6" height="2.2" rx="1.1" fill="white" opacity=".9"/>
+              <rect x="12.2" y="16.5" width="7.6" height="7" rx="2" fill="rgba(255,255,255,.28)"/>
+              <circle cx="8.5" cy="18.5" r="1.6" fill="white" opacity=".9"/>
+              <circle cx="6" cy="22" r="1.1" fill="white" opacity=".7"/>
+              <circle cx="9.5" cy="24" r=".8" fill="white" opacity=".55"/>
+              <path d="M22.5 8C24.5 6 27.5 7 26.5 11C25.5 13.5 22.5 12.5 22.5 8Z" fill="rgba(255,255,255,.85)"/>
+              <line x1="16" y1="13" x2="16" y2="17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="13.8" y1="15.2" x2="18.2" y2="15.2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div><div class="ft-brand-name">Sanjeevani Clinic</div><div class="ft-brand-sub">Multispeciality Homeopathy, Jagtial</div></div>
+        </div>
+        <p class="ft-about">Personalised homeopathic consultations in Jagtial, Telangana. Dr. T. Srinivas, MD (Homeopathy) — committed to patient-centred, holistic care.</p>
+      </div>
+      <div>
+        <p class="ft-head">Quick Links</p>
+        <ul class="ft-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#doctor">About Doctor</a></li>
+          <li><a href="#services">Consultation Areas</a></li>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#journey">Patient Journey</a></li>
+          <li><a href="#location">Location &amp; Map</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="ft-head">Contact</p>
+        <ul class="ft-links">
+          <li><a href="tel:+919912322251">📞 9912322251 (Mobile)</a></li>
+          <li><a href="tel:+9108724222977">📞 08724-222977 (Clinic)</a></li>
+          <li style="color:rgba(255,255,255,.3);font-size:.8rem;line-height:1.65;margin-top:6px">Near Kanthi Bhavan, Yawar Road,<br>Balaji Nagar, Jagtial – 505327,<br>Telangana, India</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <div class="ft-disclaimer" role="note">
+        <strong style="color:rgba(255,255,255,.5)">Medical Disclaimer:</strong> Information on this website is for general informational purposes only and does not constitute medical advice. Consultations at Sanjeevani Clinic are intended to support wellbeing and are not a substitute for professional medical diagnosis or treatment. Always consult a qualified medical professional for serious health concerns. Individual outcomes may vary.
+      </div>
+      <div class="ft-copy">© 2026 Sanjeevani Multispeciality Homeopathic Clinic, Jagtial. All rights reserved. · Dr. T. Srinivas, MD (Homeopathy) · Jagtial, Telangana – 505327</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ STICKY MOBILE CTA ═══════════ -->
+<nav class="mob-cta" aria-label="Quick contact">
+  <a href="tel:+919912322251" aria-label="Call clinic">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+    Call Now
+  </a>
+  <a href="tel:+919912322251" aria-label="Book appointment">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+    Book Appointment
+  </a>
+</nav>
+
+<script>
+/* ── Header scroll effect ── */
+(function(){
+  var hdr=document.getElementById('hdr');
+  window.addEventListener('scroll',function(){
+    hdr.classList.toggle('scrolled',window.scrollY>40);
+  },{passive:true});
+})();
+
+/* ── Mobile menu ── */
+function toggleMenu(btn){
+  var nav=document.getElementById('mob-nav');
+  var open=nav.classList.toggle('open');
+  btn.setAttribute('aria-expanded',open?'true':'false');
+}
+function closeMenu(){
+  document.getElementById('mob-nav').classList.remove('open');
+  var btn=document.querySelector('.menu-btn');
+  if(btn)btn.setAttribute('aria-expanded','false');
+}
+
+/* ── Scroll reveal ── */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vis')});return}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('vis');io.unobserve(en.target)}});
+  },{threshold:0.1});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+/* ══════════════════════════════════
+   HERO CANVAS — cinematic particles
+══════════════════════════════════ */
+(function(){
+  var canvas=document.getElementById('hero-canvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W,H,pts=[],conns=[];
+  var mouse={x:0,y:0,active:false};
+  var COLORS=['39,201,122','20,184,166','110,231,183'];
+
+  function resize(){
+    var s=document.getElementById('hero');
+    W=canvas.width=s.offsetWidth;
+    H=canvas.height=s.offsetHeight;
+  }
+
+  function rnd(a,b){return a+Math.random()*(b-a)}
+
+  function mkPt(){
+    return{
+      x:rnd(0,W),y:rnd(0,H),
+      vx:rnd(-.3,.3),vy:rnd(-.3,.3),
+      r:rnd(1.2,3.2),
+      alpha:rnd(.15,.55),
+      col:COLORS[Math.floor(Math.random()*COLORS.length)],
+      depth:rnd(.3,1)
+    }
+  }
+
+  function init(){
+    pts=[];
+    var n=Math.floor(W*H/14000);
+    for(var i=0;i<n;i++)pts.push(mkPt());
+  }
+
+  function drawFrame(){
+    ctx.clearRect(0,0,W,H);
+    var t=Date.now()*.0008;
+
+    /* draw connection lines */
+    for(var i=0;i<pts.length;i++){
+      for(var j=i+1;j<pts.length;j++){
+        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
+        var d=Math.sqrt(dx*dx+dy*dy);
+        if(d<140){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle='rgba(39,201,122,'+(0.06*(1-d/140))+')';
+          ctx.lineWidth=.6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    pts.forEach(function(p){
+      /* mouse repulsion */
+      if(mouse.active){
+        var mx=p.x-mouse.x,my=p.y-mouse.y;
+        var md=Math.sqrt(mx*mx+my*my);
+        if(md<120){var f=(1-md/120)*0.4;p.vx+=mx/md*f;p.vy+=my/md*f}
+      }
+
+      /* draw */
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+p.alpha+')';
+      ctx.fill();
+
+      /* glow for bigger ones */
+      if(p.r>2.2){
+        var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+        g.addColorStop(0,'rgba('+p.col+','+(p.alpha*.4)+')');
+        g.addColorStop(1,'rgba('+p.col+',0)');
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+        ctx.fillStyle=g;
+        ctx.fill();
+      }
+
+      /* drift + slow */
+      p.x+=p.vx;p.y+=p.vy;
+      p.vx*=.995;p.vy*=.995;
+      if(Math.abs(p.vx)<.05)p.vx+=rnd(-.1,.1);
+      if(Math.abs(p.vy)<.05)p.vy+=rnd(-.1,.1);
+
+      /* wrap */
+      if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+      if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;
+    });
+
+    requestAnimationFrame(drawFrame);
+  }
+
+  document.getElementById('hero').addEventListener('mousemove',function(e){
+    var r=this.getBoundingClientRect();
+    mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.active=true;
+  },{passive:true});
+  document.getElementById('hero').addEventListener('mouseleave',function(){mouse.active=false});
+
+  window.addEventListener('resize',function(){resize();init()});
+  resize();init();drawFrame();
+})();
+
+/* ══════════════════════════════════
+   3D CARD TILT
+══════════════════════════════════ */
+(function(){
+  var touch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+  if(touch)return;
+  function tilt(card){
+    var P=900,M=15;
+    card.addEventListener('mouseenter',function(){card.style.transition='transform .1s,box-shadow .1s'});
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var dx=(e.clientX-r.left-r.width/2)/(r.width/2);
+      var dy=(e.clientY-r.top-r.height/2)/(r.height/2);
+      card.style.transform='perspective('+P+'px) rotateX('+(-dy*M)+'deg) rotateY('+(dx*M)+'deg) scale3d(1.04,1.04,1.04)';
+      card.style.boxShadow=(dx*6)+'px '+(-dy*6)+'px 40px rgba(39,201,122,.2)';
+    },{passive:true});
+    card.addEventListener('mouseleave',function(){
+      card.style.transition='transform .5s cubic-bezier(.03,.98,.52,.99),box-shadow .5s';
+      card.style.transform='';card.style.boxShadow='';
+      setTimeout(function(){card.style.transition=''},520);
+    });
+  }
+  document.querySelectorAll('.tilt').forEach(tilt);
+})();
+
+/* ══════════════════════════════════
+   HERO PARALLAX
+══════════════════════════════════ */
+(function(){
+  var touch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+  if(touch)return;
+  var hero=document.getElementById('hero');
+  if(!hero)return;
+  var h1=hero.querySelector('.hero-h1');
+  var hp=hero.querySelector('.hero-p');
+  var hb=hero.querySelector('.hero-btns');
+  var ht=hero.querySelector('.hero-trust');
+  var cards=hero.querySelectorAll('.glass-card');
+  hero.addEventListener('mousemove',function(e){
+    var r=hero.getBoundingClientRect();
+    var mx=(e.clientX-r.left)/r.width-.5;
+    var my=(e.clientY-r.top)/r.height-.5;
+    if(h1)h1.style.transform='translate3d('+(mx*-18)+'px,'+(my*-10)+'px,0)';
+    if(hp)hp.style.transform='translate3d('+(mx*-10)+'px,'+(my*-6)+'px,0)';
+    if(hb)hb.style.transform='translate3d('+(mx*-6)+'px,'+(my*-3)+'px,0)';
+    if(ht)ht.style.transform='translate3d('+(mx*-4)+'px,'+(my*-2)+'px,0)';
+    cards.forEach(function(c,i){
+      var f=(i+1)*.6;
+      c.style.transform='translate3d('+(mx*(20+f*8))+'px,'+(my*(12+f*5))+'px,'+(f*15)+'px) rotateX('+(-my*5)+'deg) rotateY('+(mx*7)+'deg)';
+    });
+  },{passive:true});
+  hero.addEventListener('mouseleave',function(){
+    [h1,hp,hb,ht].forEach(function(el){
+      if(!el)return;
+      el.style.transition='transform .8s cubic-bezier(.03,.98,.52,.99)';
+      el.style.transform='';
+      setTimeout(function(){el.style.transition=''},820);
+    });
+    cards.forEach(function(c){
+      c.style.transition='transform .8s cubic-bezier(.03,.98,.52,.99)';
+      c.style.transform='';
+      setTimeout(function(){c.style.transition=''},820);
+    });
+  });
+})();
+
+/* ── Active nav ── */
+(function(){
+  var secs=document.querySelectorAll('section[id]');
+  var links=document.querySelectorAll('.hdr-nav a');
+  window.addEventListener('scroll',function(){
+    var sy=window.pageYOffset;
+    secs.forEach(function(s){
+      if(sy>=s.offsetTop-110&&sy<s.offsetTop+s.offsetHeight-110){
+        var id=s.getAttribute('id');
+        links.forEach(function(l){
+          var on=l.getAttribute('href')==='#'+id;
+          l.style.color=on?'#fff':'';
+          l.style.background=on?'rgba(39,201,122,.12)':'';
+        });
+      }
+    });
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
