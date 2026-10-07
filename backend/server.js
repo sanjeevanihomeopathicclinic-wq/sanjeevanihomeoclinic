@@ -13,6 +13,9 @@ const path = require('path');
 const crypto = require('crypto');
 require('dotenv').config();
 
+// Trust Render's proxy so express-rate-limit reads the real client IP
+// from X-Forwarded-For correctly
+
 const authRouter        = require('./routes/auth');
 const patientsRouter    = require('./routes/patients');
 const appointmentsRouter = require('./routes/appointments');
@@ -22,6 +25,7 @@ const driveRouter       = require('./routes/drive');
 const auditRouter       = require('./routes/audit');
 
 const app = express();
+app.set('trust proxy', 1); // trust first proxy (Render load balancer)
 const PORT = process.env.PORT || 3001;
 
 // ── Static files — serve the entire clinic folder from the repo root ──────────
