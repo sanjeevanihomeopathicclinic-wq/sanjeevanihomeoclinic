@@ -31,22 +31,27 @@ const PORT = process.env.PORT || 3001;
 // ── Static files — serve the entire clinic folder from the repo root ──────────
 // __dirname is sanjeevani-clinic/backend, so go one level up to sanjeevani-clinic
 const STATIC_ROOT = path.join(__dirname, '..');
-app.use(express.static(STATIC_ROOT));
 
 // ── Security headers ──────────────────────────────────────────────────────────
+// Applied BEFORE static middleware so API responses get helmet headers.
+// Static HTML pages need 'unsafe-inline' for scripts (inline <script> blocks).
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://fonts.googleapis.com"],
-      styleSrc:  ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-      fontSrc:   ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:    ["'self'", "data:", "blob:"],
-      connectSrc: ["'self'"],
-      frameSrc:  ["https://www.google.com"],
+      defaultSrc:  ["'self'"],
+      scriptSrc:   ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      styleSrc:    ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+      fontSrc:     ["'self'", "https://fonts.gstatic.com"],
+      imgSrc:      ["'self'", "data:", "blob:"],
+      connectSrc:  ["'self'"],
+      frameSrc:    ["https://www.google.com"],
     },
   },
+  crossOriginOpenerPolicy: false,
 }));
+
+// ── Static files ──────────────────────────────────────────────────────────────
+app.use(express.static(STATIC_ROOT));
 
 // ── Rate limiting ─────────────────────────────────────────────────────────────
 const authLimiter = rateLimit({
