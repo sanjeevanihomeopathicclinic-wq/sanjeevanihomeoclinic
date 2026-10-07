@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Patient Login – Sanjeevani Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../cms/css/dashboard.css"/>
+  <style>
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse 120% 80% at 60% 40%,#0e4f3a 0%,#072518 50%,#030f09 100%);padding:20px}
+    .login-box{background:rgba(255,255,255,.04);border:1px solid rgba(39,201,122,.18);border-radius:20px;padding:40px 36px;width:100%;max-width:420px}
+    .login-logo{text-align:center;margin-bottom:28px}
+    .login-logo-mark{width:56px;height:56px;background:linear-gradient(140deg,#16a060,#0d9488);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 0 0 1px rgba(39,201,122,.3),0 8px 24px rgba(39,201,122,.25)}
+    .login-logo-mark svg{width:30px;height:30px}
+    .login-clinic{font-size:.85rem;font-weight:800;color:#fff}
+    .login-subtitle{font-size:.7rem;color:var(--muted);margin-top:2px}
+    .login-title{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px}
+    .login-role{font-size:.78rem;color:var(--accent3);font-weight:600;margin-bottom:24px;display:flex;align-items:center;gap:6px}
+    .login-role::before{content:'';width:18px;height:2px;background:var(--accent)}
+    .btn-login{width:100%;justify-content:center;margin-top:8px;padding:13px}
+    .login-footer{text-align:center;margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)}
+    .login-footer a{color:var(--accent3);margin:0 6px}
+    .error-msg{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:10px 14px;font-size:.8rem;color:#fca5a5;margin-bottom:14px;display:none}
+    .demo-hint{background:rgba(39,201,122,.07);border:1px solid rgba(39,201,122,.15);border-radius:10px;padding:10px 14px;font-size:.75rem;color:var(--muted);margin-bottom:18px;line-height:1.7}
+    .tabs{border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:20px}
+    .tab-btn{padding:8px 16px;border:none;background:none;color:rgba(255,255,255,.4);font-weight:700;font-size:.82rem;border-bottom:2px solid transparent;margin-bottom:-1px}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+    .tab-panel{display:none}.tab-panel.active{display:block}
+  </style>
+</head>
+<body>
+<div class="login-box">
+  <div class="login-logo">
+    <div class="login-logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.4">
+        <rect x="11" y="9.5" width="10" height="14.5" rx="3" fill="rgba(255,255,255,.18)"/>
+        <line x1="16" y1="13" x2="16" y2="17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="13.8" y1="15.2" x2="18.2" y2="15.2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="login-clinic">Sanjeevani Clinic</div>
+    <div class="login-subtitle">Multispeciality Homeopathy · Jagtial</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'tab-login')">Sign In</button>
+    <button class="tab-btn" onclick="switchTab(this,'tab-register')">New Patient</button>
+  </div>
+
+  <!-- Sign In -->
+  <div id="tab-login" class="tab-panel active">
+    <h1 class="login-title">Patient Login</h1>
+    <p class="login-role">Access your health portal</p>
+
+    <div class="demo-hint">
+      <strong>Demo:</strong> patient1@example.com / Patient@123<br>
+      Or: patient2@example.com / Patient@123
+    </div>
+
+    <div class="error-msg" id="loginErr"></div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-control" type="email" id="l_email" placeholder="your@email.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-control" type="password" id="l_password" placeholder="••••••••" required/>
+      </div>
+      <button type="submit" class="btn btn-primary btn-login">Sign In</button>
+    </form>
+  </div>
+
+  <!-- Register -->
+  <div id="tab-register" class="tab-panel">
+    <h1 class="login-title">Create Account</h1>
+    <p class="login-role">New patient self-registration</p>
+    <div class="error-msg" id="regErr"></div>
+    <form id="regForm">
+      <div class="form-group">
+        <label class="form-label">Full Name *</label>
+        <input class="form-control" id="rg_name" placeholder="Your full name" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email *</label>
+        <input class="form-control" type="email" id="rg_email" placeholder="your@email.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone *</label>
+        <input class="form-control" id="rg_phone" placeholder="10-digit mobile" required/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Date of Birth</label>
+          <input class="form-control" type="date" id="rg_dob"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select class="form-control" id="rg_gender">
+            <option value="">Select</option><option>Male</option><option>Female</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password * (min 8 characters)</label>
+        <input class="form-control" type="password" id="rg_password" placeholder="Create a strong password" required minlength="8"/>
+      </div>
+      <button type="submit" class="btn btn-primary btn-login">Create Account</button>
+    </form>
+  </div>
+
+  <div class="login-footer">
+    <a href="/sanjeevani-clinic/index.html">← Back to website</a>
+    <a href="tel:+919912322251">📞 9912322251</a>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="../cms/js/api.js"></script>
+<script>
+const { apiFetch, showToast } = window.API_UTILS;
+(async () => {
+  try {
+    const d = await apiFetch('/auth/me');
+    if (d.user.role === 'patient') window.location.href = '/sanjeevani-clinic/patient/dashboard.html';
+  } catch {}
+})();
+
+function switchTab(btn, panelId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+}
+
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = document.getElementById('loginErr');
+  err.style.display = 'none';
+  try {
+    const data = await apiFetch('/auth/login', {
+      method: 'POST',
+      body: { email: document.getElementById('l_email').value.trim(), password: document.getElementById('l_password').value },
+    });
+    if (data.user.role !== 'patient') {
+      err.textContent = 'This portal is for patients only. Please use the correct login.';
+      err.style.display = 'block';
+      await apiFetch('/auth/logout', { method: 'POST' });
+    } else {
+      window.location.href = '/sanjeevani-clinic/patient/dashboard.html';
+    }
+  } catch(ex) {
+    err.textContent = ex.message || 'Login failed.';
+    err.style.display = 'block';
+  }
+});
+
+document.getElementById('regForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = document.getElementById('regErr');
+  err.style.display = 'none';
+  try {
+    const data = await apiFetch('/auth/register', {
+      method: 'POST',
+      body: {
+        name: document.getElementById('rg_name').value,
+        email: document.getElementById('rg_email').value.trim(),
+        phone: document.getElementById('rg_phone').value,
+        dob: document.getElementById('rg_dob').value,
+        gender: document.getElementById('rg_gender').value,
+        password: document.getElementById('rg_password').value,
+      },
+    });
+    window.location.href = '/sanjeevani-clinic/patient/dashboard.html';
+  } catch(ex) {
+    err.textContent = ex.message || 'Registration failed.';
+    err.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>

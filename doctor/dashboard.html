@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Doctor Dashboard – Sanjeevani Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../cms/css/dashboard.css"/>
+  <style>
+    .apt-time{font-weight:700;color:#fff;font-size:.88rem}
+    .apt-patient{font-size:.85rem;color:rgba(255,255,255,.8)}
+    .apt-type{font-size:.72rem;color:var(--muted)}
+    .quick-btns{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+    .consult-textarea{min-height:120px}
+    .tag{display:inline-block;background:rgba(39,201,122,.1);border:1px solid rgba(39,201,122,.2);border-radius:6px;padding:2px 8px;font-size:.7rem;color:var(--accent3);margin:2px}
+    .mob-menu-btn{display:none;background:none;border:none;color:#fff;padding:6px}
+    @media(max-width:900px){.mob-menu-btn{display:block}}
+  </style>
+</head>
+<body>
+<div class="cms-layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-name">Sanjeevani Clinic</div>
+      <div class="sidebar-logo-sub">Multispeciality Homeopathy</div>
+    </div>
+    <div class="sidebar-role" id="sidebarRole">Doctor Portal</div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">Overview</div>
+        <a href="#" class="nav-link active" data-section="dashboard">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-link" data-section="today">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Today's Appointments
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Patients</div>
+        <a href="#" class="nav-link" data-section="patients">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Patient List
+        </a>
+        <a href="#" class="nav-link" data-section="search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search Patient
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Clinical</div>
+        <a href="#" class="nav-link" data-section="consultation">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          New Consultation
+        </a>
+        <a href="#" class="nav-link" data-section="beforeafter">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Before / After Cases
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Settings</div>
+        <a href="#" class="nav-link" data-section="audit">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Audit Log
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="cms-main">
+    <div class="cms-topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="mob-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="topbar-title" id="topbarTitle">Dashboard</span>
+      </div>
+      <div class="topbar-user">
+        <span class="topbar-user-name" id="topbarUserName">Dr. T. Srinivas</span>
+        <div class="topbar-avatar" id="topbarAvatar">DS</div>
+      </div>
+    </div>
+
+    <div class="cms-body">
+
+      <!-- ══ SECTION: Dashboard ══ -->
+      <section id="sec-dashboard">
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card">
+            <div class="stat-label">Today's Appointments</div>
+            <div class="stat-val" id="statToday">—</div>
+            <div class="stat-sub">Scheduled today</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Patients</div>
+            <div class="stat-val" id="statPatients">—</div>
+            <div class="stat-sub">Total registered</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Waiting</div>
+            <div class="stat-val" id="statWaiting">—</div>
+            <div class="stat-sub">In waiting room</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Completed Today</div>
+            <div class="stat-val" id="statCompleted">—</div>
+            <div class="stat-sub">Consultations done</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-header">
+            <div class="card-title">Today's Schedule</div>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('today')">View All</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Time</th><th>Patient</th><th>Type</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="dashAptsBody"><tr><td colspan="5" style="text-align:center;color:var(--muted);padding:24px">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: Today's Appointments ══ -->
+      <section id="sec-today" style="display:none">
+        <div class="section-header">
+          <div class="section-title">Today's Appointments</div>
+          <span id="todayDateLabel" style="font-size:.8rem;color:var(--muted)"></span>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Time</th><th>Patient ID</th><th>Patient</th><th>Type</th><th>Fee</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="todayAptsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: Patient List ══ -->
+      <section id="sec-patients" style="display:none">
+        <div class="section-header">
+          <div class="section-title">All Patients</div>
+          <div class="search-bar">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="patientSearch" placeholder="Search by name, ID, phone…" oninput="searchPatients()"/>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Patient ID</th><th>Name</th><th>Gender</th><th>Phone</th><th>Registered</th><th>Action</th></tr></thead>
+              <tbody id="patientsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: Search ══ -->
+      <section id="sec-search" style="display:none">
+        <div class="section-title" style="margin-bottom:16px">Patient Search</div>
+        <div class="card" style="max-width:500px;margin-bottom:20px">
+          <div class="form-group" style="margin-bottom:0">
+            <div class="search-bar" style="max-width:100%">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="search" id="globalSearch" placeholder="Name, Patient ID or phone…" oninput="globalSearchPatients()"/>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Patient ID</th><th>Name</th><th>Phone</th><th>Gender</th><th>Registered</th><th></th></tr></thead>
+              <tbody id="searchResults"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Type to search…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: Patient Profile ══ -->
+      <section id="sec-profile" style="display:none">
+        <div class="section-header">
+          <button class="btn btn-ghost btn-sm" onclick="showSection('patients')">← Back to Patients</button>
+        </div>
+        <div style="display:grid;grid-template-columns:280px 1fr;gap:20px" id="profileGrid">
+          <div>
+            <div class="card" id="profileCard">Loading…</div>
+          </div>
+          <div>
+            <div class="tabs">
+              <button class="tab-btn active" onclick="switchTab(this,'tab-consult')">Consultation History</button>
+              <button class="tab-btn" onclick="switchTab(this,'tab-appts')">Appointments</button>
+              <button class="tab-btn" onclick="switchTab(this,'tab-docs')">Documents</button>
+            </div>
+            <div id="tab-consult" class="tab-panel active">
+              <div class="timeline" id="consultTimeline"></div>
+            </div>
+            <div id="tab-appts" class="tab-panel">
+              <div class="table-wrap">
+                <table><thead><tr><th>Date</th><th>Time</th><th>Type</th><th>Status</th><th>Fee</th></tr></thead>
+                <tbody id="profileAptsBody"></tbody></table>
+              </div>
+            </div>
+            <div id="tab-docs" class="tab-panel">
+              <div id="docsPanel" style="color:var(--muted);font-size:.82rem;padding:16px 0">No documents uploaded (mock mode).</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: New Consultation ══ -->
+      <section id="sec-consultation" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">New Consultation Note</div>
+        <div class="card" style="max-width:700px">
+          <form id="consultForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Patient ID *</label>
+                <input class="form-control" id="c_patientId" placeholder="PAT-0001" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Appointment ID (optional)</label>
+                <input class="form-control" id="c_appointmentId" placeholder="APT-0001"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Chief Complaint *</label>
+              <textarea class="form-control consult-textarea" id="c_complaint" placeholder="Presenting complaint…" required></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Diagnosis / Health Concerns</label>
+              <textarea class="form-control" id="c_diagnosis" placeholder="Diagnosis or working diagnosis…"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Prescription / Medicines &amp; Advice</label>
+              <textarea class="form-control consult-textarea" id="c_prescription" placeholder="Medicine name, potency, dosage, diet advice…"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">General Advice / Instructions</label>
+              <textarea class="form-control" id="c_advice" placeholder="Lifestyle, diet, activity instructions…"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Follow-up Date</label>
+                <input class="form-control" type="date" id="c_followup"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Doctor's Private Notes (not visible to patient)</label>
+              <textarea class="form-control" id="c_doctorNotes" placeholder="Internal observations, constitutional analysis…"></textarea>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:8px">
+              <button type="submit" class="btn btn-primary">Save Consultation</button>
+              <button type="reset" class="btn btn-ghost">Clear</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: Before/After Cases ══ -->
+      <section id="sec-beforeafter" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Before / After Case Images</div>
+        <div class="card" style="max-width:600px;margin-bottom:20px">
+          <div class="card-title">Add New Case</div>
+          <form id="baForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Patient ID *</label>
+                <input class="form-control" id="ba_pid" placeholder="PAT-0001" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Condition</label>
+                <input class="form-control" id="ba_condition" placeholder="e.g. Psoriasis"/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Before Image</label>
+                <input class="form-control" type="file" id="ba_before" accept="image/*"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">After Image</label>
+                <input class="form-control" type="file" id="ba_after" accept="image/*"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Notes</label>
+              <textarea class="form-control" id="ba_notes" placeholder="Treatment duration, outcome notes…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Case</button>
+          </form>
+        </div>
+        <div class="card">
+          <div class="card-title">Existing Cases</div>
+          <div id="casesList" style="color:var(--muted);font-size:.82rem">Loading…</div>
+        </div>
+      </section>
+
+      <!-- ══ SECTION: Audit Log ══ -->
+      <section id="sec-audit" style="display:none">
+        <div class="section-title" style="margin-bottom:16px">Audit Log</div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Timestamp</th><th>User</th><th>Role</th><th>Action</th><th>Resource</th><th>ID</th><th>IP</th></tr></thead>
+              <tbody id="auditBody"><tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /cms-body -->
+  </main>
+</div>
+
+<!-- Status Update Modal -->
+<div class="modal-overlay hidden" id="statusModal">
+  <div class="modal">
+    <div class="modal-title">Update Appointment Status <button class="modal-close" onclick="closeModal('statusModal')">✕</button></div>
+    <input type="hidden" id="modal_aptId"/>
+    <div class="form-group">
+      <label class="form-label">New Status</label>
+      <select class="form-control" id="modal_status">
+        <option>Scheduled</option>
+        <option>Checked-in</option>
+        <option>Waiting</option>
+        <option>Completed</option>
+        <option>Cancelled</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn btn-primary" onclick="updateStatus()">Update</button>
+      <button class="btn btn-ghost" onclick="closeModal('statusModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="../cms/js/api.js"></script>
+<script>
+const { apiFetch, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+let _user = null;
+let _allPatients = [];
+let _todayApts = [];
+let _currentPatientId = null;
+
+// ── Init ────────────────────────────────────────────────────────────────────
+(async () => {
+  _user = await getMe();
+  if (!_user || _user.role !== 'doctor') { window.location.href = '/sanjeevani-clinic/doctor/login.html'; return; }
+  document.getElementById('topbarUserName').textContent = _user.name;
+  document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  await loadDashboard();
+})();
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/sanjeevani-clinic/index.html'; });
+});
+
+// ── Section navigation ───────────────────────────────────────────────────────
+const sections = ['dashboard','today','patients','search','consultation','beforeafter','audit','profile'];
+function showSection(name) {
+  sections.forEach(s => {
+    const el = document.getElementById(`sec-${s}`);
+    if (el) el.style.display = s === name ? '' : 'none';
+  });
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.section === name));
+  document.getElementById('topbarTitle').textContent = {
+    dashboard:'Dashboard', today:"Today's Appointments", patients:'Patient List',
+    search:'Search Patient', consultation:'New Consultation', beforeafter:'Before / After Cases',
+    audit:'Audit Log', profile:'Patient Profile',
+  }[name] || name;
+  if (name === 'today') loadTodayApts();
+  if (name === 'patients') loadAllPatients();
+  if (name === 'audit') loadAuditLog();
+  if (name === 'beforeafter') loadBeforeAfter();
+}
+document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showSection(a.dataset.section); }));
+
+// ── Dashboard ────────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const [aptsData, patsData] = await Promise.all([
+      apiFetch('/appointments/today'),
+      apiFetch('/patients'),
+    ]);
+    _todayApts = aptsData.appointments;
+    _allPatients = patsData.patients;
+
+    document.getElementById('statToday').textContent = _todayApts.length;
+    document.getElementById('statPatients').textContent = _allPatients.length;
+    document.getElementById('statWaiting').textContent = _todayApts.filter(a => ['Waiting','Checked-in'].includes(a.status)).length;
+    document.getElementById('statCompleted').textContent = _todayApts.filter(a => a.status === 'Completed').length;
+
+    const tbody = document.getElementById('dashAptsBody');
+    if (!_todayApts.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:24px">No appointments today.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = _todayApts.slice(0,6).map(a => `
+      <tr>
+        <td class="apt-time">${fmtTime(a.time)}</td>
+        <td class="apt-patient">${a.patientName}<br><span class="apt-type">${a.patientId}</span></td>
+        <td><span class="tag">${a.type}</span></td>
+        <td>${statusBadge(a.status)}</td>
+        <td><button class="btn btn-ghost btn-sm" onclick="openPatientProfile('${a.patientId}')">View</button>
+            <button class="btn btn-ghost btn-sm" onclick="openStatusModal('${a.appointmentId}','${a.status}')">Status</button></td>
+      </tr>`).join('');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+// ── Today appointments ────────────────────────────────────────────────────────
+async function loadTodayApts() {
+  try {
+    const data = await apiFetch('/appointments/today');
+    _todayApts = data.appointments;
+    const label = document.getElementById('todayDateLabel');
+    if (label) label.textContent = fmtDate(data.date);
+    const tbody = document.getElementById('todayAptsBody');
+    if (!_todayApts.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">No appointments today.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = _todayApts.map(a => `
+      <tr>
+        <td>${fmtTime(a.time)}</td>
+        <td style="color:var(--accent3)">${a.patientId}</td>
+        <td>${a.patientName}</td>
+        <td><span class="tag">${a.type}</span></td>
+        <td>₹${a.fee} ${a.feePaid ? '<span class="badge badge-green">Paid</span>' : '<span class="badge badge-yellow">Pending</span>'}</td>
+        <td>${statusBadge(a.status)}</td>
+        <td style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="openPatientProfile('${a.patientId}')">Profile</button>
+          <button class="btn btn-primary btn-sm" onclick="prefillConsultation('${a.patientId}','${a.appointmentId}')">Consult</button>
+          <button class="btn btn-ghost btn-sm" onclick="openStatusModal('${a.appointmentId}','${a.status}')">Status</button>
+        </td>
+      </tr>`).join('');
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+// ── Patients ──────────────────────────────────────────────────────────────────
+async function loadAllPatients() {
+  try {
+    const data = await apiFetch('/patients');
+    _allPatients = data.patients;
+    renderPatientsTable(_allPatients);
+  } catch(e) { showToast(e.message,'error'); }
+}
+function renderPatientsTable(list) {
+  const tbody = document.getElementById('patientsBody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">No patients found.</td></tr>'; return; }
+  tbody.innerHTML = list.map(p => `
+    <tr>
+      <td style="color:var(--accent3)">${p.patientId}</td>
+      <td>${p.name}</td>
+      <td>${p.gender || '—'}</td>
+      <td>${p.phone}</td>
+      <td>${fmtDate(p.registeredOn)}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="openPatientProfile('${p.patientId}')">View Profile</button></td>
+    </tr>`).join('');
+}
+function searchPatients() {
+  const q = document.getElementById('patientSearch').value.toLowerCase();
+  renderPatientsTable(_allPatients.filter(p =>
+    p.name.toLowerCase().includes(q) || p.patientId.toLowerCase().includes(q) || p.phone.includes(q)
+  ));
+}
+function globalSearchPatients() {
+  const q = document.getElementById('globalSearch').value.toLowerCase();
+  const tbody = document.getElementById('searchResults');
+  if (!q) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Type to search…</td></tr>'; return; }
+  const results = _allPatients.filter(p =>
+    p.name.toLowerCase().includes(q) || p.patientId.toLowerCase().includes(q) || p.phone.includes(q)
+  );
+  if (!results.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">No results.</td></tr>'; return; }
+  tbody.innerHTML = results.map(p => `
+    <tr>
+      <td style="color:var(--accent3)">${p.patientId}</td>
+      <td>${p.name}</td>
+      <td>${p.phone}</td>
+      <td>${p.gender||'—'}</td>
+      <td>${fmtDate(p.registeredOn)}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="openPatientProfile('${p.patientId}')">View</button></td>
+    </tr>`).join('');
+}
+
+// ── Patient Profile ───────────────────────────────────────────────────────────
+async function openPatientProfile(pid) {
+  _currentPatientId = pid;
+  showSection('profile');
+  try {
+    const [patData, consData, aptData] = await Promise.all([
+      apiFetch(`/patients/${pid}`),
+      apiFetch(`/consultations?patientId=${pid}`),
+      apiFetch(`/appointments?patientId=${pid}`),
+    ]);
+    const p = patData.patient;
+    const initials = p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    document.getElementById('profileCard').innerHTML = `
+      <div class="profile-avatar">${initials}</div>
+      <div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:4px">${p.name}</div>
+      <div style="margin-bottom:16px"><span class="badge badge-blue">${p.patientId}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">DOB</span><span class="profile-detail-val">${fmtDate(p.dob)}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Gender</span><span class="profile-detail-val">${p.gender||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Phone</span><span class="profile-detail-val">${p.phone}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Email</span><span class="profile-detail-val">${p.email||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Blood Group</span><span class="profile-detail-val">${p.bloodGroup||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Allergies</span><span class="profile-detail-val">${p.allergies||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Address</span><span class="profile-detail-val">${p.address||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Registered</span><span class="profile-detail-val">${fmtDate(p.registeredOn)}</span></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px" onclick="prefillConsultation('${p.patientId}','')">+ New Consultation</button>
+    `;
+
+    // Consultations timeline
+    const timeline = document.getElementById('consultTimeline');
+    if (!consData.consultations.length) {
+      timeline.innerHTML = '<div style="color:var(--muted);font-size:.82rem;padding:12px 0">No consultations recorded yet.</div>';
+    } else {
+      timeline.innerHTML = consData.consultations.map(c => `
+        <div class="timeline-item">
+          <div class="timeline-date">${fmtDate(c.date)}</div>
+          <div class="timeline-title">${c.chiefComplaint}</div>
+          <div class="timeline-body">
+            ${c.diagnosis ? `<strong>Diagnosis:</strong> ${c.diagnosis}<br>` : ''}
+            ${c.prescription ? `<strong>Prescription:</strong> ${c.prescription}<br>` : ''}
+            ${c.advice ? `<strong>Advice:</strong> ${c.advice}<br>` : ''}
+            ${c.followUpDate ? `<strong>Follow-up:</strong> ${fmtDate(c.followUpDate)}<br>` : ''}
+            ${c.doctorNotes ? `<div style="margin-top:6px;padding:8px;background:rgba(39,201,122,.05);border-radius:6px;font-style:italic"><strong>Doctor Notes:</strong> ${c.doctorNotes}</div>` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+    // Appointments tab
+    const aptsTbody = document.getElementById('profileAptsBody');
+    aptsTbody.innerHTML = aptData.appointments.length
+      ? aptData.appointments.map(a => `<tr><td>${fmtDate(a.date)}</td><td>${fmtTime(a.time)}</td><td>${a.type}</td><td>${statusBadge(a.status)}</td><td>₹${a.fee}</td></tr>`).join('')
+      : '<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:16px">No appointments.</td></tr>';
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+// ── Consultation form ─────────────────────────────────────────────────────────
+function prefillConsultation(pid, aptId) {
+  showSection('consultation');
+  document.getElementById('c_patientId').value = pid || '';
+  document.getElementById('c_appointmentId').value = aptId || '';
+}
+document.getElementById('consultForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    await apiFetch('/consultations', {
+      method: 'POST',
+      body: {
+        patientId: document.getElementById('c_patientId').value,
+        appointmentId: document.getElementById('c_appointmentId').value,
+        chiefComplaint: document.getElementById('c_complaint').value,
+        diagnosis: document.getElementById('c_diagnosis').value,
+        prescription: document.getElementById('c_prescription').value,
+        advice: document.getElementById('c_advice').value,
+        followUpDate: document.getElementById('c_followup').value,
+        doctorNotes: document.getElementById('c_doctorNotes').value,
+      },
+    });
+    showToast('Consultation saved successfully.');
+    document.getElementById('consultForm').reset();
+    await loadDashboard();
+  } catch(e) { showToast(e.message,'error'); }
+});
+
+// ── Before / After ────────────────────────────────────────────────────────────
+async function loadBeforeAfter() {
+  const div = document.getElementById('casesList');
+  div.innerHTML = '<div style="color:var(--muted);font-size:.82rem">Before/After case images are stored in Google Drive in production. In mock mode, no images are stored.</div>';
+}
+document.getElementById('baForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  showToast('Case saved (mock mode — no file storage).');
+  document.getElementById('baForm').reset();
+});
+
+// ── Status modal ──────────────────────────────────────────────────────────────
+function openStatusModal(aptId, currentStatus) {
+  document.getElementById('modal_aptId').value = aptId;
+  document.getElementById('modal_status').value = currentStatus;
+  document.getElementById('statusModal').classList.remove('hidden');
+}
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+async function updateStatus() {
+  const aptId = document.getElementById('modal_aptId').value;
+  const status = document.getElementById('modal_status').value;
+  try {
+    await apiFetch(`/appointments/${aptId}`, { method: 'PUT', body: { status } });
+    showToast('Status updated.');
+    closeModal('statusModal');
+    await loadDashboard();
+    if (document.getElementById('sec-today').style.display !== 'none') loadTodayApts();
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+// ── Audit log ─────────────────────────────────────────────────────────────────
+async function loadAuditLog() {
+  try {
+    const data = await apiFetch('/audit');
+    const tbody = document.getElementById('auditBody');
+    if (!data.log.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">No audit entries yet.</td></tr>'; return; }
+    tbody.innerHTML = data.log.map(l => `
+      <tr>
+        <td style="font-size:.72rem">${new Date(l.timestamp).toLocaleString('en-IN')}</td>
+        <td>${l.userId}</td>
+        <td><span class="badge badge-grey">${l.userRole}</span></td>
+        <td style="color:var(--accent3)">${l.action}</td>
+        <td>${l.resource}</td>
+        <td style="color:var(--muted)">${l.resourceId||'—'}</td>
+        <td style="font-size:.72rem;color:var(--muted)">${l.ip||'—'}</td>
+      </tr>`).join('');
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────────
+function switchTab(btn, panelId) {
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  btn.closest('.cms-body').querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+}
+</script>
+</body>
+</html>

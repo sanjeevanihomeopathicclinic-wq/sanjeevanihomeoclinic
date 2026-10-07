@@ -1,0 +1,12 @@
+node_modules/
+backend/node_modules/
+.env
+backend/.env
+backend/secrets/
+*.pem
+*.p12
+service-account*.json
+dist/
+.cache/
+*.log
+npm-debug.log*

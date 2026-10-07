@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>My Health Portal – Sanjeevani Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../cms/css/dashboard.css"/>
+  <style>
+    .tag{display:inline-block;background:rgba(39,201,122,.1);border:1px solid rgba(39,201,122,.2);border-radius:6px;padding:2px 8px;font-size:.7rem;color:var(--accent3);margin:2px}
+    .mob-menu-btn{display:none;background:none;border:none;color:#fff;padding:6px}
+    .info-note{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:12px 16px;font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.65;margin-bottom:16px}
+    @media(max-width:900px){.mob-menu-btn{display:block}}
+  </style>
+</head>
+<body>
+<div class="cms-layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-name">Sanjeevani Clinic</div>
+      <div class="sidebar-logo-sub">My Health Portal</div>
+    </div>
+    <div class="sidebar-role" id="sidebarName">Patient</div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">My Health</div>
+        <a href="#" class="nav-link active" data-section="home">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Home
+        </a>
+        <a href="#" class="nav-link" data-section="profile">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          My Profile
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Appointments</div>
+        <a href="#" class="nav-link" data-section="book">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Book Appointment
+        </a>
+        <a href="#" class="nav-link" data-section="appointments">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          My Appointments
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Health Records</div>
+        <a href="#" class="nav-link" data-section="consultations">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Consultations
+        </a>
+        <a href="#" class="nav-link" data-section="prescriptions">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Prescriptions &amp; Advice
+        </a>
+        <a href="#" class="nav-link" data-section="documents">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Documents
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Help</div>
+        <a href="#" class="nav-link" data-section="contact">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+          Contact Clinic
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="cms-main">
+    <div class="cms-topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="mob-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="topbar-title" id="topbarTitle">Home</span>
+      </div>
+      <div class="topbar-user">
+        <span class="topbar-user-name" id="topbarUserName">Patient</span>
+        <div class="topbar-avatar" id="topbarAvatar">P</div>
+      </div>
+    </div>
+
+    <div class="cms-body">
+
+      <!-- ══ Home ══ -->
+      <section id="sec-home">
+        <div style="margin-bottom:24px">
+          <div style="font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:4px">Welcome back, <span id="welcomeName">Patient</span> 👋</div>
+          <div style="font-size:.85rem;color:var(--muted)">Your health portal at Sanjeevani Multispeciality Homeopathic Clinic</div>
+        </div>
+
+        <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card">
+            <div class="stat-label">Upcoming</div>
+            <div class="stat-val" id="statUpcoming">—</div>
+            <div class="stat-sub">Appointments</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Consultations</div>
+            <div class="stat-val" id="statConsults">—</div>
+            <div class="stat-sub">Total visits</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Next Follow-up</div>
+            <div class="stat-val" id="statFollowup" style="font-size:1rem">—</div>
+            <div class="stat-sub">Recommended date</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          </div>
+        </div>
+
+        <!-- Next appointment card -->
+        <div class="card" id="nextApptCard" style="margin-bottom:16px;display:none">
+          <div class="card-title">Next Appointment</div>
+          <div id="nextApptContent"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-header">
+            <div class="card-title">Recent Consultations</div>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('consultations')">View All</button>
+          </div>
+          <div id="recentConsults" style="color:var(--muted);font-size:.82rem">Loading…</div>
+        </div>
+      </section>
+
+      <!-- ══ Profile ══ -->
+      <section id="sec-profile" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">My Profile</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:700px">
+          <div class="card" id="profileInfoCard">Loading…</div>
+          <div class="card">
+            <div class="card-title">Update Details</div>
+            <form id="updateProfileForm">
+              <input type="hidden" id="up_pid"/>
+              <div class="form-group"><label class="form-label">Phone</label><input class="form-control" id="up_phone"/></div>
+              <div class="form-group"><label class="form-label">Email</label><input class="form-control" id="up_email" type="email"/></div>
+              <div class="form-group"><label class="form-label">Address</label><textarea class="form-control" id="up_address"></textarea></div>
+              <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ Book Appointment ══ -->
+      <section id="sec-book" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Book an Appointment</div>
+        <div class="info-note">
+          To book an appointment, please call us at <strong>9912322251</strong> or <strong>08724-222977</strong>, or submit your preferred time below and our reception team will confirm it with you.
+        </div>
+        <div class="card" style="max-width:520px">
+          <form id="bookForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Preferred Date *</label>
+                <input class="form-control" type="date" id="b_date" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Preferred Time</label>
+                <select class="form-control" id="b_time">
+                  <option value="09:00">9:00 AM</option>
+                  <option value="09:30">9:30 AM</option>
+                  <option value="10:00">10:00 AM</option>
+                  <option value="10:30">10:30 AM</option>
+                  <option value="11:00">11:00 AM</option>
+                  <option value="11:30">11:30 AM</option>
+                  <option value="12:00">12:00 PM</option>
+                  <option value="16:00">4:00 PM</option>
+                  <option value="16:30">4:30 PM</option>
+                  <option value="17:00">5:00 PM</option>
+                  <option value="17:30">5:30 PM</option>
+                  <option value="18:00">6:00 PM</option>
+                  <option value="18:30">6:30 PM</option>
+                  <option value="19:00">7:00 PM</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Type</label>
+              <select class="form-control" id="b_type">
+                <option>New Consultation</option>
+                <option>Follow-up</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Brief Reason / Chief Complaint</label>
+              <textarea class="form-control" id="b_notes" placeholder="What brings you in? (optional)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Request Appointment</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══ My Appointments ══ -->
+      <section id="sec-appointments" style="display:none">
+        <div class="section-header">
+          <div class="section-title">My Appointments</div>
+          <button class="btn btn-primary btn-sm" onclick="showSection('book')">+ Book New</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Time</th><th>Type</th><th>Status</th><th>Fee</th><th></th></tr></thead>
+              <tbody id="aptsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ Consultations ══ -->
+      <section id="sec-consultations" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Consultation History</div>
+        <div class="info-note">Your consultation summaries are shared by Dr. T. Srinivas. Private doctor notes are not included.</div>
+        <div id="consultsList"></div>
+      </section>
+
+      <!-- ══ Prescriptions ══ -->
+      <section id="sec-prescriptions" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Prescriptions &amp; Advice</div>
+        <div id="prescriptionsList"></div>
+      </section>
+
+      <!-- ══ Documents ══ -->
+      <section id="sec-documents" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">My Documents</div>
+        <div class="info-note">Upload documents or images to share with the clinic (e.g. test reports, photographs). Maximum file size: 10 MB.</div>
+        <div class="card" style="max-width:480px;margin-bottom:16px">
+          <div class="card-title">Upload Document</div>
+          <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="form-label">Select File (PDF, JPG, PNG, WebP)</label>
+              <input class="form-control" type="file" id="doc_file" accept=".pdf,.jpg,.jpeg,.png,.webp" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description (optional)</label>
+              <input class="form-control" id="doc_desc" placeholder="e.g. Blood test report – June 2025"/>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+          </form>
+        </div>
+        <div class="card">
+          <div class="card-title">Uploaded Documents</div>
+          <div id="docsList" style="color:var(--muted);font-size:.82rem">No documents uploaded yet (mock mode).</div>
+        </div>
+      </section>
+
+      <!-- ══ Contact ══ -->
+      <section id="sec-contact" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Contact the Clinic</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:600px">
+          <div class="card">
+            <div class="card-title">Call Us</div>
+            <div style="margin-bottom:12px">
+              <div style="font-size:.82rem;color:var(--muted);margin-bottom:4px">Mobile</div>
+              <a href="tel:+919912322251" class="btn btn-primary" style="width:100%;justify-content:center">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+                9912322251
+              </a>
+            </div>
+            <div>
+              <div style="font-size:.82rem;color:var(--muted);margin-bottom:4px">Clinic Landline</div>
+              <a href="tel:+9108724222977" class="btn btn-ghost" style="width:100%;justify-content:center">08724-222977</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Clinic Hours</div>
+            <div style="font-size:.82rem;line-height:2;color:rgba(255,255,255,.65)">
+              <div>Mon – Sat: 9:00 AM – 1:00 PM</div>
+              <div>Mon – Sat: 4:00 PM – 8:00 PM</div>
+              <div style="color:var(--danger)">Sunday: Closed</div>
+            </div>
+          </div>
+          <div class="card" style="grid-column:1/-1">
+            <div class="card-title">Visit Us</div>
+            <div style="font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.75">
+              Sanjeevani Multispeciality Homeopathic Clinic<br>
+              Jagtial, Telangana, India
+            </div>
+            <a href="https://maps.google.com/?q=Jagtial+Telangana" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="margin-top:12px">Open in Maps</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Cancel Appointment Modal -->
+<div class="modal-overlay hidden" id="cancelModal">
+  <div class="modal">
+    <div class="modal-title">Cancel Appointment <button class="modal-close" onclick="closeModal('cancelModal')">✕</button></div>
+    <input type="hidden" id="cancel_aptId"/>
+    <p style="font-size:.85rem;color:rgba(255,255,255,.6);margin-bottom:16px">Are you sure you want to cancel this appointment? Please contact us to reschedule.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-danger" onclick="confirmCancel()">Yes, Cancel</button>
+      <button class="btn btn-ghost" onclick="closeModal('cancelModal')">Keep It</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="../cms/js/api.js"></script>
+<script>
+const { apiFetch, getMe, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+let _user = null;
+
+(async () => {
+  _user = await getMe();
+  if (!_user || _user.role !== 'patient') { window.location.href = '/sanjeevani-clinic/patient/login.html'; return; }
+  const firstName = _user.name.split(' ')[0];
+  document.getElementById('topbarUserName').textContent = _user.name;
+  document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('welcomeName').textContent = firstName;
+  document.getElementById('sidebarName').textContent = _user.name;
+
+  // Set min date for booking
+  const dateEl = document.getElementById('b_date');
+  if (dateEl) { const t = new Date(); t.setDate(t.getDate()+1); dateEl.min = t.toISOString().split('T')[0]; }
+
+  await loadHome();
+})();
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/sanjeevani-clinic/index.html'; });
+});
+
+const sections = ['home','profile','book','appointments','consultations','prescriptions','documents','contact'];
+function showSection(name) {
+  sections.forEach(s => {
+    const el = document.getElementById(`sec-${s}`);
+    if (el) el.style.display = s === name ? '' : 'none';
+  });
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.section === name));
+  document.getElementById('topbarTitle').textContent = {
+    home:'Home', profile:'My Profile', book:'Book Appointment',
+    appointments:'My Appointments', consultations:'Consultations',
+    prescriptions:'Prescriptions & Advice', documents:'Documents', contact:'Contact Clinic',
+  }[name] || name;
+  if (name === 'appointments') loadAppointments();
+  if (name === 'consultations') loadConsultations();
+  if (name === 'prescriptions') loadPrescriptions();
+  if (name === 'profile') loadProfile();
+}
+document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showSection(a.dataset.section); }));
+
+async function loadHome() {
+  try {
+    const [aptsData, consData] = await Promise.all([
+      apiFetch('/appointments'),
+      apiFetch('/consultations'),
+    ]);
+    const apts = aptsData.appointments;
+    const cons = consData.consultations;
+    const upcoming = apts.filter(a => a.date >= new Date().toISOString().split('T')[0] && a.status !== 'Cancelled');
+    document.getElementById('statUpcoming').textContent = upcoming.length;
+    document.getElementById('statConsults').textContent = cons.length;
+
+    // Follow-up date from latest consultation
+    const latestCon = cons[0];
+    document.getElementById('statFollowup').textContent = latestCon?.followUpDate ? fmtDate(latestCon.followUpDate) : '—';
+
+    // Next appointment
+    const next = upcoming[0];
+    if (next) {
+      document.getElementById('nextApptCard').style.display = '';
+      document.getElementById('nextApptContent').innerHTML = `
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div>
+            <div style="font-size:1.1rem;font-weight:800;color:#fff">${fmtDate(next.date)}</div>
+            <div style="color:var(--accent);font-size:.88rem;font-weight:700">${fmtTime(next.time)}</div>
+          </div>
+          <div>
+            <span class="tag">${next.type}</span> ${statusBadge(next.status)}
+          </div>
+          ${next.notes ? `<div style="font-size:.8rem;color:var(--muted)">${next.notes}</div>` : ''}
+          <button class="btn btn-danger btn-sm" onclick="openCancelModal('${next.appointmentId}')">Cancel</button>
+        </div>`;
+    }
+
+    // Recent consultations
+    const recentEl = document.getElementById('recentConsults');
+    if (!cons.length) { recentEl.innerHTML = '<div style="color:var(--muted)">No consultations recorded yet.</div>'; return; }
+    recentEl.innerHTML = `<div class="timeline">${cons.slice(0,3).map(c => `
+      <div class="timeline-item">
+        <div class="timeline-date">${fmtDate(c.date)}</div>
+        <div class="timeline-title">${c.chiefComplaint}</div>
+        <div class="timeline-body">${c.advice || c.diagnosis || ''}</div>
+      </div>`).join('')}</div>`;
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+async function loadAppointments() {
+  try {
+    const data = await apiFetch('/appointments');
+    const tbody = document.getElementById('aptsBody');
+    tbody.innerHTML = data.appointments.length
+      ? data.appointments.map(a => `
+          <tr>
+            <td>${fmtDate(a.date)}</td>
+            <td>${fmtTime(a.time)}</td>
+            <td><span class="tag">${a.type}</span></td>
+            <td>${statusBadge(a.status)}</td>
+            <td>₹${a.fee} ${a.feePaid ? '<span class="badge badge-green">Paid</span>' : '<span class="badge badge-yellow">Pending</span>'}</td>
+            <td>${a.status === 'Scheduled' ? `<button class="btn btn-danger btn-sm" onclick="openCancelModal('${a.appointmentId}')">Cancel</button>` : ''}</td>
+          </tr>`).join('')
+      : '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">No appointments yet.</td></tr>';
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+async function loadConsultations() {
+  try {
+    const data = await apiFetch('/consultations');
+    const div = document.getElementById('consultsList');
+    if (!data.consultations.length) { div.innerHTML = '<div style="color:var(--muted)">No consultations recorded yet.</div>'; return; }
+    div.innerHTML = data.consultations.map(c => `
+      <div class="card" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+          <div>
+            <div style="font-size:.88rem;font-weight:800;color:#fff">${c.chiefComplaint}</div>
+            <div style="font-size:.75rem;color:var(--muted)">${fmtDate(c.date)}</div>
+          </div>
+          ${c.followUpDate ? `<span class="badge badge-blue">Follow-up: ${fmtDate(c.followUpDate)}</span>` : ''}
+        </div>
+        ${c.diagnosis ? `<div style="margin-bottom:8px"><span style="font-size:.72rem;font-weight:700;color:var(--muted)">DIAGNOSIS</span><div style="font-size:.82rem;margin-top:2px">${c.diagnosis}</div></div>` : ''}
+        ${c.advice ? `<div><span style="font-size:.72rem;font-weight:700;color:var(--muted)">ADVICE</span><div style="font-size:.82rem;margin-top:2px">${c.advice}</div></div>` : ''}
+      </div>`).join('');
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+async function loadPrescriptions() {
+  try {
+    const data = await apiFetch('/consultations');
+    const div = document.getElementById('prescriptionsList');
+    const withPrescriptions = data.consultations.filter(c => c.prescription);
+    if (!withPrescriptions.length) { div.innerHTML = '<div style="color:var(--muted)">No prescriptions recorded yet.</div>'; return; }
+    div.innerHTML = withPrescriptions.map(c => `
+      <div class="card" style="margin-bottom:12px">
+        <div style="font-size:.88rem;font-weight:800;color:#fff;margin-bottom:4px">${c.chiefComplaint}</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:10px">${fmtDate(c.date)}</div>
+        <div style="background:rgba(39,201,122,.05);border:1px solid rgba(39,201,122,.1);border-radius:8px;padding:12px;font-size:.82rem;white-space:pre-wrap;color:rgba(255,255,255,.75)">${c.prescription}</div>
+        ${c.followUpDate ? `<div style="margin-top:10px;font-size:.78rem;color:var(--accent3)">📅 Follow-up recommended: ${fmtDate(c.followUpDate)}</div>` : ''}
+      </div>`).join('');
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+async function loadProfile() {
+  try {
+    const data = await apiFetch(`/patients/${_user.patientId}`);
+    const p = data.patient;
+    document.getElementById('up_pid').value = p.patientId;
+    document.getElementById('up_phone').value = p.phone || '';
+    document.getElementById('up_email').value = p.email || '';
+    document.getElementById('up_address').value = p.address || '';
+
+    const initials = p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    document.getElementById('profileInfoCard').innerHTML = `
+      <div class="profile-avatar">${initials}</div>
+      <div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:2px">${p.name}</div>
+      <div style="margin-bottom:14px"><span class="badge badge-blue">${p.patientId}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">DOB</span><span class="profile-detail-val">${fmtDate(p.dob)}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Gender</span><span class="profile-detail-val">${p.gender||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Blood Group</span><span class="profile-detail-val">${p.bloodGroup||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Allergies</span><span class="profile-detail-val">${p.allergies||'—'}</span></div>
+      <div class="profile-detail-row"><span class="profile-detail-label">Registered</span><span class="profile-detail-val">${fmtDate(p.registeredOn)}</span></div>`;
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+document.getElementById('updateProfileForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const pid = document.getElementById('up_pid').value;
+    await apiFetch(`/patients/${pid}`, {
+      method: 'PUT',
+      body: {
+        phone: document.getElementById('up_phone').value,
+        email: document.getElementById('up_email').value,
+        address: document.getElementById('up_address').value,
+      },
+    });
+    showToast('Profile updated.');
+  } catch(ex) { showToast(ex.message,'error'); }
+});
+
+document.getElementById('bookForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    await apiFetch('/appointments', {
+      method: 'POST',
+      body: {
+        date: document.getElementById('b_date').value,
+        time: document.getElementById('b_time').value,
+        type: document.getElementById('b_type').value,
+        notes: document.getElementById('b_notes').value,
+      },
+    });
+    showToast('Appointment requested! We will confirm with you shortly.');
+    document.getElementById('bookForm').reset();
+    showSection('appointments');
+    await loadAppointments();
+  } catch(e) { showToast(e.message,'error'); }
+});
+
+document.getElementById('uploadForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const file = document.getElementById('doc_file').files[0];
+  if (!file) return;
+  try {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('patientId', _user.patientId);
+    fd.append('folder', 'patient-docs');
+    fd.append('description', document.getElementById('doc_desc').value);
+    await fetch(`${window.SANJEEVANI_API_BASE || '/api'}/drive/upload`, { method: 'POST', credentials: 'include', body: fd });
+    showToast('Document uploaded successfully.');
+    document.getElementById('uploadForm').reset();
+  } catch(e) { showToast('Upload failed: ' + e.message,'error'); }
+});
+
+// Cancel
+function openCancelModal(aptId) { document.getElementById('cancel_aptId').value = aptId; document.getElementById('cancelModal').classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+async function confirmCancel() {
+  const aptId = document.getElementById('cancel_aptId').value;
+  try {
+    await apiFetch(`/appointments/${aptId}`, { method: 'PUT', body: { status: 'Cancelled' } });
+    showToast('Appointment cancelled.');
+    closeModal('cancelModal');
+    await loadHome();
+    await loadAppointments();
+  } catch(e) { showToast(e.message,'error'); }
+}
+</script>
+</body>
+</html>

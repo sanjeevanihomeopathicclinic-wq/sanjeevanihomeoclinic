@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Reception Dashboard – Sanjeevani Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../cms/css/dashboard.css"/>
+  <style>
+    .tag{display:inline-block;background:rgba(39,201,122,.1);border:1px solid rgba(39,201,122,.2);border-radius:6px;padding:2px 8px;font-size:.7rem;color:var(--accent3);margin:2px}
+    .mob-menu-btn{display:none;background:none;border:none;color:#fff;padding:6px}
+    @media(max-width:900px){.mob-menu-btn{display:block}}
+    .availability-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+    .dot-green{background:var(--accent)}.dot-red{background:var(--danger)}.dot-yellow{background:var(--warning)}
+    .print-area{display:none}
+    @media print{.print-area{display:block}.cms-layout{display:block}.sidebar,.cms-topbar{display:none!important}.cms-main{margin:0}}
+  </style>
+</head>
+<body>
+<div class="cms-layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-name">Sanjeevani Clinic</div>
+      <div class="sidebar-logo-sub">Multispeciality Homeopathy</div>
+    </div>
+    <div class="sidebar-role">Reception Portal</div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">Overview</div>
+        <a href="#" class="nav-link active" data-section="dashboard">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-link" data-section="today">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Today's Appointments
+        </a>
+        <a href="#" class="nav-link" data-section="calendar">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
+          Appointment Calendar
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Patients</div>
+        <a href="#" class="nav-link" data-section="newappt">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Appointment
+        </a>
+        <a href="#" class="nav-link" data-section="register">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          Register Patient
+        </a>
+        <a href="#" class="nav-link" data-section="patients">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Patient List
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Finance</div>
+        <a href="#" class="nav-link" data-section="payments">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Payments
+        </a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="cms-main">
+    <div class="cms-topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="mob-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="topbar-title" id="topbarTitle">Dashboard</span>
+      </div>
+      <div class="topbar-user">
+        <span class="topbar-user-name" id="topbarUserName">Receptionist</span>
+        <div class="topbar-avatar">RC</div>
+      </div>
+    </div>
+
+    <div class="cms-body">
+
+      <!-- ══ Dashboard ══ -->
+      <section id="sec-dashboard">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Today's Appointments</div>
+            <div class="stat-val" id="statToday">—</div>
+            <div class="stat-sub">Scheduled today</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Waiting</div>
+            <div class="stat-val" id="statWaiting">—</div>
+            <div class="stat-sub">In waiting room</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Fee Pending</div>
+            <div class="stat-val" id="statPending">—</div>
+            <div class="stat-sub">Unpaid today</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Patients</div>
+            <div class="stat-val" id="statPatients">—</div>
+            <div class="stat-sub">Registered</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          </div>
+        </div>
+
+        <!-- Doctor availability -->
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;margin-bottom:16px">
+          <div class="card">
+            <div class="section-header">
+              <div class="card-title">Today's Schedule</div>
+              <button class="btn btn-primary btn-sm" onclick="showSection('newappt')">+ New Appointment</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Time</th><th>Patient</th><th>Type</th><th>Status</th><th>Fee</th><th></th></tr></thead>
+                <tbody id="dashAptsBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Doctor Availability</div>
+            <div style="display:flex;align-items:center;gap:10px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+              <div class="topbar-avatar" style="width:42px;height:42px;font-size:.8rem">DS</div>
+              <div>
+                <div style="font-weight:700;color:#fff;font-size:.88rem">Dr. T. Srinivas</div>
+                <div style="font-size:.72rem;color:var(--muted)">MD (Homeopathy) · Gold Medalist</div>
+              </div>
+            </div>
+            <div style="padding:14px 0;font-size:.82rem;color:rgba(255,255,255,.6)">
+              <div style="margin-bottom:8px"><span class="availability-dot dot-green"></span>Mon – Sat: 9:00 AM – 1:00 PM</div>
+              <div style="margin-bottom:8px"><span class="availability-dot dot-green"></span>Mon – Sat: 4:00 PM – 8:00 PM</div>
+              <div><span class="availability-dot dot-red"></span>Sunday: Closed</div>
+            </div>
+            <div style="margin-top:12px">
+              <a href="tel:+919912322251" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.85 2a2 2 0 012.11 2v3a2 2 0 01-1.4 1.92z"/></svg>
+                9912322251
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ Today Appointments ══ -->
+      <section id="sec-today" style="display:none">
+        <div class="section-header">
+          <div class="section-title">Today's Appointments</div>
+          <button class="btn btn-primary btn-sm" onclick="showSection('newappt')">+ New Appointment</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Time</th><th>Patient ID</th><th>Patient</th><th>Type</th><th>Status</th><th>Fee</th><th>Actions</th></tr></thead>
+              <tbody id="todayAptsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ Calendar ══ -->
+      <section id="sec-calendar" style="display:none">
+        <div class="section-header">
+          <div class="section-title">Appointment Calendar</div>
+          <input type="date" class="form-control" id="calDate" style="max-width:180px" onchange="loadCalendar()"/>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Time</th><th>Patient ID</th><th>Patient</th><th>Type</th><th>Status</th><th>Fee</th><th></th></tr></thead>
+              <tbody id="calBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ New Appointment ══ -->
+      <section id="sec-newappt" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">New Appointment</div>
+        <div class="card" style="max-width:560px">
+          <form id="apptForm">
+            <div class="form-group">
+              <label class="form-label">Patient ID or Name *</label>
+              <input class="form-control" id="a_pid" placeholder="PAT-0001 or search…" required oninput="patientLookup()"/>
+              <div id="a_patientHint" style="font-size:.75rem;color:var(--accent3);margin-top:4px"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Date *</label>
+                <input class="form-control" type="date" id="a_date" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Time *</label>
+                <input class="form-control" type="time" id="a_time" required/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Appointment Type</label>
+                <select class="form-control" id="a_type">
+                  <option>New Consultation</option>
+                  <option>Follow-up</option>
+                  <option>Emergency</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Consultation Fee (₹)</label>
+                <input class="form-control" type="number" id="a_fee" value="500"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Notes / Reason</label>
+              <textarea class="form-control" id="a_notes" placeholder="Chief complaint or reason for visit…"></textarea>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:6px">
+              <button type="submit" class="btn btn-primary">Book Appointment</button>
+              <button type="reset" class="btn btn-ghost">Clear</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══ Register Patient ══ -->
+      <section id="sec-register" style="display:none">
+        <div class="section-title" style="margin-bottom:20px">Register New Patient</div>
+        <div class="card" style="max-width:600px">
+          <form id="registerForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name *</label>
+                <input class="form-control" id="r_name" placeholder="Patient full name" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input class="form-control" type="date" id="r_dob"/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Gender</label>
+                <select class="form-control" id="r_gender">
+                  <option value="">Select</option>
+                  <option>Male</option><option>Female</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone *</label>
+                <input class="form-control" id="r_phone" placeholder="10-digit mobile" required/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-control" type="email" id="r_email" placeholder="Optional"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Blood Group</label>
+                <select class="form-control" id="r_blood">
+                  <option value="">Unknown</option>
+                  <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                  <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <textarea class="form-control" id="r_address" placeholder="Full address…"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Known Allergies</label>
+              <input class="form-control" id="r_allergies" placeholder="None / list known allergies"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Register Patient</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══ Patient List ══ -->
+      <section id="sec-patients" style="display:none">
+        <div class="section-header">
+          <div class="section-title">Patient List</div>
+          <div class="search-bar">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="recepSearch" placeholder="Name, ID, phone…" oninput="searchPatients()"/>
+          </div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Patient ID</th><th>Name</th><th>Phone</th><th>Gender</th><th>Registered</th><th>Actions</th></tr></thead>
+              <tbody id="recepPatientsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ Edit Patient Modal inline ══ -->
+      <section id="sec-editpatient" style="display:none">
+        <div class="section-header">
+          <button class="btn btn-ghost btn-sm" onclick="showSection('patients')">← Back</button>
+        </div>
+        <div class="card" style="max-width:600px">
+          <div class="section-title" style="margin-bottom:16px">Edit Patient Details</div>
+          <form id="editPatientForm">
+            <input type="hidden" id="ep_id"/>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Full Name</label><input class="form-control" id="ep_name"/></div>
+              <div class="form-group"><label class="form-label">Phone</label><input class="form-control" id="ep_phone"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Email</label><input class="form-control" id="ep_email"/></div>
+              <div class="form-group"><label class="form-label">Blood Group</label><input class="form-control" id="ep_blood"/></div>
+            </div>
+            <div class="form-group"><label class="form-label">Address</label><textarea class="form-control" id="ep_address"></textarea></div>
+            <div class="form-group"><label class="form-label">Allergies</label><input class="form-control" id="ep_allergies"/></div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══ Payments ══ -->
+      <section id="sec-payments" style="display:none">
+        <div class="section-header">
+          <div class="section-title">Payment / Fee Records</div>
+          <button class="btn btn-primary btn-sm" onclick="openPaymentModal()">+ Record Payment</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Payment ID</th><th>Patient ID</th><th>Appointment</th><th>Amount</th><th>Mode</th><th>Date</th><th>Status</th></tr></thead>
+              <tbody id="paymentsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal-overlay hidden" id="paymentModal">
+  <div class="modal">
+    <div class="modal-title">Record Payment <button class="modal-close" onclick="closeModal('paymentModal')">✕</button></div>
+    <div class="form-group">
+      <label class="form-label">Appointment ID *</label>
+      <input class="form-control" id="pay_aptId" placeholder="APT-0001"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Patient ID</label>
+      <input class="form-control" id="pay_patId" placeholder="PAT-0001"/>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Amount (₹) *</label>
+        <input class="form-control" type="number" id="pay_amount" placeholder="500"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Payment Mode</label>
+        <select class="form-control" id="pay_mode">
+          <option>Cash</option><option>UPI</option><option>Card</option><option>Online</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn btn-primary" onclick="recordPayment()">Save Payment</button>
+      <button class="btn btn-ghost" onclick="closeModal('paymentModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Status Update Modal -->
+<div class="modal-overlay hidden" id="statusModal">
+  <div class="modal">
+    <div class="modal-title">Update Status <button class="modal-close" onclick="closeModal('statusModal')">✕</button></div>
+    <input type="hidden" id="modal_aptId"/>
+    <div class="form-group">
+      <label class="form-label">Status</label>
+      <select class="form-control" id="modal_status">
+        <option>Scheduled</option><option>Checked-in</option><option>Waiting</option><option>Completed</option><option>Cancelled</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn btn-primary" onclick="updateStatus()">Update</button>
+      <button class="btn btn-ghost" onclick="closeModal('statusModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="../cms/js/api.js"></script>
+<script>
+const { apiFetch, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+let _allPatients = [];
+
+(async () => {
+  const user = await getMe();
+  if (!user || user.role !== 'receptionist') { window.location.href = '/sanjeevani-clinic/reception/login.html'; return; }
+  document.getElementById('topbarUserName').textContent = user.name;
+  // Set today's date on calendar
+  document.getElementById('calDate').value = new Date().toISOString().split('T')[0];
+  await loadDashboard();
+  await loadAllPatients();
+})();
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/sanjeevani-clinic/index.html'; });
+});
+
+const sections = ['dashboard','today','calendar','newappt','register','patients','editpatient','payments'];
+function showSection(name) {
+  sections.forEach(s => {
+    const el = document.getElementById(`sec-${s}`);
+    if (el) el.style.display = s === name ? '' : 'none';
+  });
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.section === name));
+  document.getElementById('topbarTitle').textContent = {
+    dashboard:'Dashboard', today:"Today's Appointments", calendar:'Appointment Calendar',
+    newappt:'New Appointment', register:'Register Patient', patients:'Patient List',
+    editpatient:'Edit Patient', payments:'Payments',
+  }[name] || name;
+  if (name === 'today') loadTodayApts();
+  if (name === 'payments') loadPayments();
+}
+document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showSection(a.dataset.section); }));
+
+async function loadDashboard() {
+  try {
+    const [aptsData, patsData] = await Promise.all([
+      apiFetch('/appointments/today'),
+      apiFetch('/patients'),
+    ]);
+    const apts = aptsData.appointments;
+    _allPatients = patsData.patients;
+    document.getElementById('statToday').textContent = apts.length;
+    document.getElementById('statWaiting').textContent = apts.filter(a => ['Waiting','Checked-in'].includes(a.status)).length;
+    document.getElementById('statPending').textContent = apts.filter(a => !a.feePaid && a.status !== 'Cancelled').length;
+    document.getElementById('statPatients').textContent = _allPatients.length;
+
+    const tbody = document.getElementById('dashAptsBody');
+    tbody.innerHTML = apts.length
+      ? apts.map(a => `
+          <tr>
+            <td>${fmtTime(a.time)}</td>
+            <td>${a.patientName}</td>
+            <td><span class="tag">${a.type}</span></td>
+            <td>${statusBadge(a.status)}</td>
+            <td>₹${a.fee} ${a.feePaid ? '<span class="badge badge-green">Paid</span>' : '<span class="badge badge-yellow">Due</span>'}</td>
+            <td style="display:flex;gap:6px;flex-wrap:wrap">
+              <button class="btn btn-ghost btn-sm" onclick="openStatusModal('${a.appointmentId}','${a.status}')">Status</button>
+              ${!a.feePaid ? `<button class="btn btn-primary btn-sm" onclick="quickPay('${a.appointmentId}','${a.patientId}',${a.fee})">Pay</button>` : ''}
+            </td>
+          </tr>`).join('')
+      : '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">No appointments today.</td></tr>';
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+async function loadTodayApts() {
+  try {
+    const data = await apiFetch('/appointments/today');
+    const tbody = document.getElementById('todayAptsBody');
+    tbody.innerHTML = data.appointments.length
+      ? data.appointments.map(a => `
+          <tr>
+            <td>${fmtTime(a.time)}</td>
+            <td style="color:var(--accent3)">${a.patientId}</td>
+            <td>${a.patientName}</td>
+            <td><span class="tag">${a.type}</span></td>
+            <td>${statusBadge(a.status)}</td>
+            <td>₹${a.fee} ${a.feePaid ? '<span class="badge badge-green">Paid</span>' : '<span class="badge badge-yellow">Due</span>'}</td>
+            <td style="display:flex;gap:6px;flex-wrap:wrap">
+              <button class="btn btn-ghost btn-sm" onclick="openStatusModal('${a.appointmentId}','${a.status}')">Status</button>
+              ${!a.feePaid ? `<button class="btn btn-primary btn-sm" onclick="quickPay('${a.appointmentId}','${a.patientId}',${a.fee})">Pay</button>` : ''}
+              <button class="btn btn-ghost btn-sm" onclick="window.print()">Print</button>
+            </td>
+          </tr>`).join('')
+      : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">No appointments today.</td></tr>';
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+async function loadCalendar() {
+  const date = document.getElementById('calDate').value;
+  if (!date) return;
+  try {
+    const data = await apiFetch(`/appointments?date=${date}`);
+    const tbody = document.getElementById('calBody');
+    tbody.innerHTML = data.appointments.length
+      ? data.appointments.map(a => `
+          <tr>
+            <td>${fmtTime(a.time)}</td>
+            <td style="color:var(--accent3)">${a.patientId}</td>
+            <td>${a.patientName}</td>
+            <td><span class="tag">${a.type}</span></td>
+            <td>${statusBadge(a.status)}</td>
+            <td>₹${a.fee}</td>
+            <td><button class="btn btn-ghost btn-sm" onclick="openStatusModal('${a.appointmentId}','${a.status}')">Status</button></td>
+          </tr>`).join('')
+      : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">No appointments on this date.</td></tr>';
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+// New appointment
+async function loadAllPatients() {
+  try { const d = await apiFetch('/patients'); _allPatients = d.patients; renderPatientsTable(_allPatients); } catch {}
+}
+function patientLookup() {
+  const v = document.getElementById('a_pid').value.toLowerCase();
+  const hint = document.getElementById('a_patientHint');
+  const p = _allPatients.find(x => x.patientId.toLowerCase() === v || x.name.toLowerCase().includes(v));
+  hint.textContent = p ? `✓ Found: ${p.name} (${p.patientId}) — ${p.phone}` : '';
+}
+
+// Set default date/time
+document.addEventListener('DOMContentLoaded', () => {
+  const now = new Date();
+  const dateEl = document.getElementById('a_date');
+  const timeEl = document.getElementById('a_time');
+  if (dateEl) dateEl.value = now.toISOString().split('T')[0];
+  if (timeEl) timeEl.value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+});
+
+document.getElementById('apptForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const v = document.getElementById('a_pid').value.trim();
+    const p = _allPatients.find(x => x.patientId === v || x.name.toLowerCase() === v.toLowerCase());
+    const pid = p ? p.patientId : v;
+    await apiFetch('/appointments', {
+      method: 'POST',
+      body: {
+        patientId: pid,
+        date: document.getElementById('a_date').value,
+        time: document.getElementById('a_time').value,
+        type: document.getElementById('a_type').value,
+        fee: document.getElementById('a_fee').value,
+        notes: document.getElementById('a_notes').value,
+      },
+    });
+    showToast('Appointment booked successfully.');
+    document.getElementById('apptForm').reset();
+    await loadDashboard();
+  } catch(e) { showToast(e.message,'error'); }
+});
+
+document.getElementById('registerForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const data = await apiFetch('/patients', {
+      method: 'POST',
+      body: {
+        name: document.getElementById('r_name').value,
+        dob: document.getElementById('r_dob').value,
+        gender: document.getElementById('r_gender').value,
+        phone: document.getElementById('r_phone').value,
+        email: document.getElementById('r_email').value,
+        bloodGroup: document.getElementById('r_blood').value,
+        address: document.getElementById('r_address').value,
+        allergies: document.getElementById('r_allergies').value,
+      },
+    });
+    showToast(`Patient registered: ${data.patient.patientId}`);
+    document.getElementById('registerForm').reset();
+    await loadAllPatients();
+  } catch(e) { showToast(e.message,'error'); }
+});
+
+function renderPatientsTable(list) {
+  const tbody = document.getElementById('recepPatientsBody');
+  if (!tbody) return;
+  tbody.innerHTML = list.length
+    ? list.map(p => `
+        <tr>
+          <td style="color:var(--accent3)">${p.patientId}</td>
+          <td>${p.name}</td>
+          <td>${p.phone}</td>
+          <td>${p.gender||'—'}</td>
+          <td>${fmtDate(p.registeredOn)}</td>
+          <td style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-sm" onclick="editPatient('${p.patientId}')">Edit</button>
+            <button class="btn btn-primary btn-sm" onclick="quickBook('${p.patientId}')">Book Appt</button>
+          </td>
+        </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">No patients found.</td></tr>';
+}
+function searchPatients() {
+  const q = document.getElementById('recepSearch').value.toLowerCase();
+  renderPatientsTable(_allPatients.filter(p => p.name.toLowerCase().includes(q) || p.patientId.toLowerCase().includes(q) || p.phone.includes(q)));
+}
+function editPatient(pid) {
+  const p = _allPatients.find(x => x.patientId === pid);
+  if (!p) return;
+  document.getElementById('ep_id').value = pid;
+  document.getElementById('ep_name').value = p.name || '';
+  document.getElementById('ep_phone').value = p.phone || '';
+  document.getElementById('ep_email').value = p.email || '';
+  document.getElementById('ep_blood').value = p.bloodGroup || '';
+  document.getElementById('ep_address').value = p.address || '';
+  document.getElementById('ep_allergies').value = p.allergies || '';
+  showSection('editpatient');
+}
+document.getElementById('editPatientForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const pid = document.getElementById('ep_id').value;
+    await apiFetch(`/patients/${pid}`, {
+      method: 'PUT',
+      body: {
+        name: document.getElementById('ep_name').value,
+        phone: document.getElementById('ep_phone').value,
+        email: document.getElementById('ep_email').value,
+        bloodGroup: document.getElementById('ep_blood').value,
+        address: document.getElementById('ep_address').value,
+        allergies: document.getElementById('ep_allergies').value,
+      },
+    });
+    showToast('Patient details updated.');
+    await loadAllPatients();
+    showSection('patients');
+  } catch(e) { showToast(e.message,'error'); }
+});
+
+function quickBook(pid) { showSection('newappt'); document.getElementById('a_pid').value = pid; patientLookup(); }
+
+// Payments
+async function loadPayments() {
+  try {
+    const data = await apiFetch('/payments');
+    const tbody = document.getElementById('paymentsBody');
+    tbody.innerHTML = data.payments.length
+      ? data.payments.map(p => `
+          <tr>
+            <td style="color:var(--accent3)">${p.paymentId}</td>
+            <td>${p.patientId}</td>
+            <td>${p.appointmentId}</td>
+            <td style="color:var(--accent)">₹${p.amount}</td>
+            <td>${p.mode}</td>
+            <td>${fmtDate(p.date)}</td>
+            <td><span class="badge badge-green">${p.status}</span></td>
+          </tr>`).join('')
+      : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">No payments recorded.</td></tr>';
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+function openPaymentModal() { document.getElementById('paymentModal').classList.remove('hidden'); }
+function quickPay(aptId, patId, amount) {
+  document.getElementById('pay_aptId').value = aptId;
+  document.getElementById('pay_patId').value = patId;
+  document.getElementById('pay_amount').value = amount;
+  openPaymentModal();
+}
+async function recordPayment() {
+  try {
+    await apiFetch('/payments', {
+      method: 'POST',
+      body: {
+        appointmentId: document.getElementById('pay_aptId').value,
+        patientId: document.getElementById('pay_patId').value,
+        amount: document.getElementById('pay_amount').value,
+        mode: document.getElementById('pay_mode').value,
+      },
+    });
+    showToast('Payment recorded.');
+    closeModal('paymentModal');
+    await loadDashboard();
+  } catch(e) { showToast(e.message,'error'); }
+}
+
+// Status modal
+function openStatusModal(aptId, cur) { document.getElementById('modal_aptId').value = aptId; document.getElementById('modal_status').value = cur; document.getElementById('statusModal').classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+async function updateStatus() {
+  const aptId = document.getElementById('modal_aptId').value;
+  const status = document.getElementById('modal_status').value;
+  try {
+    await apiFetch(`/appointments/${aptId}`, { method: 'PUT', body: { status } });
+    showToast('Status updated.');
+    closeModal('statusModal');
+    await loadDashboard();
+  } catch(e) { showToast(e.message,'error'); }
+}
+</script>
+</body>
+</html>
