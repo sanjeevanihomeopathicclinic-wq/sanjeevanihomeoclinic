@@ -1,41 +1,45 @@
 /**
- * Sanjeevani Clinic – Backend API Server
- * Node.js + Express
- * Google Sheets (database) + Google Drive (file storage)
- * All credentials via environment variables ONLY – never in source code.
+ * Sanjeevani Clinic – Unified Server
+ * Serves the public website + CMS frontend as static files AND the API.
+ * Deploy to Render / Railway / Fly.io — no local setup required.
+ * All credentials via environment variables ONLY.
  */
 
 const express = require('express');
 const session = require('express-session');
-const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 require('dotenv').config();
 
-const sheetsRouter = require('./routes/sheets');
-const driveRouter = require('./routes/drive');
-const authRouter = require('./routes/auth');
-const patientsRouter = require('./routes/patients');
+const authRouter        = require('./routes/auth');
+const patientsRouter    = require('./routes/patients');
 const appointmentsRouter = require('./routes/appointments');
 const consultationsRouter = require('./routes/consultations');
-const paymentsRouter = require('./routes/payments');
-const auditRouter = require('./routes/audit');
+const paymentsRouter    = require('./routes/payments');
+const driveRouter       = require('./routes/drive');
+const auditRouter       = require('./routes/audit');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// ── Static files — serve the entire clinic folder from the repo root ──────────
+// __dirname is sanjeevani-clinic/backend, so go one level up to sanjeevani-clinic
+const STATIC_ROOT = path.join(__dirname, '..');
+app.use(express.static(STATIC_ROOT));
 
 // ── Security headers ──────────────────────────────────────────────────────────
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "blob:"],
+      scriptSrc: ["'self'", "https://fonts.googleapis.com"],
+      styleSrc:  ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+      fontSrc:   ["'self'", "https://fonts.gstatic.com"],
+      imgSrc:    ["'self'", "data:", "blob:"],
       connectSrc: ["'self'"],
+      frameSrc:  ["https://www.google.com"],
     },
   },
 }));
@@ -52,12 +56,6 @@ const apiLimiter = rateLimit({
   message: { error: 'Too many requests. Please slow down.' },
 });
 
-// ── CORS ──────────────────────────────────────────────────────────────────────
-app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
-  credentials: true,
-}));
-
 // ── Body parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
@@ -70,31 +68,42 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     maxAge: 8 * 60 * 60 * 1000, // 8 hours
   },
   name: 'sanjeevanisid',
 }));
 
-// ── Routes ────────────────────────────────────────────────────────────────────
+// ── API routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth', authLimiter, authRouter);
 app.use('/api', apiLimiter);
-app.use('/api/patients', patientsRouter);
-app.use('/api/appointments', appointmentsRouter);
+app.use('/api/patients',      patientsRouter);
+app.use('/api/appointments',  appointmentsRouter);
 app.use('/api/consultations', consultationsRouter);
-app.use('/api/payments', paymentsRouter);
-app.use('/api/drive', driveRouter);
-app.use('/api/audit', auditRouter);
+app.use('/api/payments',      paymentsRouter);
+app.use('/api/drive',         driveRouter);
+app.use('/api/audit',         auditRouter);
 
 // ── Health check ──────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => res.json({ status: 'ok', ts: new Date().toISOString() }));
 
-// ── 404 + Error handler ───────────────────────────────────────────────────────
-app.use((req, res) => res.status(404).json({ error: 'Not found' }));
+// ── SPA fallback: unknown paths → public website home ─────────────────────────
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'Not found' });
+  res.sendFile(path.join(STATIC_ROOT, 'index.html'));
+});
+
+// ── Error handler ─────────────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error('[ERROR]', err.message);
   res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
 });
 
-app.listen(PORT, () => console.log(`Sanjeevani API running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Sanjeevani Clinic running on port ${PORT}`);
+  console.log(`  Public site:  /`);
+  console.log(`  Doctor:       /doctor/login.html`);
+  console.log(`  Reception:    /reception/login.html`);
+  console.log(`  Patient:      /patient/login.html`);
+});
 module.exports = app;

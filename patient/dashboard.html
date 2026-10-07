@@ -320,7 +320,7 @@ let _user = null;
 
 (async () => {
   _user = await getMe();
-  if (!_user || _user.role !== 'patient') { window.location.href = '/sanjeevani-clinic/patient/login.html'; return; }
+  if (!_user || _user.role !== 'patient') { window.location.href = '/patient/login.html'; return; }
   const firstName = _user.name.split(' ')[0];
   document.getElementById('topbarUserName').textContent = _user.name;
   document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -335,7 +335,7 @@ let _user = null;
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/sanjeevani-clinic/index.html'; });
+  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/index.html'; });
 });
 
 const sections = ['home','profile','book','appointments','consultations','prescriptions','documents','contact'];
@@ -524,7 +524,7 @@ document.getElementById('uploadForm').addEventListener('submit', async e => {
     fd.append('patientId', _user.patientId);
     fd.append('folder', 'patient-docs');
     fd.append('description', document.getElementById('doc_desc').value);
-    await fetch(`${window.SANJEEVANI_API_BASE || '/api'}/drive/upload`, { method: 'POST', credentials: 'include', body: fd });
+    await fetch('/api/drive/upload', { method: 'POST', credentials: 'include', body: fd });
     showToast('Document uploaded successfully.');
     document.getElementById('uploadForm').reset();
   } catch(e) { showToast('Upload failed: ' + e.message,'error'); }

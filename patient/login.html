@@ -111,7 +111,7 @@
   </div>
 
   <div class="login-footer">
-    <a href="/sanjeevani-clinic/index.html">← Back to website</a>
+    <a href="/index.html">← Back to website</a>
     <a href="tel:+919912322251">📞 9912322251</a>
   </div>
 </div>
@@ -123,7 +123,7 @@ const { apiFetch, showToast } = window.API_UTILS;
 (async () => {
   try {
     const d = await apiFetch('/auth/me');
-    if (d.user.role === 'patient') window.location.href = '/sanjeevani-clinic/patient/dashboard.html';
+    if (d.user.role === 'patient') window.location.href = '/patient/dashboard.html';
   } catch {}
 })();
 
@@ -148,7 +148,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       err.style.display = 'block';
       await apiFetch('/auth/logout', { method: 'POST' });
     } else {
-      window.location.href = '/sanjeevani-clinic/patient/dashboard.html';
+      window.location.href = '/patient/dashboard.html';
     }
   } catch(ex) {
     err.textContent = ex.message || 'Login failed.';
@@ -172,7 +172,7 @@ document.getElementById('regForm').addEventListener('submit', async e => {
         password: document.getElementById('rg_password').value,
       },
     });
-    window.location.href = '/sanjeevani-clinic/patient/dashboard.html';
+    window.location.href = '/patient/dashboard.html';
   } catch(ex) {
     err.textContent = ex.message || 'Registration failed.';
     err.style.display = 'block';

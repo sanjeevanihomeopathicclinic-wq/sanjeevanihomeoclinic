@@ -66,7 +66,7 @@
   </form>
 
   <div class="login-footer">
-    <a href="/sanjeevani-clinic/index.html">← Back to website</a>
+    <a href="/index.html">← Back to website</a>
   </div>
 </div>
 
@@ -77,7 +77,7 @@ const { apiFetch, showToast } = window.API_UTILS;
 (async () => {
   try {
     const data = await apiFetch('/auth/me');
-    if (data.user.role === 'receptionist') window.location.href = '/sanjeevani-clinic/reception/dashboard.html';
+    if (data.user.role === 'receptionist') window.location.href = '/reception/dashboard.html';
   } catch {}
 })();
 
@@ -97,7 +97,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       err.style.display = 'block';
       await apiFetch('/auth/logout', { method: 'POST' });
     } else {
-      window.location.href = '/sanjeevani-clinic/reception/dashboard.html';
+      window.location.href = '/reception/dashboard.html';
     }
   } catch (ex) {
     err.textContent = ex.message || 'Login failed. Check your credentials.';

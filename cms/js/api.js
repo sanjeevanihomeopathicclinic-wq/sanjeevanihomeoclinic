@@ -1,9 +1,10 @@
 /**
  * Sanjeevani CMS – Shared frontend utilities
  * API base, auth helpers, fetch wrapper
+ * Same-origin deployment: /api always points to the same server.
  */
 
-const API = window.SANJEEVANI_API_BASE || '/api';
+const API = '/api';
 
 // ── Fetch wrapper ─────────────────────────────────────────────────────────────
 async function apiFetch(path, options = {}) {

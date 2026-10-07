@@ -1,11 +1,14 @@
 {
-  "name": "sanjeevani-frontend-dev",
+  "name": "sanjeevani-clinic",
   "version": "1.0.0",
+  "description": "Sanjeevani Multispeciality Homeopathic Clinic – Website + Management System",
+  "main": "backend/server.js",
   "scripts": {
-    "dev": "node devserver.js"
+    "start": "node backend/server.js",
+    "install": "cd backend && npm install",
+    "dev": "cd backend && npm run dev"
   },
-  "dependencies": {
-    "express": "^4.19.2",
-    "http-proxy-middleware": "^3.0.2"
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

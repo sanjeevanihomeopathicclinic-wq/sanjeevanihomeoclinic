@@ -1,0 +1,28 @@
+# Render.com deployment configuration
+# Render will detect this file automatically from the GitHub repo root.
+# Just connect your repo on https://render.com — no local setup needed.
+
+services:
+  - type: web
+    name: sanjeevani-clinic
+    runtime: node
+    rootDir: sanjeevani-clinic
+    buildCommand: cd backend && npm install --omit=dev
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: USE_MOCK_DATA
+        value: "true"
+      # Set SESSION_SECRET in Render dashboard (Environment tab) — never commit it
+      - key: SESSION_SECRET
+        generateValue: true
+      # When you're ready to connect Google:
+      # - key: GOOGLE_SERVICE_ACCOUNT_EMAIL
+      #   sync: false
+      # - key: GOOGLE_PRIVATE_KEY
+      #   sync: false
+      # - key: SHEET_ID
+      #   sync: false
+      # - key: DRIVE_FOLDER_PATIENT_DOCS
+      #   sync: false

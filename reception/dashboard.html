@@ -411,7 +411,7 @@ let _allPatients = [];
 
 (async () => {
   const user = await getMe();
-  if (!user || user.role !== 'receptionist') { window.location.href = '/sanjeevani-clinic/reception/login.html'; return; }
+  if (!user || user.role !== 'receptionist') { window.location.href = '/reception/login.html'; return; }
   document.getElementById('topbarUserName').textContent = user.name;
   // Set today's date on calendar
   document.getElementById('calDate').value = new Date().toISOString().split('T')[0];
@@ -420,7 +420,7 @@ let _allPatients = [];
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/sanjeevani-clinic/index.html'; });
+  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/index.html'; });
 });
 
 const sections = ['dashboard','today','calendar','newappt','register','patients','editpatient','payments'];
