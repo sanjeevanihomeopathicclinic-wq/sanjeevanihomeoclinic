@@ -105,7 +105,8 @@ async function doLogin() {
     var data = await res.json();
     if (!res.ok) { showErr(data.error || 'Login failed.'); return; }
     if (data.user.role !== 'doctor') { showErr('This portal is for doctors only.'); return; }
-    window.location.href = '/doctor/dashboard.html';
+    btn.textContent = 'Redirecting…';
+    setTimeout(function(){ window.location.replace('/doctor/dashboard.html'); }, 300);
   } catch(e) {
     showErr('Cannot reach server. Please try again in a moment.');
   } finally {
