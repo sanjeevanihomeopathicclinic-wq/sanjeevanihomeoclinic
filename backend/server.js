@@ -33,8 +33,6 @@ const PORT = process.env.PORT || 3001;
 const STATIC_ROOT = path.join(__dirname, '..');
 
 // ── Security headers ──────────────────────────────────────────────────────────
-// Applied BEFORE static middleware so API responses get helmet headers.
-// Static HTML pages need 'unsafe-inline' for scripts (inline <script> blocks).
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -50,8 +48,23 @@ app.use(helmet({
   crossOriginOpenerPolicy: false,
 }));
 
-// ── Static files ──────────────────────────────────────────────────────────────
-app.use(express.static(STATIC_ROOT));
+// ── Body parsing ──────────────────────────────────────────────────────────────
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
+
+// ── Session ───────────────────────────────────────────────────────────────────
+app.use(session({
+  secret: process.env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 8 * 60 * 60 * 1000, // 8 hours
+  },
+  name: 'sanjeevanisid',
+}));
 
 // ── Rate limiting ─────────────────────────────────────────────────────────────
 const authLimiter = rateLimit({
@@ -65,23 +78,8 @@ const apiLimiter = rateLimit({
   message: { error: 'Too many requests. Please slow down.' },
 });
 
-// ── Body parsing ──────────────────────────────────────────────────────────────
-app.use(express.json({ limit: '2mb' }));
-app.use(express.urlencoded({ extended: true, limit: '2mb' }));
-
-// ── Session ───────────────────────────────────────────────────────────────────
-app.use(session({
-  secret: process.env.SESSION_SECRET || crypto.randomBytes(64).toString('hex'),
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    maxAge: 8 * 60 * 60 * 1000, // 8 hours
-  },
-  name: 'sanjeevanisid',
-}));
+// ── Static files ──────────────────────────────────────────────────────────────
+app.use(express.static(STATIC_ROOT));
 
 // ── API routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth', authLimiter, authRouter);
