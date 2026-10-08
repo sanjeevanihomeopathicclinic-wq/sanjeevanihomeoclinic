@@ -55,7 +55,8 @@
 
     <div class="demo-hint">
       <strong>Demo:</strong> patient1@example.com / Patient@123<br>
-      Or: patient2@example.com / Patient@123
+      Or: patient2@example.com / Patient@123<br>
+      <button type="button" onclick="fillDemo()" style="margin-top:8px;background:rgba(39,201,122,.15);border:1px solid rgba(39,201,122,.3);color:#27c97a;border-radius:6px;padding:4px 12px;font-size:.75rem;cursor:pointer">&#9889; Fill &amp; Sign In</button>
     </div>
 
     <div class="error-msg" id="loginErr"></div>
@@ -120,6 +121,11 @@
 <script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
+function fillDemo() {
+  document.getElementById('l_email').value = 'patient1@example.com';
+  document.getElementById('l_password').value = 'Patient@123';
+  document.getElementById('loginForm').requestSubmit();
+}
 const { getMe, apiPost, login, logout, showToast } = window.API_UTILS;
 (async () => {
   try {
