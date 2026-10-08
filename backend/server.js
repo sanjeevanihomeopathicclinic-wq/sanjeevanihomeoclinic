@@ -1,8 +1,9 @@
 /**
  * Sanjeevani Clinic – Unified Server
  * Serves the public website + CMS frontend as static files AND the API.
- * Deploy to Render / Railway / Fly.io — no local setup required.
+ * Deploy to Render / Railway / Fly.io — no local setup needed.
  * All credentials via environment variables ONLY.
+ * Last updated: 2026-10-08
  */
 
 const express = require('express');
