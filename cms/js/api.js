@@ -29,9 +29,9 @@ async function apiFetch(path, options) {
   return data;
 }
 
-// ── Cached user in sessionStorage ────────────────────────────────────────────
-function getCachedUser()   { try { return JSON.parse(sessionStorage.getItem('sj_user') || 'null'); } catch { return null; } }
-function setCachedUser(u)  { if (u) sessionStorage.setItem('sj_user', JSON.stringify(u)); else sessionStorage.removeItem('sj_user'); }
+// ── User storage (localStorage survives navigation, sessionStorage doesn't) ──
+function getCachedUser()  { try { return JSON.parse(localStorage.getItem('sj_user') || 'null'); } catch { return null; } }
+function setCachedUser(u) { if (u) localStorage.setItem('sj_user', JSON.stringify(u)); else localStorage.removeItem('sj_user'); }
 
 // ── Auth helpers ──────────────────────────────────────────────────────────────
 async function getMe() {
@@ -39,7 +39,10 @@ async function getMe() {
     var data = await apiFetch('/api/auth/me');
     setCachedUser(data.user);
     return data.user;
-  } catch { return null; }
+  } catch {
+    // Cookie may not have arrived yet — fall back to localStorage set at login
+    return getCachedUser();
+  }
 }
 
 async function login(email, password) {

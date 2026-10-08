@@ -145,8 +145,9 @@ async function doLogin() {
     var data = await res.json();
     if (!res.ok) { showErr('loginErr', data.error || 'Login failed.'); return; }
     if (data.user.role !== 'patient') { showErr('loginErr','This portal is for patients only.'); return; }
+    localStorage.setItem('sj_user', JSON.stringify(data.user));
     btn.textContent = 'Redirecting…';
-    setTimeout(function(){ window.location.replace('/patient/dashboard.html'); }, 300);
+    setTimeout(function(){ window.location.replace('/patient/dashboard.html'); }, 200);
   } catch(e) {
     showErr('loginErr','Cannot reach server. Please try again.');
   } finally {

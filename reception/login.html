@@ -105,8 +105,9 @@ async function doLogin() {
     var data = await res.json();
     if (!res.ok) { showErr(data.error || 'Login failed.'); return; }
     if (data.user.role !== 'receptionist') { showErr('This portal is for reception staff only.'); return; }
+    localStorage.setItem('sj_user', JSON.stringify(data.user));
     btn.textContent = 'Redirecting…';
-    setTimeout(function(){ window.location.replace('/reception/dashboard.html'); }, 300);
+    setTimeout(function(){ window.location.replace('/reception/dashboard.html'); }, 200);
   } catch(e) {
     showErr('Cannot reach server. Please try again in a moment.');
   } finally {
