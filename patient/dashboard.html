@@ -321,7 +321,7 @@ let _user = null;
 
 (async () => {
   _user = await getMe();
-  if (!_user || _user.role !== 'patient') { window.location.href = '/patient/login.html'; return; }
+  if (!_user || _user.role !== 'patient') { window.location.href = _basePath() + 'patient/login.html'; return; }
   const firstName = _user.name.split(' ')[0];
   document.getElementById('topbarUserName').textContent = _user.name;
   document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -336,7 +336,7 @@ let _user = null;
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  logout().finally(() => { window.location.href = '/index.html'; });
+  logout().finally(() => { window.location.href = _basePath() + 'index.html'; });
 });
 
 const sections = ['home','profile','book','appointments','consultations','prescriptions','documents','contact'];

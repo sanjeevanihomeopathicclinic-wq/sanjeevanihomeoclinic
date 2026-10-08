@@ -66,7 +66,7 @@
   </form>
 
   <div class="login-footer">
-    <a href="/index.html">← Back to website</a>
+    <a href="../index.html">← Back to website</a>
   </div>
 </div>
 
@@ -78,7 +78,7 @@ const { getMe, login, logout, showToast } = window.API_UTILS;
 (async () => {
   try {
     const user = await getMe();
-    if (user && user.role === 'doctor') window.location.href = '/doctor/dashboard.html';
+    if (user && user.role === 'doctor') window.location.href = _basePath() + 'doctor/dashboard.html';
   } catch {}
 })();
 
@@ -95,7 +95,7 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       err.style.display = 'block';
       await logout();
     } else {
-      window.location.href = '/doctor/dashboard.html';
+      window.location.href = _basePath() + 'doctor/dashboard.html';
     }
   } catch (ex) {
     err.textContent = ex.message || 'Login failed. Check your credentials.';

@@ -365,14 +365,14 @@ let _currentPatientId = null;
 // ── Init ────────────────────────────────────────────────────────────────────
 (async () => {
   _user = await getMe();
-  if (!_user || _user.role !== 'doctor') { window.location.href = '/doctor/login.html'; return; }
+  if (!_user || _user.role !== 'doctor') { window.location.href = _basePath() + 'doctor/login.html'; return; }
   document.getElementById('topbarUserName').textContent = _user.name;
   document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   await loadDashboard();
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  logout().finally(() => { window.location.href = '/index.html'; });
+  logout().finally(() => { window.location.href = _basePath() + 'index.html'; });
 });
 
 // ── Section navigation ───────────────────────────────────────────────────────

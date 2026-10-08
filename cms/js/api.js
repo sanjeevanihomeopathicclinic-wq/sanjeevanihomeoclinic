@@ -5,8 +5,21 @@
  */
 
 // ── Set this to your Apps Script Web App URL after deploying ──────────────────
-// Update this value in GitHub after you deploy the Apps Script.
 var GAS_URL = window.SANJEEVANI_GAS_URL || '';
+
+// ── Base path helper (works on GitHub Pages /repo-name/ AND on custom domains /)
+// Finds the common prefix up to and including the first path segment that
+// contains "doctor", "reception", "patient", or "cms" — then strips it.
+// Falls back to '/' for a custom domain at root.
+function _basePath() {
+  var p = window.location.pathname;           // e.g. /sanjeevanihomeoclinic/doctor/login.html
+  var m = p.match(/^(\/[^/]+\/)/);            // grab first two segments: /repo/
+  if (!m) return '/';
+  // Only use as prefix when it's clearly a sub-directory (GitHub Pages)
+  var seg = m[1];                             // e.g. "/sanjeevanihomeoclinic/"
+  // If the repo root index.html exists at this path it IS the base
+  return seg;
+}
 
 // ── Token storage (sessionStorage — cleared when browser tab closes) ──────────
 function getToken()        { return sessionStorage.getItem('sj_token') || ''; }
@@ -71,14 +84,14 @@ async function login(email, password) {
 async function logout() {
   try { await gasPost('logout', {}); } catch {}
   clearToken();
-  window.location.href = '/index.html';
+  window.location.href = _basePath() + 'index.html';
 }
 
 async function requireAuth(expectedRole) {
   var user = await getMe();
-  if (!user) { window.location.href = '/' + expectedRole + '/login.html'; return null; }
+  if (!user) { window.location.href = _basePath() + expectedRole + '/login.html'; return null; }
   if (expectedRole && user.role !== expectedRole) {
-    window.location.href = '/' + user.role + '/login.html';
+    window.location.href = _basePath() + user.role + '/login.html';
     return null;
   }
   return user;
