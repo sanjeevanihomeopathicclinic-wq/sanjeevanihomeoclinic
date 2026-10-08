@@ -1,0 +1,112 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sanjeevani – Apps Script Setup</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;background:#f7f8fa;color:#1f2328;font-size:15px;line-height:1.6;padding:32px 16px}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:1.5rem;font-weight:800;color:#1f2328;margin-bottom:4px}
+.sub{font-size:.88rem;color:#57606a;margin-bottom:32px}
+.step{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:24px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start}
+.num{width:36px;height:36px;border-radius:50%;background:#3b82d4;color:#fff;font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{}
+.step-title{font-weight:700;font-size:1rem;margin-bottom:6px}
+.step-desc{font-size:.875rem;color:#57606a;line-height:1.7}
+.step-desc a{color:#3b82d4;text-decoration:underline}
+.code{background:#f0f3f6;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:.82rem;color:#1f2328;margin-top:10px;word-break:break-all}
+.highlight{background:#fff3cd;border:1px solid #f0c060;border-radius:8px;padding:12px 16px;font-size:.83rem;margin-top:10px;color:#7a5c00}
+.tag{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:700;color:#2e7d32;margin-right:4px}
+.arrow{color:#3b82d4;font-weight:800}
+hr{border:none;border-top:1px solid #e5e7eb;margin:28px 0}
+.final{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:14px;padding:20px 24px}
+.final-title{font-weight:800;color:#1b5e20;margin-bottom:8px}
+.final-desc{font-size:.875rem;color:#2e7d32;line-height:1.7}
+footer{text-align:center;margin-top:40px;font-size:.75rem;color:#57606a;padding-top:16px;border-top:1px solid #e5e7eb}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Deploy Sanjeevani Backend — 4 Steps</h1>
+<p class="sub">Uses your Gmail account (sanjeevanihomeopathicclinic@gmail.com) · Always free · No cold starts</p>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="step-body">
+    <div class="step-title">Open Google Apps Script</div>
+    <div class="step-desc">
+      Go to <a href="https://script.google.com" target="_blank">https://script.google.com</a><br />
+      Sign in with <strong>sanjeevanihomeopathicclinic@gmail.com</strong><br />
+      Click <span class="tag">+ New Project</span>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div class="step-body">
+    <div class="step-title">Paste the backend code</div>
+    <div class="step-desc">
+      In the editor, <strong>select all existing text and delete it</strong>.<br />
+      Then open this link and copy <strong>all the code</strong>:<br />
+      <div class="code">https://github.com/sanjeevanihomeopathicclinic-wq/sanjeevanihomeoclinic/blob/master/backend-gas/Code.gs</div>
+      Paste it into the Apps Script editor.<br />
+      Click the 💾 <span class="tag">Save</span> button (or Ctrl+S).
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">3</div>
+  <div class="step-body">
+    <div class="step-title">Deploy as Web App</div>
+    <div class="step-desc">
+      In the top menu: <span class="arrow">Deploy</span> → <span class="tag">New deployment</span><br /><br />
+      Set these <strong>exactly</strong>:<br />
+       • <strong>Type:</strong> Web App<br />
+       • <strong>Execute as:</strong> Me (sanjeevanihomeopathicclinic@gmail.com)<br />
+       • <strong>Who has access:</strong> Anyone<br /><br />
+      Click <span class="tag">Deploy</span> → Click <span class="tag">Authorize access</span> → Allow all permissions.<br /><br />
+      You will see a URL like:
+      <div class="code">https://script.google.com/macros/s/AKfycbw.../exec</div>
+      <div class="highlight">⚠️ Copy this URL — you need it for Step 4.</div>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">4</div>
+  <div class="step-body">
+    <div class="step-title">Paste the URL into GitHub config</div>
+    <div class="step-desc">
+      Go to your GitHub file:<br />
+      <div class="code">https://github.com/sanjeevanihomeopathicclinic-wq/sanjeevanihomeoclinic/blob/master/cms/js/config.js</div>
+      Click the ✏️ <strong>pencil/edit icon</strong> (top right of the file).<br /><br />
+      Replace <code>PASTE_YOUR_APPS_SCRIPT_URL_HERE</code> with the URL you copied.<br /><br />
+      Scroll down → click <span class="tag">Commit changes</span> → <span class="tag">Commit directly to master</span> → <span class="tag">Commit changes</span>.
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="final">
+  <div class="final-title">✅ Done! Your portals will be live at:</div>
+  <div class="final-desc">
+    🩺 Doctor: <strong>sanjeevanihomeopathicclinic-wq.github.io/sanjeevanihomeoclinic/doctor/login.html</strong><br />
+    🏥 Reception: <strong>.../reception/login.html</strong><br />
+    👤 Patient: <strong>.../patient/login.html</strong><br /><br />
+    <strong>First-time login</strong> creates the Google Sheet "SanjeevaniDB" automatically in your Drive.<br /><br />
+    Demo logins:<br />
+     • Doctor: <code>doctor@sanjeevani.clinic</code> / <code>Doctor@123</code><br />
+     • Reception: <code>reception@sanjeevani.clinic</code> / <code>Recep@123</code>
+  </div>
+</div>
+
+<footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>

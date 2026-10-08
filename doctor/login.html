@@ -74,10 +74,10 @@
 <script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { gasGet, login, logout, showToast } = window.API_UTILS;
+const { getMe, login, logout, showToast } = window.API_UTILS;
 (async () => {
   try {
-    const user = await gasGet('me');
+    const user = await getMe();
     if (user && user.role === 'doctor') window.location.href = '/doctor/dashboard.html';
   } catch {}
 })();
