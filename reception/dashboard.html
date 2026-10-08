@@ -407,7 +407,7 @@
 <script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { gasGet, gasPost, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+const { apiGet, apiPost, apiPut, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _allPatients = [];
 
 (async () => {
@@ -444,8 +444,8 @@ document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventList
 async function loadDashboard() {
   try {
     const [aptsData, patsData] = await Promise.all([
-      gasGet('todayApts'),
-      gasGet('patients'),
+      apiGet('/api/appointments/today'),
+      apiGet('/api/patients'),
     ]);
     const apts = aptsData.appointments;
     _allPatients = patsData.patients;
@@ -474,7 +474,7 @@ async function loadDashboard() {
 
 async function loadTodayApts() {
   try {
-    const data = await gasGet('todayApts');
+    const data = await apiGet('/api/appointments/today');
     const tbody = document.getElementById('todayAptsBody');
     tbody.innerHTML = data.appointments.length
       ? data.appointments.map(a => `
@@ -499,7 +499,7 @@ async function loadCalendar() {
   const date = document.getElementById('calDate').value;
   if (!date) return;
   try {
-    const data = await gasGet('appointments', { date });
+    const data = await apiGet('/api/appointments?date=' + encodeURIComponent(date));
     const tbody = document.getElementById('calBody');
     tbody.innerHTML = data.appointments.length
       ? data.appointments.map(a => `
@@ -518,7 +518,7 @@ async function loadCalendar() {
 
 // New appointment
 async function loadAllPatients() {
-  try { const d = await gasGet('patients'); _allPatients = d.patients; renderPatientsTable(_allPatients); } catch {}
+  try { const d = await apiGet('/api/patients'); _allPatients = d.patients; renderPatientsTable(_allPatients); } catch {}
 }
 function patientLookup() {
   const v = document.getElementById('a_pid').value.toLowerCase();
@@ -542,7 +542,7 @@ document.getElementById('apptForm').addEventListener('submit', async e => {
     const v = document.getElementById('a_pid').value.trim();
     const p = _allPatients.find(x => x.patientId === v || x.name.toLowerCase() === v.toLowerCase());
     const pid = p ? p.patientId : v;
-    await gasPost('createAppointment', {
+    await apiPost('/api/appointments', {
       patientId: pid,
       date: document.getElementById('a_date').value,
       time: document.getElementById('a_time').value,
@@ -559,7 +559,7 @@ document.getElementById('apptForm').addEventListener('submit', async e => {
 document.getElementById('registerForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
-    const data = await gasPost('createPatient', {
+    const data = await apiPost('/api/patients', {
       name: document.getElementById('r_name').value,
       dob: document.getElementById('r_dob').value,
       gender: document.getElementById('r_gender').value,
@@ -613,8 +613,7 @@ document.getElementById('editPatientForm').addEventListener('submit', async e =>
   e.preventDefault();
   try {
     const pid = document.getElementById('ep_id').value;
-    await gasPost('updatePatient', {
-      patientId: pid,
+    await apiPut('/api/patients/' + pid, {
       name: document.getElementById('ep_name').value,
       phone: document.getElementById('ep_phone').value,
       email: document.getElementById('ep_email').value,
@@ -633,7 +632,7 @@ function quickBook(pid) { showSection('newappt'); document.getElementById('a_pid
 // Payments
 async function loadPayments() {
   try {
-    const data = await gasGet('payments');
+    const data = await apiGet('/api/payments');
     const tbody = document.getElementById('paymentsBody');
     tbody.innerHTML = data.payments.length
       ? data.payments.map(p => `
@@ -659,7 +658,7 @@ function quickPay(aptId, patId, amount) {
 }
 async function recordPayment() {
   try {
-    await gasPost('createPayment', {
+    await apiPost('/api/payments', {
       appointmentId: document.getElementById('pay_aptId').value,
       patientId: document.getElementById('pay_patId').value,
       amount: document.getElementById('pay_amount').value,
@@ -678,7 +677,7 @@ async function updateStatus() {
   const aptId = document.getElementById('modal_aptId').value;
   const status = document.getElementById('modal_status').value;
   try {
-    await gasPost('updateAppointment', { appointmentId: aptId, status });
+    await apiPut('/api/appointments/' + aptId, { status });
     showToast('Status updated.');
     closeModal('statusModal');
     await loadDashboard();

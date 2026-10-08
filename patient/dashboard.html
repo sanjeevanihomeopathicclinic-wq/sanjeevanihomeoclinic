@@ -316,7 +316,7 @@
 <script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { gasGet, gasPost, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+const { apiGet, apiPost, apiPut, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _user = null;
 
 (async () => {
@@ -361,8 +361,8 @@ document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventList
 async function loadHome() {
   try {
     const [aptsData, consData] = await Promise.all([
-      gasGet('appointments'),
-      gasGet('consultations'),
+      apiGet('/api/appointments'),
+      apiGet('/api/consultations'),
     ]);
     const apts = aptsData.appointments;
     const cons = consData.consultations;
@@ -406,7 +406,7 @@ async function loadHome() {
 
 async function loadAppointments() {
   try {
-    const data = await gasGet('appointments');
+    const data = await apiGet('/api/appointments');
     const tbody = document.getElementById('aptsBody');
     tbody.innerHTML = data.appointments.length
       ? data.appointments.map(a => `
@@ -424,7 +424,7 @@ async function loadAppointments() {
 
 async function loadConsultations() {
   try {
-    const data = await gasGet('consultations');
+    const data = await apiGet('/api/consultations');
     const div = document.getElementById('consultsList');
     if (!data.consultations.length) { div.innerHTML = '<div style="color:var(--muted)">No consultations recorded yet.</div>'; return; }
     div.innerHTML = data.consultations.map(c => `
@@ -444,7 +444,7 @@ async function loadConsultations() {
 
 async function loadPrescriptions() {
   try {
-    const data = await gasGet('consultations');
+    const data = await apiGet('/api/consultations');
     const div = document.getElementById('prescriptionsList');
     const withPrescriptions = data.consultations.filter(c => c.prescription);
     if (!withPrescriptions.length) { div.innerHTML = '<div style="color:var(--muted)">No prescriptions recorded yet.</div>'; return; }
@@ -460,7 +460,7 @@ async function loadPrescriptions() {
 
 async function loadProfile() {
   try {
-    const data = await gasGet('patient', { patientId: _user.patientId });
+    const data = await apiGet('/api/patients/' + _user.patientId);
     const p = data.patient;
     document.getElementById('up_pid').value = p.patientId;
     document.getElementById('up_phone').value = p.phone || '';
@@ -484,8 +484,7 @@ document.getElementById('updateProfileForm').addEventListener('submit', async e 
   e.preventDefault();
   try {
     const pid = document.getElementById('up_pid').value;
-    await gasPost('updatePatient', {
-      patientId: pid,
+    await apiPut('/api/patients/' + pid, {
       phone: document.getElementById('up_phone').value,
       email: document.getElementById('up_email').value,
       address: document.getElementById('up_address').value,
@@ -497,7 +496,7 @@ document.getElementById('updateProfileForm').addEventListener('submit', async e 
 document.getElementById('bookForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
-    await gasPost('createAppointment', {
+    await apiPost('/api/appointments', {
       date: document.getElementById('b_date').value,
       time: document.getElementById('b_time').value,
       type: document.getElementById('b_type').value,
@@ -521,7 +520,7 @@ function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 async function confirmCancel() {
   const aptId = document.getElementById('cancel_aptId').value;
   try {
-    await gasPost('updateAppointment', { appointmentId: aptId, status: 'Cancelled' });
+    await apiPut('/api/appointments/' + aptId, { status: 'Cancelled' });
     showToast('Appointment cancelled.');
     closeModal('cancelModal');
     await loadHome();

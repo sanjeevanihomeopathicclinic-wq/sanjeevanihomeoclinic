@@ -1,89 +1,61 @@
 /**
  * Sanjeevani CMS – Shared frontend API utilities
- * Backend: Google Apps Script Web App (token-based auth)
- * Token stored in sessionStorage — never in URL or localStorage.
+ * Backend: Express server with session-cookie auth at /api/auth
  */
 
-// ── Set this to your Apps Script Web App URL after deploying ──────────────────
-var GAS_URL = window.SANJEEVANI_GAS_URL || '';
-
 // ── Base path helper (works on GitHub Pages /repo-name/ AND on root domains /)
-// On GitHub Pages the site lives at /sanjeevanihomeoclinic/doctor/login.html
-// On Render / custom domain it lives at /doctor/login.html
-// We detect by checking whether the first path segment is a known app folder.
 var _APP_FOLDERS = ['doctor','reception','patient','cms'];
 function _basePath() {
-  var p = window.location.pathname;           // e.g. /sanjeevanihomeoclinic/doctor/login.html
-  var parts = p.replace(/^\//, '').split('/');// ['sanjeevanihomeoclinic','doctor','login.html']
-  // If the FIRST segment is a known app folder, we're at root (Render/custom domain)
+  var p = window.location.pathname;
+  var parts = p.replace(/^\//, '').split('/');
   if (_APP_FOLDERS.indexOf(parts[0]) !== -1) return '/';
-  // Otherwise the first segment is the GitHub Pages repo prefix
-  return '/' + parts[0] + '/';               // "/sanjeevanihomeoclinic/"
+  return '/' + parts[0] + '/';
 }
 
-// ── Token storage (sessionStorage — cleared when browser tab closes) ──────────
-function getToken()        { return sessionStorage.getItem('sj_token') || ''; }
-function setToken(t)       { sessionStorage.setItem('sj_token', t); }
-function clearToken()      { sessionStorage.removeItem('sj_token'); sessionStorage.removeItem('sj_user'); }
+// ── API base URL (same origin — works on Render and locally) ─────────────────
+function _apiBase() {
+  return window.location.origin;
+}
+
+// ── Core fetch helper ─────────────────────────────────────────────────────────
+async function apiFetch(path, options) {
+  options = options || {};
+  options.credentials = 'include'; // send session cookie
+  options.headers = Object.assign({ 'Content-Type': 'application/json' }, options.headers || {});
+  var res = await fetch(_apiBase() + path, options);
+  var data;
+  try { data = await res.json(); } catch(e) { throw new Error('Server returned non-JSON response'); }
+  if (!res.ok) throw new Error(data.error || ('Request failed (' + res.status + ')'));
+  return data;
+}
+
+// ── Cached user in sessionStorage ────────────────────────────────────────────
 function getCachedUser()   { try { return JSON.parse(sessionStorage.getItem('sj_user') || 'null'); } catch { return null; } }
-function setCachedUser(u)  { sessionStorage.setItem('sj_user', JSON.stringify(u)); }
-
-// ── Core fetch (GET) ──────────────────────────────────────────────────────────
-async function gasGet(action, params) {
-  params = params || {};
-  params.action = action;
-  var token = getToken();
-  if (token) params.token = token;
-  var qs = Object.keys(params).map(function(k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-  }).join('&');
-  var url = GAS_URL + '?' + qs;
-  var res = await fetch(url, { redirect: 'follow' });
-  var data = await res.json();
-  if (data.error) throw Object.assign(new Error(data.error), { code: data.code });
-  return data;
-}
-
-// ── Core fetch (POST via GET with encoded body) ───────────────────────────────
-// Apps Script does not support CORS preflight (OPTIONS), so we encode the
-// POST body as a base64 query param and use GET — Apps Script handles it.
-async function gasPost(action, body) {
-  body = body || {};
-  var token = getToken();
-  var payload = btoa(unescape(encodeURIComponent(JSON.stringify(body))));
-  var params = { action: action, payload: payload };
-  if (token) params.token = token;
-  var qs = Object.keys(params).map(function(k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-  }).join('&');
-  var url = GAS_URL + '?' + qs;
-  var res = await fetch(url, { redirect: 'follow' });
-  var data = await res.json();
-  if (data.error) throw Object.assign(new Error(data.error), { code: data.code });
-  return data;
-}
+function setCachedUser(u)  { if (u) sessionStorage.setItem('sj_user', JSON.stringify(u)); else sessionStorage.removeItem('sj_user'); }
 
 // ── Auth helpers ──────────────────────────────────────────────────────────────
 async function getMe() {
   var cached = getCachedUser();
   if (cached) return cached;
   try {
-    var data = await gasGet('me');
+    var data = await apiFetch('/api/auth/me');
     setCachedUser(data.user);
     return data.user;
   } catch { return null; }
 }
 
 async function login(email, password) {
-  var data = await gasPost('login', { email: email, password: password });
-  setToken(data.token);
+  var data = await apiFetch('/api/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email: email, password: password }),
+  });
   setCachedUser(data.user);
   return data.user;
 }
 
 async function logout() {
-  try { await gasPost('logout', {}); } catch {}
-  clearToken();
+  try { await apiFetch('/api/auth/logout', { method: 'POST' }); } catch {}
+  setCachedUser(null);
   window.location.href = _basePath() + 'index.html';
 }
 
@@ -95,6 +67,23 @@ async function requireAuth(expectedRole) {
     return null;
   }
   return user;
+}
+
+// ── Generic API shortcuts ─────────────────────────────────────────────────────
+async function apiGet(path) {
+  return apiFetch(path);
+}
+async function apiPost(path, body) {
+  return apiFetch(path, { method: 'POST', body: JSON.stringify(body) });
+}
+async function apiPut(path, body) {
+  return apiFetch(path, { method: 'PUT', body: JSON.stringify(body) });
+}
+async function apiPatch(path, body) {
+  return apiFetch(path, { method: 'PATCH', body: JSON.stringify(body) });
+}
+async function apiDelete(path) {
+  return apiFetch(path, { method: 'DELETE' });
 }
 
 // ── DOM helpers ───────────────────────────────────────────────────────────────
@@ -128,9 +117,10 @@ function statusBadge(s) {
   return '<span class="badge ' + (map[s]||'badge-grey') + '">' + s + '</span>';
 }
 
-// ── API shortcuts (match old apiFetch interface) ──────────────────────────────
+// ── Exports ───────────────────────────────────────────────────────────────────
 var API_UTILS = {
-  gasGet: gasGet, gasPost: gasPost,
+  apiFetch: apiFetch,
+  apiGet: apiGet, apiPost: apiPost, apiPut: apiPut, apiPatch: apiPatch, apiDelete: apiDelete,
   getMe: getMe, login: login, logout: logout, requireAuth: requireAuth,
   el: el, show: show, hide: hide, setText: setText, showToast: showToast,
   fmtDate: fmtDate, fmtTime: fmtTime, statusBadge: statusBadge,

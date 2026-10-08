@@ -120,7 +120,7 @@
 <script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { getMe, gasPost, login, logout, showToast } = window.API_UTILS;
+const { getMe, apiPost, login, logout, showToast } = window.API_UTILS;
 (async () => {
   try {
     const user = await getMe();
@@ -159,7 +159,7 @@ document.getElementById('regForm').addEventListener('submit', async e => {
   const err = document.getElementById('regErr');
   err.style.display = 'none';
   try {
-    await gasPost('register', {
+    await apiPost('/api/auth/register', {
       name: document.getElementById('rg_name').value,
       email: document.getElementById('rg_email').value.trim(),
       phone: document.getElementById('rg_phone').value,
