@@ -6,109 +6,116 @@
   <title>Receptionist Login – Sanjeevani Clinic</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../cms/css/dashboard.css"/>
   <style>
-    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse 120% 80% at 60% 40%,#0e4f3a 0%,#072518 50%,#030f09 100%)}
-    .login-box{background:rgba(255,255,255,.04);border:1px solid rgba(39,201,122,.18);border-radius:20px;padding:40px 36px;width:100%;max-width:400px}
-    .login-logo{text-align:center;margin-bottom:28px}
-    .login-logo-mark{width:56px;height:56px;background:linear-gradient(140deg,#16a060,#0d9488);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 0 0 1px rgba(39,201,122,.3),0 8px 24px rgba(39,201,122,.25)}
-    .login-logo-mark svg{width:30px;height:30px}
-    .login-clinic{font-size:.85rem;font-weight:800;color:#fff}
-    .login-subtitle{font-size:.7rem;color:var(--muted);margin-top:2px}
-    .login-title{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px}
-    .login-role{font-size:.78rem;color:var(--accent3);font-weight:600;margin-bottom:24px;display:flex;align-items:center;gap:6px}
-    .login-role::before{content:'';width:18px;height:2px;background:var(--accent)}
-    .btn-login{width:100%;justify-content:center;margin-top:8px;padding:13px}
-    .login-footer{text-align:center;margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)}
-    .login-footer a{color:var(--accent3)}
-    .error-msg{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:10px 14px;font-size:.8rem;color:#fca5a5;margin-bottom:14px;display:none}
-    .demo-hint{background:rgba(39,201,122,.07);border:1px solid rgba(39,201,122,.15);border-radius:10px;padding:10px 14px;font-size:.75rem;color:var(--muted);margin-bottom:18px;line-height:1.6}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse 120% 80% at 60% 40%,#0e4f3a 0%,#072518 50%,#030f09 100%);padding:20px}
+    .box{background:rgba(255,255,255,.04);border:1px solid rgba(39,201,122,.18);border-radius:20px;padding:40px 36px;width:100%;max-width:400px}
+    .logo{text-align:center;margin-bottom:28px}
+    .logomark{width:56px;height:56px;background:linear-gradient(140deg,#16a060,#0d9488);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+    .clinic-name{font-size:.85rem;font-weight:800;color:#fff}
+    .clinic-sub{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:2px}
+    h1{font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px}
+    .role{font-size:.78rem;color:#27c97a;font-weight:600;margin-bottom:24px}
+    .demo{background:rgba(39,201,122,.07);border:1px solid rgba(39,201,122,.15);border-radius:10px;padding:12px 14px;font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:18px;line-height:1.8}
+    .demo code{color:rgba(255,255,255,.8);font-size:.78rem}
+    .fill-btn{display:inline-block;margin-top:8px;background:rgba(39,201,122,.2);border:1px solid rgba(39,201,122,.4);color:#27c97a;border-radius:6px;padding:5px 14px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit}
+    .fill-btn:hover{background:rgba(39,201,122,.35)}
+    .err{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:10px 14px;font-size:.8rem;color:#fca5a5;margin-bottom:14px;display:none}
+    label{display:block;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:6px;margin-top:14px}
+    input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:11px 14px;color:#fff;font-size:.88rem;font-family:inherit;outline:none}
+    input:focus{border-color:rgba(39,201,122,.5);background:rgba(39,201,122,.05)}
+    input::placeholder{color:rgba(255,255,255,.25)}
+    .signin-btn{width:100%;margin-top:18px;padding:13px;background:linear-gradient(135deg,#16a060,#0d9488);border:none;border-radius:12px;color:#fff;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+    .signin-btn:disabled{opacity:.6;cursor:not-allowed}
+    .signin-btn:hover:not(:disabled){opacity:.9}
+    .footer{text-align:center;margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.3)}
+    .footer a{color:#27c97a;text-decoration:none}
   </style>
 </head>
 <body>
-<div class="login-box">
-  <div class="login-logo">
-    <div class="login-logo-mark">
-      <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.4">
+<div class="box">
+  <div class="logo">
+    <div class="logomark">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.4">
         <rect x="11" y="9.5" width="10" height="14.5" rx="3" fill="rgba(255,255,255,.18)"/>
-        <line x1="16" y1="13" x2="16" y2="17.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="13.8" y1="15.2" x2="18.2" y2="15.2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="16" y1="13" x2="16" y2="17.5" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="13.8" y1="15.2" x2="18.2" y2="15.2" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
     </div>
-    <div class="login-clinic">Sanjeevani Clinic</div>
-    <div class="login-subtitle">Multispeciality Homeopathy · Jagtial</div>
+    <div class="clinic-name">Sanjeevani Clinic</div>
+    <div class="clinic-sub">Multispeciality Homeopathy · Jagtial</div>
   </div>
 
-  <h1 class="login-title">Reception Login</h1>
-  <p class="login-role">Front Desk / Appointment Management</p>
+  <h1>Reception Login</h1>
+  <div class="role">— Front Desk / Appointment Management</div>
 
-  <div class="demo-hint">
-    <strong>Demo credentials</strong><br>
+  <div class="demo">
+    <strong style="color:rgba(255,255,255,.7)">Demo credentials</strong><br>
     Email: <code>reception@sanjeevani.clinic</code><br>
     Password: <code>Recep@123</code><br>
-    <button type="button" onclick="fillDemo()" style="margin-top:8px;background:rgba(39,201,122,.15);border:1px solid rgba(39,201,122,.3);color:#27c97a;border-radius:6px;padding:4px 12px;font-size:.75rem;cursor:pointer">&#9889; Fill &amp; Sign In</button>
+    <button class="fill-btn" type="button" onclick="fillAndLogin()">&#9889; Fill &amp; Sign In</button>
   </div>
 
-  <div class="error-msg" id="err"></div>
+  <div class="err" id="err"></div>
 
-  <form id="loginForm">
-    <div class="form-group">
-      <label class="form-label">Email Address</label>
-      <input class="form-control" type="email" id="email" placeholder="reception@sanjeevani.clinic" autocomplete="username" required/>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input class="form-control" type="password" id="password" placeholder="••••••••" autocomplete="current-password" required/>
-    </div>
-    <button type="submit" class="btn btn-primary btn-login" id="submitBtn">
-      <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Sign In
-    </button>
-  </form>
+  <label>Email Address</label>
+  <input type="email" id="email" placeholder="reception@sanjeevani.clinic" autocomplete="username"/>
 
-  <div class="login-footer">
-    <a href="../index.html">← Back to website</a>
-  </div>
+  <label>Password</label>
+  <input type="password" id="password" placeholder="••••••••" autocomplete="current-password"/>
+
+  <button class="signin-btn" id="btn" onclick="doLogin()">
+    &#8594; Sign In
+  </button>
+
+  <div class="footer"><a href="../index.html">← Back to website</a></div>
 </div>
 
-<div id="toast" class="toast"></div>
-<script src="../cms/js/config.js?v=202610082315"></script>
-<script src="../cms/js/api.js?v=202610082315"></script>
 <script>
-function fillDemo() {
+function showErr(msg) {
+  var e = document.getElementById('err');
+  e.textContent = msg;
+  e.style.display = 'block';
+}
+function hideErr() {
+  document.getElementById('err').style.display = 'none';
+}
+
+function fillAndLogin() {
   document.getElementById('email').value = 'reception@sanjeevani.clinic';
   document.getElementById('password').value = 'Recep@123';
-  document.getElementById('loginForm').requestSubmit();
+  doLogin();
 }
-const { getMe, login, logout, showToast } = window.API_UTILS;
-(async () => {
-  try {
-    const user = await getMe();
-    if (user && user.role === 'receptionist') window.location.href = _basePath() + 'reception/dashboard.html';
-  } catch {}
-})();
 
-document.getElementById('loginForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const err = document.getElementById('err');
-  err.style.display = 'none';
-  btn.disabled = true; btn.textContent = 'Signing in…';
+async function doLogin() {
+  hideErr();
+  var email = document.getElementById('email').value.trim();
+  var password = document.getElementById('password').value;
+  if (!email || !password) { showErr('Please enter email and password.'); return; }
+  var btn = document.getElementById('btn');
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
   try {
-    const data = await login(document.getElementById('email').value.trim(), document.getElementById('password').value);
-    if (data.role !== 'receptionist') {
-      err.textContent = 'This portal is for reception staff only.';
-      err.style.display = 'block';
-      await logout();
-    } else {
-      window.location.href = _basePath() + 'reception/dashboard.html';
-    }
-  } catch (ex) {
-    err.textContent = ex.message || 'Login failed. Check your credentials.';
-    err.style.display = 'block';
+    var res = await fetch('/api/auth/login', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: password })
+    });
+    var data = await res.json();
+    if (!res.ok) { showErr(data.error || 'Login failed.'); return; }
+    if (data.user.role !== 'receptionist') { showErr('This portal is for reception staff only.'); return; }
+    window.location.href = '/reception/dashboard.html';
+  } catch(e) {
+    showErr('Cannot reach server. Please try again in a moment.');
   } finally {
-    btn.disabled = false; btn.textContent = 'Sign In';
+    btn.disabled = false;
+    btn.textContent = '→ Sign In';
   }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
 });
 </script>
 </body>
