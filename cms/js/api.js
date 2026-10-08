@@ -31,17 +31,20 @@ async function gasGet(action, params) {
   return data;
 }
 
-// ── Core fetch (POST) ─────────────────────────────────────────────────────────
+// ── Core fetch (POST via GET with encoded body) ───────────────────────────────
+// Apps Script does not support CORS preflight (OPTIONS), so we encode the
+// POST body as a base64 query param and use GET — Apps Script handles it.
 async function gasPost(action, body) {
   body = body || {};
   var token = getToken();
-  var url   = GAS_URL + '?action=' + encodeURIComponent(action) + (token ? '&token=' + encodeURIComponent(token) : '');
-  var res   = await fetch(url, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify(body),
-    redirect: 'follow',
-  });
+  var payload = btoa(unescape(encodeURIComponent(JSON.stringify(body))));
+  var params = { action: action, payload: payload };
+  if (token) params.token = token;
+  var qs = Object.keys(params).map(function(k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
+  var url = GAS_URL + '?' + qs;
+  var res = await fetch(url, { redirect: 'follow' });
   var data = await res.json();
   if (data.error) throw Object.assign(new Error(data.error), { code: data.code });
   return data;

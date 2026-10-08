@@ -45,14 +45,23 @@ function jsonOk(data)  { return corsResponse(data, 200); }
 function jsonErr(msg, code) { return corsResponse({ error: msg, code: code || 400 }); }
 
 // ── Entry point ───────────────────────────────────────────────────────────────
+// All requests come in as GET (avoids CORS preflight).
+// POST-like actions pass body as base64-encoded "payload" query param.
 function doGet(e) {
   try {
     var action = e.parameter.action || '';
     var token  = e.parameter.token  || '';
     var params = e.parameter;
 
-    if (action === 'health')  return jsonOk({ status: 'ok', ts: new Date().toISOString() });
-    if (action === 'me')      return handleMe(token);
+    // Decode payload for write actions
+    var body = {};
+    if (e.parameter.payload) {
+      try { body = JSON.parse(decodeURIComponent(escape(Utilities.newBlob(Utilities.base64Decode(e.parameter.payload)).getDataAsString()))); } catch(ex) {}
+    }
+
+    // Read actions
+    if (action === 'health')        return jsonOk({ status: 'ok', ts: new Date().toISOString() });
+    if (action === 'me')            return handleMe(token);
     if (action === 'patients')      return requireRole(token, ['doctor','receptionist'], function(u){ return handleGetPatients(params, u); });
     if (action === 'patient')       return requireRole(token, ['doctor','receptionist','patient'], function(u){ return handleGetPatient(params, u); });
     if (action === 'appointments')  return requireRole(token, ['doctor','receptionist','patient'], function(u){ return handleGetAppointments(params, u); });
@@ -61,19 +70,7 @@ function doGet(e) {
     if (action === 'payments')      return requireRole(token, ['doctor','receptionist'], function(u){ return handleGetPayments(params, u); });
     if (action === 'audit')         return requireRole(token, ['doctor'], function(u){ return handleGetAudit(u); });
 
-    return jsonErr('Unknown action');
-  } catch(ex) {
-    return jsonErr('Server error: ' + ex.message, 500);
-  }
-}
-
-function doPost(e) {
-  try {
-    var action = e.parameter.action || '';
-    var token  = e.parameter.token  || '';
-    var body   = {};
-    try { body = JSON.parse(e.postData.contents); } catch(ex) {}
-
+    // Write actions (body decoded from payload param)
     if (action === 'login')    return handleLogin(body);
     if (action === 'logout')   return handleLogout(token);
     if (action === 'register') return handleRegister(body);
@@ -91,6 +88,9 @@ function doPost(e) {
     return jsonErr('Server error: ' + ex.message, 500);
   }
 }
+
+// doPost kept for direct API testing via curl/Postman
+function doPost(e) { return doGet(e); }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 function hashPassword(pw) {
