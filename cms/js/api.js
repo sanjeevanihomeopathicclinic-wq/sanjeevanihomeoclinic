@@ -7,18 +7,18 @@
 // ── Set this to your Apps Script Web App URL after deploying ──────────────────
 var GAS_URL = window.SANJEEVANI_GAS_URL || '';
 
-// ── Base path helper (works on GitHub Pages /repo-name/ AND on custom domains /)
-// Finds the common prefix up to and including the first path segment that
-// contains "doctor", "reception", "patient", or "cms" — then strips it.
-// Falls back to '/' for a custom domain at root.
+// ── Base path helper (works on GitHub Pages /repo-name/ AND on root domains /)
+// On GitHub Pages the site lives at /sanjeevanihomeoclinic/doctor/login.html
+// On Render / custom domain it lives at /doctor/login.html
+// We detect by checking whether the first path segment is a known app folder.
+var _APP_FOLDERS = ['doctor','reception','patient','cms'];
 function _basePath() {
   var p = window.location.pathname;           // e.g. /sanjeevanihomeoclinic/doctor/login.html
-  var m = p.match(/^(\/[^/]+\/)/);            // grab first two segments: /repo/
-  if (!m) return '/';
-  // Only use as prefix when it's clearly a sub-directory (GitHub Pages)
-  var seg = m[1];                             // e.g. "/sanjeevanihomeoclinic/"
-  // If the repo root index.html exists at this path it IS the base
-  return seg;
+  var parts = p.replace(/^\//, '').split('/');// ['sanjeevanihomeoclinic','doctor','login.html']
+  // If the FIRST segment is a known app folder, we're at root (Render/custom domain)
+  if (_APP_FOLDERS.indexOf(parts[0]) !== -1) return '/';
+  // Otherwise the first segment is the GitHub Pages repo prefix
+  return '/' + parts[0] + '/';               // "/sanjeevanihomeoclinic/"
 }
 
 // ── Token storage (sessionStorage — cleared when browser tab closes) ──────────
