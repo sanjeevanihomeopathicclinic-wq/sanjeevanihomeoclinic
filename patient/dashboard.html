@@ -313,9 +313,10 @@
 </div>
 
 <div id="toast" class="toast"></div>
+<script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { apiFetch, getMe, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+const { gasGet, gasPost, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _user = null;
 
 (async () => {
@@ -335,7 +336,7 @@ let _user = null;
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/index.html'; });
+  logout().finally(() => { window.location.href = '/index.html'; });
 });
 
 const sections = ['home','profile','book','appointments','consultations','prescriptions','documents','contact'];
@@ -360,8 +361,8 @@ document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventList
 async function loadHome() {
   try {
     const [aptsData, consData] = await Promise.all([
-      apiFetch('/appointments'),
-      apiFetch('/consultations'),
+      gasGet('appointments'),
+      gasGet('consultations'),
     ]);
     const apts = aptsData.appointments;
     const cons = consData.consultations;
@@ -405,7 +406,7 @@ async function loadHome() {
 
 async function loadAppointments() {
   try {
-    const data = await apiFetch('/appointments');
+    const data = await gasGet('appointments');
     const tbody = document.getElementById('aptsBody');
     tbody.innerHTML = data.appointments.length
       ? data.appointments.map(a => `
@@ -423,7 +424,7 @@ async function loadAppointments() {
 
 async function loadConsultations() {
   try {
-    const data = await apiFetch('/consultations');
+    const data = await gasGet('consultations');
     const div = document.getElementById('consultsList');
     if (!data.consultations.length) { div.innerHTML = '<div style="color:var(--muted)">No consultations recorded yet.</div>'; return; }
     div.innerHTML = data.consultations.map(c => `
@@ -443,7 +444,7 @@ async function loadConsultations() {
 
 async function loadPrescriptions() {
   try {
-    const data = await apiFetch('/consultations');
+    const data = await gasGet('consultations');
     const div = document.getElementById('prescriptionsList');
     const withPrescriptions = data.consultations.filter(c => c.prescription);
     if (!withPrescriptions.length) { div.innerHTML = '<div style="color:var(--muted)">No prescriptions recorded yet.</div>'; return; }
@@ -459,7 +460,7 @@ async function loadPrescriptions() {
 
 async function loadProfile() {
   try {
-    const data = await apiFetch(`/patients/${_user.patientId}`);
+    const data = await gasGet('patient', { patientId: _user.patientId });
     const p = data.patient;
     document.getElementById('up_pid').value = p.patientId;
     document.getElementById('up_phone').value = p.phone || '';
@@ -483,13 +484,11 @@ document.getElementById('updateProfileForm').addEventListener('submit', async e 
   e.preventDefault();
   try {
     const pid = document.getElementById('up_pid').value;
-    await apiFetch(`/patients/${pid}`, {
-      method: 'PUT',
-      body: {
-        phone: document.getElementById('up_phone').value,
-        email: document.getElementById('up_email').value,
-        address: document.getElementById('up_address').value,
-      },
+    await gasPost('updatePatient', {
+      patientId: pid,
+      phone: document.getElementById('up_phone').value,
+      email: document.getElementById('up_email').value,
+      address: document.getElementById('up_address').value,
     });
     showToast('Profile updated.');
   } catch(ex) { showToast(ex.message,'error'); }
@@ -498,14 +497,11 @@ document.getElementById('updateProfileForm').addEventListener('submit', async e 
 document.getElementById('bookForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
-    await apiFetch('/appointments', {
-      method: 'POST',
-      body: {
-        date: document.getElementById('b_date').value,
-        time: document.getElementById('b_time').value,
-        type: document.getElementById('b_type').value,
-        notes: document.getElementById('b_notes').value,
-      },
+    await gasPost('createAppointment', {
+      date: document.getElementById('b_date').value,
+      time: document.getElementById('b_time').value,
+      type: document.getElementById('b_type').value,
+      notes: document.getElementById('b_notes').value,
     });
     showToast('Appointment requested! We will confirm with you shortly.');
     document.getElementById('bookForm').reset();
@@ -514,20 +510,9 @@ document.getElementById('bookForm').addEventListener('submit', async e => {
   } catch(e) { showToast(e.message,'error'); }
 });
 
-document.getElementById('uploadForm').addEventListener('submit', async e => {
+document.getElementById('uploadForm').addEventListener('submit', e => {
   e.preventDefault();
-  const file = document.getElementById('doc_file').files[0];
-  if (!file) return;
-  try {
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('patientId', _user.patientId);
-    fd.append('folder', 'patient-docs');
-    fd.append('description', document.getElementById('doc_desc').value);
-    await fetch('/api/drive/upload', { method: 'POST', credentials: 'include', body: fd });
-    showToast('Document uploaded successfully.');
-    document.getElementById('uploadForm').reset();
-  } catch(e) { showToast('Upload failed: ' + e.message,'error'); }
+  showToast('File upload will be available after connecting Google Drive.');
 });
 
 // Cancel
@@ -536,7 +521,7 @@ function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 async function confirmCancel() {
   const aptId = document.getElementById('cancel_aptId').value;
   try {
-    await apiFetch(`/appointments/${aptId}`, { method: 'PUT', body: { status: 'Cancelled' } });
+    await gasPost('updateAppointment', { appointmentId: aptId, status: 'Cancelled' });
     showToast('Appointment cancelled.');
     closeModal('cancelModal');
     await loadHome();

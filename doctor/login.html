@@ -71,12 +71,15 @@
 </div>
 
 <div id="toast" class="toast"></div>
+<script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { apiFetch, requireAuth, showToast } = window.API_UTILS;
+const { gasGet, login, logout, showToast } = window.API_UTILS;
 (async () => {
-  const user = await (async () => { try { return (await apiFetch('/auth/me')).user; } catch { return null; } })();
-  if (user && user.role === 'doctor') window.location.href = '/doctor/dashboard.html';
+  try {
+    const user = await gasGet('me');
+    if (user && user.role === 'doctor') window.location.href = '/doctor/dashboard.html';
+  } catch {}
 })();
 
 document.getElementById('loginForm').addEventListener('submit', async e => {
@@ -86,14 +89,11 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   err.style.display = 'none';
   btn.disabled = true; btn.textContent = 'Signing in…';
   try {
-    const data = await apiFetch('/auth/login', {
-      method: 'POST',
-      body: { email: document.getElementById('email').value.trim(), password: document.getElementById('password').value },
-    });
-    if (data.user.role !== 'doctor') {
+    const data = await login(document.getElementById('email').value.trim(), document.getElementById('password').value);
+    if (data.role !== 'doctor') {
       err.textContent = 'This portal is for doctors only.';
       err.style.display = 'block';
-      await apiFetch('/auth/logout', { method: 'POST' });
+      await logout();
     } else {
       window.location.href = '/doctor/dashboard.html';
     }

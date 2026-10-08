@@ -117,13 +117,14 @@
 </div>
 
 <div id="toast" class="toast"></div>
+<script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { apiFetch, showToast } = window.API_UTILS;
+const { gasGet, gasPost, login, logout, showToast } = window.API_UTILS;
 (async () => {
   try {
-    const d = await apiFetch('/auth/me');
-    if (d.user.role === 'patient') window.location.href = '/patient/dashboard.html';
+    const user = await gasGet('me');
+    if (user && user.role === 'patient') window.location.href = '/patient/dashboard.html';
   } catch {}
 })();
 
@@ -139,14 +140,11 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   const err = document.getElementById('loginErr');
   err.style.display = 'none';
   try {
-    const data = await apiFetch('/auth/login', {
-      method: 'POST',
-      body: { email: document.getElementById('l_email').value.trim(), password: document.getElementById('l_password').value },
-    });
-    if (data.user.role !== 'patient') {
+    const data = await login(document.getElementById('l_email').value.trim(), document.getElementById('l_password').value);
+    if (data.role !== 'patient') {
       err.textContent = 'This portal is for patients only. Please use the correct login.';
       err.style.display = 'block';
-      await apiFetch('/auth/logout', { method: 'POST' });
+      await logout();
     } else {
       window.location.href = '/patient/dashboard.html';
     }
@@ -161,16 +159,13 @@ document.getElementById('regForm').addEventListener('submit', async e => {
   const err = document.getElementById('regErr');
   err.style.display = 'none';
   try {
-    const data = await apiFetch('/auth/register', {
-      method: 'POST',
-      body: {
-        name: document.getElementById('rg_name').value,
-        email: document.getElementById('rg_email').value.trim(),
-        phone: document.getElementById('rg_phone').value,
-        dob: document.getElementById('rg_dob').value,
-        gender: document.getElementById('rg_gender').value,
-        password: document.getElementById('rg_password').value,
-      },
+    await gasPost('register', {
+      name: document.getElementById('rg_name').value,
+      email: document.getElementById('rg_email').value.trim(),
+      phone: document.getElementById('rg_phone').value,
+      dob: document.getElementById('rg_dob').value,
+      gender: document.getElementById('rg_gender').value,
+      password: document.getElementById('rg_password').value,
     });
     window.location.href = '/patient/dashboard.html';
   } catch(ex) {

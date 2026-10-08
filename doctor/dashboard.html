@@ -353,9 +353,10 @@
 </div>
 
 <div id="toast" class="toast"></div>
+<script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { apiFetch, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+const { gasGet, gasPost, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _user = null;
 let _allPatients = [];
 let _todayApts = [];
@@ -371,7 +372,7 @@ let _currentPatientId = null;
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/index.html'; });
+  logout().finally(() => { window.location.href = '/index.html'; });
 });
 
 // ── Section navigation ───────────────────────────────────────────────────────
@@ -398,8 +399,8 @@ document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventList
 async function loadDashboard() {
   try {
     const [aptsData, patsData] = await Promise.all([
-      apiFetch('/appointments/today'),
-      apiFetch('/patients'),
+      gasGet('todayApts'),
+      gasGet('patients'),
     ]);
     _todayApts = aptsData.appointments;
     _allPatients = patsData.patients;
@@ -429,7 +430,7 @@ async function loadDashboard() {
 // ── Today appointments ────────────────────────────────────────────────────────
 async function loadTodayApts() {
   try {
-    const data = await apiFetch('/appointments/today');
+    const data = await gasGet('todayApts');
     _todayApts = data.appointments;
     const label = document.getElementById('todayDateLabel');
     if (label) label.textContent = fmtDate(data.date);
@@ -458,7 +459,7 @@ async function loadTodayApts() {
 // ── Patients ──────────────────────────────────────────────────────────────────
 async function loadAllPatients() {
   try {
-    const data = await apiFetch('/patients');
+    const data = await gasGet('patients');
     _allPatients = data.patients;
     renderPatientsTable(_allPatients);
   } catch(e) { showToast(e.message,'error'); }
@@ -507,9 +508,9 @@ async function openPatientProfile(pid) {
   showSection('profile');
   try {
     const [patData, consData, aptData] = await Promise.all([
-      apiFetch(`/patients/${pid}`),
-      apiFetch(`/consultations?patientId=${pid}`),
-      apiFetch(`/appointments?patientId=${pid}`),
+      gasGet('patient', { patientId: pid }),
+      gasGet('consultations', { patientId: pid }),
+      gasGet('appointments', { patientId: pid }),
     ]);
     const p = patData.patient;
     const initials = p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -564,18 +565,15 @@ function prefillConsultation(pid, aptId) {
 document.getElementById('consultForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
-    await apiFetch('/consultations', {
-      method: 'POST',
-      body: {
-        patientId: document.getElementById('c_patientId').value,
-        appointmentId: document.getElementById('c_appointmentId').value,
-        chiefComplaint: document.getElementById('c_complaint').value,
-        diagnosis: document.getElementById('c_diagnosis').value,
-        prescription: document.getElementById('c_prescription').value,
-        advice: document.getElementById('c_advice').value,
-        followUpDate: document.getElementById('c_followup').value,
-        doctorNotes: document.getElementById('c_doctorNotes').value,
-      },
+    await gasPost('createConsultation', {
+      patientId: document.getElementById('c_patientId').value,
+      appointmentId: document.getElementById('c_appointmentId').value,
+      chiefComplaint: document.getElementById('c_complaint').value,
+      diagnosis: document.getElementById('c_diagnosis').value,
+      prescription: document.getElementById('c_prescription').value,
+      advice: document.getElementById('c_advice').value,
+      followUpDate: document.getElementById('c_followup').value,
+      doctorNotes: document.getElementById('c_doctorNotes').value,
     });
     showToast('Consultation saved successfully.');
     document.getElementById('consultForm').reset();
@@ -605,7 +603,7 @@ async function updateStatus() {
   const aptId = document.getElementById('modal_aptId').value;
   const status = document.getElementById('modal_status').value;
   try {
-    await apiFetch(`/appointments/${aptId}`, { method: 'PUT', body: { status } });
+    await gasPost('updateAppointment', { appointmentId: aptId, status });
     showToast('Status updated.');
     closeModal('statusModal');
     await loadDashboard();
@@ -616,7 +614,7 @@ async function updateStatus() {
 // ── Audit log ─────────────────────────────────────────────────────────────────
 async function loadAuditLog() {
   try {
-    const data = await apiFetch('/audit');
+    const data = await gasGet('audit');
     const tbody = document.getElementById('auditBody');
     if (!data.log.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">No audit entries yet.</td></tr>'; return; }
     tbody.innerHTML = data.log.map(l => `

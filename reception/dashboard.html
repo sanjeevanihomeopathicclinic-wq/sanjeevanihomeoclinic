@@ -404,9 +404,10 @@
 </div>
 
 <div id="toast" class="toast"></div>
+<script src="../cms/js/config.js"></script>
 <script src="../cms/js/api.js"></script>
 <script>
-const { apiFetch, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
+const { gasGet, gasPost, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _allPatients = [];
 
 (async () => {
@@ -420,7 +421,7 @@ let _allPatients = [];
 })();
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  apiFetch('/auth/logout', { method: 'POST' }).finally(() => { window.location.href = '/index.html'; });
+  logout().finally(() => { window.location.href = '/index.html'; });
 });
 
 const sections = ['dashboard','today','calendar','newappt','register','patients','editpatient','payments'];
@@ -443,8 +444,8 @@ document.querySelectorAll('.nav-link[data-section]').forEach(a => a.addEventList
 async function loadDashboard() {
   try {
     const [aptsData, patsData] = await Promise.all([
-      apiFetch('/appointments/today'),
-      apiFetch('/patients'),
+      gasGet('todayApts'),
+      gasGet('patients'),
     ]);
     const apts = aptsData.appointments;
     _allPatients = patsData.patients;
@@ -473,7 +474,7 @@ async function loadDashboard() {
 
 async function loadTodayApts() {
   try {
-    const data = await apiFetch('/appointments/today');
+    const data = await gasGet('todayApts');
     const tbody = document.getElementById('todayAptsBody');
     tbody.innerHTML = data.appointments.length
       ? data.appointments.map(a => `
@@ -498,7 +499,7 @@ async function loadCalendar() {
   const date = document.getElementById('calDate').value;
   if (!date) return;
   try {
-    const data = await apiFetch(`/appointments?date=${date}`);
+    const data = await gasGet('appointments', { date });
     const tbody = document.getElementById('calBody');
     tbody.innerHTML = data.appointments.length
       ? data.appointments.map(a => `
@@ -517,7 +518,7 @@ async function loadCalendar() {
 
 // New appointment
 async function loadAllPatients() {
-  try { const d = await apiFetch('/patients'); _allPatients = d.patients; renderPatientsTable(_allPatients); } catch {}
+  try { const d = await gasGet('patients'); _allPatients = d.patients; renderPatientsTable(_allPatients); } catch {}
 }
 function patientLookup() {
   const v = document.getElementById('a_pid').value.toLowerCase();
@@ -541,16 +542,13 @@ document.getElementById('apptForm').addEventListener('submit', async e => {
     const v = document.getElementById('a_pid').value.trim();
     const p = _allPatients.find(x => x.patientId === v || x.name.toLowerCase() === v.toLowerCase());
     const pid = p ? p.patientId : v;
-    await apiFetch('/appointments', {
-      method: 'POST',
-      body: {
-        patientId: pid,
-        date: document.getElementById('a_date').value,
-        time: document.getElementById('a_time').value,
-        type: document.getElementById('a_type').value,
-        fee: document.getElementById('a_fee').value,
-        notes: document.getElementById('a_notes').value,
-      },
+    await gasPost('createAppointment', {
+      patientId: pid,
+      date: document.getElementById('a_date').value,
+      time: document.getElementById('a_time').value,
+      type: document.getElementById('a_type').value,
+      fee: document.getElementById('a_fee').value,
+      notes: document.getElementById('a_notes').value,
     });
     showToast('Appointment booked successfully.');
     document.getElementById('apptForm').reset();
@@ -561,18 +559,15 @@ document.getElementById('apptForm').addEventListener('submit', async e => {
 document.getElementById('registerForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
-    const data = await apiFetch('/patients', {
-      method: 'POST',
-      body: {
-        name: document.getElementById('r_name').value,
-        dob: document.getElementById('r_dob').value,
-        gender: document.getElementById('r_gender').value,
-        phone: document.getElementById('r_phone').value,
-        email: document.getElementById('r_email').value,
-        bloodGroup: document.getElementById('r_blood').value,
-        address: document.getElementById('r_address').value,
-        allergies: document.getElementById('r_allergies').value,
-      },
+    const data = await gasPost('createPatient', {
+      name: document.getElementById('r_name').value,
+      dob: document.getElementById('r_dob').value,
+      gender: document.getElementById('r_gender').value,
+      phone: document.getElementById('r_phone').value,
+      email: document.getElementById('r_email').value,
+      bloodGroup: document.getElementById('r_blood').value,
+      address: document.getElementById('r_address').value,
+      allergies: document.getElementById('r_allergies').value,
     });
     showToast(`Patient registered: ${data.patient.patientId}`);
     document.getElementById('registerForm').reset();
@@ -618,16 +613,14 @@ document.getElementById('editPatientForm').addEventListener('submit', async e =>
   e.preventDefault();
   try {
     const pid = document.getElementById('ep_id').value;
-    await apiFetch(`/patients/${pid}`, {
-      method: 'PUT',
-      body: {
-        name: document.getElementById('ep_name').value,
-        phone: document.getElementById('ep_phone').value,
-        email: document.getElementById('ep_email').value,
-        bloodGroup: document.getElementById('ep_blood').value,
-        address: document.getElementById('ep_address').value,
-        allergies: document.getElementById('ep_allergies').value,
-      },
+    await gasPost('updatePatient', {
+      patientId: pid,
+      name: document.getElementById('ep_name').value,
+      phone: document.getElementById('ep_phone').value,
+      email: document.getElementById('ep_email').value,
+      bloodGroup: document.getElementById('ep_blood').value,
+      address: document.getElementById('ep_address').value,
+      allergies: document.getElementById('ep_allergies').value,
     });
     showToast('Patient details updated.');
     await loadAllPatients();
@@ -640,7 +633,7 @@ function quickBook(pid) { showSection('newappt'); document.getElementById('a_pid
 // Payments
 async function loadPayments() {
   try {
-    const data = await apiFetch('/payments');
+    const data = await gasGet('payments');
     const tbody = document.getElementById('paymentsBody');
     tbody.innerHTML = data.payments.length
       ? data.payments.map(p => `
@@ -666,14 +659,11 @@ function quickPay(aptId, patId, amount) {
 }
 async function recordPayment() {
   try {
-    await apiFetch('/payments', {
-      method: 'POST',
-      body: {
-        appointmentId: document.getElementById('pay_aptId').value,
-        patientId: document.getElementById('pay_patId').value,
-        amount: document.getElementById('pay_amount').value,
-        mode: document.getElementById('pay_mode').value,
-      },
+    await gasPost('createPayment', {
+      appointmentId: document.getElementById('pay_aptId').value,
+      patientId: document.getElementById('pay_patId').value,
+      amount: document.getElementById('pay_amount').value,
+      mode: document.getElementById('pay_mode').value,
     });
     showToast('Payment recorded.');
     closeModal('paymentModal');
@@ -688,7 +678,7 @@ async function updateStatus() {
   const aptId = document.getElementById('modal_aptId').value;
   const status = document.getElementById('modal_status').value;
   try {
-    await apiFetch(`/appointments/${aptId}`, { method: 'PUT', body: { status } });
+    await gasPost('updateAppointment', { appointmentId: aptId, status });
     showToast('Status updated.');
     closeModal('statusModal');
     await loadDashboard();
