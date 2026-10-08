@@ -106,11 +106,10 @@ async function doLogin() {
     if (!res.ok) { showErr(data.error || 'Login failed.'); return; }
     if (data.user.role !== 'receptionist') { showErr('This portal is for reception staff only.'); return; }
     localStorage.setItem('sj_user', JSON.stringify(data.user));
-    btn.textContent = 'Redirecting…';
-    setTimeout(function(){ window.location.replace('/reception/dashboard.html'); }, 200);
+    btn.textContent = '✓ Logged in! Loading…';
+    window.location.replace('/reception/dashboard.html');
   } catch(e) {
-    showErr('Cannot reach server. Please try again in a moment.');
-  } finally {
+    showErr('Error: ' + (e.message || 'Cannot reach server.'));
     btn.disabled = false;
     btn.textContent = '→ Sign In';
   }
