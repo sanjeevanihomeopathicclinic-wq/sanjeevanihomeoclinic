@@ -35,8 +35,6 @@ function setCachedUser(u)  { if (u) sessionStorage.setItem('sj_user', JSON.strin
 
 // ── Auth helpers ──────────────────────────────────────────────────────────────
 async function getMe() {
-  var cached = getCachedUser();
-  if (cached) return cached;
   try {
     var data = await apiFetch('/api/auth/me');
     setCachedUser(data.user);
