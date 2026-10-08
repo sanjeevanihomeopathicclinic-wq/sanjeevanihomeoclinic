@@ -1,6 +1,6 @@
-/**
- * Sanjeevani Clinic – Configuration
- * After deploying the Google Apps Script backend, paste your Web App URL below.
- * Then commit this file to GitHub — the site will immediately use the new backend.
+﻿/**
+ * Sanjeevani Clinic - Configuration
+ * Google Apps Script Web App URL - backend running on Gmail account
  */
-window.SANJEEVANI_GAS_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+window.SANJEEVANI_GAS_URL = 'https://script.google.com/macros/s/AKfycbw4RUHt0Rit8Xxsy6MLRxvvbxkqKS64hubqNzAaveJxG5BFqXTNLxAPyPWYVy8RmF7B/exec';
+
