@@ -35,17 +35,7 @@ const STATIC_ROOT = path.join(__dirname, '..');
 
 // ── Security headers ──────────────────────────────────────────────────────────
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc:  ["'self'"],
-      scriptSrc:   ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      styleSrc:    ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-      fontSrc:     ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:      ["'self'", "data:", "blob:"],
-      connectSrc:  ["'self'", "https://script.google.com", "https://script.googleusercontent.com"],
-      frameSrc:    ["https://www.google.com"],
-    },
-  },
+  contentSecurityPolicy: false,
   crossOriginOpenerPolicy: false,
 }));
 
