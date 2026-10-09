@@ -25,7 +25,11 @@ async function apiFetch(path, options) {
   var res = await fetch(_apiBase() + path, options);
   var data;
   try { data = await res.json(); } catch(e) { throw new Error('Server returned non-JSON response'); }
-  if (!res.ok) throw new Error(data.error || ('Request failed (' + res.status + ')'));
+  if (!res.ok) {
+    var err = new Error(data.error || ('Request failed (' + res.status + ')'));
+    err.status = res.status;
+    throw err;
+  }
   return data;
 }
 
@@ -39,8 +43,14 @@ async function getMe() {
     var data = await apiFetch('/api/auth/me');
     setCachedUser(data.user);
     return data.user;
-  } catch {
-    // Cookie may not have arrived yet — fall back to localStorage set at login
+  } catch(err) {
+    // If server explicitly says 401 (session expired/server restart), wipe cache
+    // so the dashboard redirects to login instead of loading with broken API calls.
+    if (err.status === 401) {
+      setCachedUser(null);
+      return null;
+    }
+    // Network error (offline, server cold-starting) — fall back to localStorage
     return getCachedUser();
   }
 }
