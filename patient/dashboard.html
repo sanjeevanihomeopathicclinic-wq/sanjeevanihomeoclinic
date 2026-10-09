@@ -315,17 +315,19 @@
 </div>
 
 <div id="toast" class="toast"></div>
+<!-- Sign-out: isolated script so it works even if main script throws -->
+<script>
+function doSignOut() {
+  localStorage.removeItem('sj_user');
+  try { fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }); } catch(e) {}
+  window.location.replace('/index.html');
+}
+</script>
 <script src="../cms/js/config.js?v=20261009"></script>
-<script src="../cms/js/api.js?v=20261011"></script>
+<script src="../cms/js/api.js?v=20261012"></script>
 <script>
 const { apiGet, apiPost, apiPut, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _user = null;
-
-function doSignOut() {
-  localStorage.removeItem('sj_user');
-  fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
-  window.location.href = '/index.html';
-}
 
 (async () => {
   _user = await getMe();

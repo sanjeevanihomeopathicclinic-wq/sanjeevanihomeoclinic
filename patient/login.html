@@ -147,7 +147,7 @@ async function doLogin() {
     if (data.user.role !== 'patient') { showErr('loginErr','This portal is for patients only.'); return; }
     localStorage.setItem('sj_user', JSON.stringify(data.user));
     btn.textContent = '✓ Logged in! Loading…';
-    window.location.replace('/patient/dashboard.html');
+    window.location.replace('/patient/dashboard.html?t=' + Date.now());
   } catch(e) {
     showErr('loginErr', 'Error: ' + (e.message || 'Cannot reach server.'));
     btn.disabled = false;
@@ -177,7 +177,7 @@ async function doRegister() {
     });
     var data = await res.json();
     if (!res.ok) { showErr('regErr', data.error || 'Registration failed.'); return; }
-    window.location.href = '/patient/dashboard.html';
+    window.location.href = '/patient/dashboard.html?t=' + Date.now();
   } catch(e) {
     showErr('regErr','Cannot reach server. Please try again.');
   } finally {

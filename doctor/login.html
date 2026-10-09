@@ -107,7 +107,7 @@ async function doLogin() {
     if (data.user.role !== 'doctor') { showErr('This portal is for doctors only.'); return; }
     localStorage.setItem('sj_user', JSON.stringify(data.user));
     btn.textContent = '✓ Logged in! Loading…';
-    window.location.replace('/doctor/dashboard.html');
+    window.location.replace('/doctor/dashboard.html?t=' + Date.now());
   } catch(e) {
     showErr('Error: ' + (e.message || 'Cannot reach server.'));
     btn.disabled = false;
