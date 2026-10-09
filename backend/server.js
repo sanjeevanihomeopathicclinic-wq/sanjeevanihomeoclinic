@@ -69,7 +69,15 @@ const apiLimiter = rateLimit({
   message: { error: 'Too many requests. Please slow down.' },
 });
 
-// ── Static files ──────────────────────────────────────────────────────────────
+// ── Static files — HTML pages must not be cached so updates reach users instantly
+app.use((req, res, next) => {
+  if (req.path.endsWith('.html') || req.path === '/') {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+  next();
+});
 app.use(express.static(STATIC_ROOT));
 
 // ── API routes ────────────────────────────────────────────────────────────────
