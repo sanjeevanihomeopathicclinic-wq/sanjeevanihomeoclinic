@@ -71,7 +71,7 @@
       </div>
     </nav>
     <div class="sidebar-footer">
-      <button class="logout-btn" id="logoutBtn">
+      <button class="logout-btn" onclick="doSignOut()">
         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Sign Out
       </button>
@@ -319,9 +319,15 @@
 const { apiGet, apiPost, apiPut, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _user = null;
 
+function doSignOut() {
+  localStorage.removeItem('sj_user');
+  fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
+  window.location.href = '/index.html';
+}
+
 (async () => {
   _user = await getMe();
-  if (!_user || _user.role !== 'patient') { window.location.href = _basePath() + 'patient/login.html'; return; }
+  if (!_user || _user.role !== 'patient') { window.location.href = '/patient/login.html'; return; }
   const firstName = _user.name.split(' ')[0];
   document.getElementById('topbarUserName').textContent = _user.name;
   document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -334,10 +340,6 @@ let _user = null;
 
   await loadHome();
 })();
-
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  logout().finally(() => { window.location.href = _basePath() + 'index.html'; });
-});
 
 const sections = ['home','profile','book','appointments','consultations','prescriptions','documents','contact'];
 function showSection(name) {

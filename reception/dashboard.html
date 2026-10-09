@@ -67,7 +67,7 @@
       </div>
     </nav>
     <div class="sidebar-footer">
-      <button class="logout-btn" id="logoutBtn">
+      <button class="logout-btn" onclick="doSignOut()">
         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Sign Out
       </button>
@@ -410,19 +410,21 @@
 const { apiGet, apiPost, apiPut, getMe, logout, showToast, fmtDate, fmtTime, statusBadge } = window.API_UTILS;
 let _allPatients = [];
 
+function doSignOut() {
+  localStorage.removeItem('sj_user');
+  fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
+  window.location.href = '/index.html';
+}
+
 (async () => {
   const user = await getMe();
-  if (!user || user.role !== 'receptionist') { window.location.href = _basePath() + 'reception/login.html'; return; }
+  if (!user || user.role !== 'receptionist') { window.location.href = '/reception/login.html'; return; }
   document.getElementById('topbarUserName').textContent = user.name;
   // Set today's date on calendar
   document.getElementById('calDate').value = new Date().toISOString().split('T')[0];
   await loadDashboard();
   await loadAllPatients();
 })();
-
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  logout().finally(() => { window.location.href = _basePath() + 'index.html'; });
-});
 
 const sections = ['dashboard','today','calendar','newappt','register','patients','editpatient','payments'];
 function showSection(name) {

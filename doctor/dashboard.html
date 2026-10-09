@@ -71,7 +71,7 @@
       </div>
     </nav>
     <div class="sidebar-footer">
-      <button class="logout-btn" id="logoutBtn">
+      <button class="logout-btn" onclick="doSignOut()">
         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Sign Out
       </button>
@@ -362,18 +362,20 @@ let _allPatients = [];
 let _todayApts = [];
 let _currentPatientId = null;
 
+function doSignOut() {
+  localStorage.removeItem('sj_user');
+  fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
+  window.location.href = '/index.html';
+}
+
 // ── Init ────────────────────────────────────────────────────────────────────
 (async () => {
   _user = await getMe();
-  if (!_user || _user.role !== 'doctor') { window.location.href = _basePath() + 'doctor/login.html'; return; }
+  if (!_user || _user.role !== 'doctor') { window.location.href = '/doctor/login.html'; return; }
   document.getElementById('topbarUserName').textContent = _user.name;
   document.getElementById('topbarAvatar').textContent = _user.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   await loadDashboard();
 })();
-
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  logout().finally(() => { window.location.href = _basePath() + 'index.html'; });
-});
 
 // ── Section navigation ───────────────────────────────────────────────────────
 const sections = ['dashboard','today','patients','search','consultation','beforeafter','audit','profile'];
