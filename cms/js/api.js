@@ -57,7 +57,6 @@ async function login(email, password) {
 async function logout() {
   try { await apiFetch('/api/auth/logout', { method: 'POST' }); } catch {}
   setCachedUser(null);
-  window.location.href = _basePath() + 'index.html';
 }
 
 async function requireAuth(expectedRole) {
